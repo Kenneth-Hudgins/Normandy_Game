@@ -91,17 +91,23 @@ char choice = ' ';
 //Pause 
 cin.get();
 
-//Input validation
-do{
 
-cout << "Continue? \n Y / N:" << endl;
-cin >> choice;
 
-}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
-if (choice == 'n' || choice == 'N'){
-	cout << "Program Terminated." << endl;
-	exit(0);
-}
+
+
+									//This can be put in a function,
+									//and a few of them might be needed.
+									//Input validation
+									do{
+
+									cout << "Continue? \n Y / N:" << endl;
+									cin >> choice;
+
+									}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
+									if (choice == 'n' || choice == 'N'){
+										cout << "Program Terminated." << endl;
+										exit(0);
+									}
 
 
 //Displays the characters backstory so they have a sense of who
@@ -116,6 +122,24 @@ if (choice == 'n' || choice == 'N'){
 		
 		//Pause
 		cin.get();
+
+
+
+
+								//This can be put in a function,
+								//and a few of them might be needed.
+								 choice = ' ';
+								 do{
+								cout << "Continue? \n Y / N:" << endl;
+								cin >> choice;
+
+								}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
+								if (choice == 'n' || choice == 'N'){
+									cout << "Program Terminated." << endl;
+									exit(0);
+								}
+
+
 /*
 The above ascii art was taken from: 
 http://normandy.ascii.uk/ 
@@ -130,7 +154,6 @@ Had to change all of the " to '.
 //######################################################
 characters random_player(){
 
-
 //Random number generator from 0-2
 srand(time(NULL));
 		int random_num =(rand()% (2-0+1))+0;
@@ -142,7 +165,7 @@ characters soldier[3];
 //how to make word wrap work without compile time errors
 
 //Character 1 backstory
-string bs00 = "Your name is John Hamstaff. Born and raised in Austin, Texas; you’re a laid-back\ncity man through and through. Life was okay back home in the city, but when your\nnumber came up in the draftyou didn’t care all that much. There wasn’t much\nholding you down in Austin since most of the local guys had been drafted over\nthe last few months. You knew your number would come up eventually. You not\nparticularly upset about it.\n";
+string bs00 = "Your name is John Hamstaff. Born and raised in Austin, Texas; you’re a laid-back\ncity man through and through. Life was okay back home in the city, but when your\nnumber came up in the draft you didn’t care all that much. There wasn’t much\nholding you down in Austin since most of the local guys had been drafted over\nthe last few months. You knew the war would call upon you eventually. You not\nparticularly upset about it.\n";
 
 //Character 2 backstory
 string bs01 = "Your name is Samuel Suthers. You were once a pastor of the St Marks United\nMethodist Church in Murfreesboro, Tennesse. Though never one to join the \nservice on your own you knew perfectly well that the lord had finally\ncalled apon you to serve in his army the moment you opened your door to\nsee the face of the local recruiter. Your a god fearing man, and if it\nwas his will that led to your draft number being called then so be it.\n";
@@ -168,10 +191,25 @@ return soldier[random_num];
 //################## STORY SEGMENT 01 FUNCTION ###############
 //############################################################
 void story_segment01(characters *d){
-		cout << "####################################" << endl;
-		cout << "#            The beach             #" << endl;
-		cout << "####################################\n" << endl;
-	
+		cout << "###############################################" << endl;
+		cout << "#            THE BEACH                        #" << endl;
+		cout << "###############################################\n" << endl;
+		cout << "-You were lucky to be in the third wave." << endl;
+		cin.get();
+		cout << "-The first and second wave never had a chance," << endl;
+		cout << "not since the bloody germans had correctly" << endl;
+		cout << "guessed our landing area in the few hours they" << endl;
+		cout << "had since spotting our ships hours ago via" << endl;
+		cout << "scout plane." << endl;
+		cin.get();
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		
 
 
 
