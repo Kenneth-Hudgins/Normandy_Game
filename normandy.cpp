@@ -11,6 +11,8 @@ void intro(characters *d);
 
 void story_segment01(characters *d);
 
+void check_continue();
+
 characters random_player();
 
 
@@ -64,16 +66,33 @@ story_segment01(ptr);
 
 
 
+//##########################################################
+//################## CHECK CONTINUE FUNCTION ###############
+//##########################################################
+void check_continue(){
+
+	char choice = ' ';
+
+	do{
+	cout << "Continue? \n Y / N: ";
+	cin >> choice;
+	}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
+	if (choice == 'n' || choice == 'N'){
+	cout << "\n\nProgram Terminated." << endl;
+	exit(0);
+	}
+
+cout << "\n\n\n";
+
+
+}
+
+
 
 //#################################################
 //################## INTRO FUNCTION ###############
 //#################################################
 void intro(characters *d){
-
-//Choice variable only used for this function
-char choice = ' ';
-
-
 
 	cout << "\n\n\n";
 	cout << "                                                              888         " << endl;
@@ -88,26 +107,9 @@ char choice = ' ';
 	cout << "                                                                 Y8b d88P " << endl;
 	cout << "                                                                  'Y88P' \n\n\n " << endl;
 
-//Pause 
-cin.get();
 
 
-
-
-
-									//This can be put in a function,
-									//and a few of them might be needed.
-									//Input validation
-									do{
-
-									cout << "Continue? \n Y / N:" << endl;
-									cin >> choice;
-
-									}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
-									if (choice == 'n' || choice == 'N'){
-										cout << "Program Terminated." << endl;
-										exit(0);
-									}
+check_continue();
 
 
 //Displays the characters backstory so they have a sense of who
@@ -124,21 +126,9 @@ cin.get();
 		cin.get();
 
 
+check_continue();
 
-
-								//This can be put in a function,
-								//and a few of them might be needed.
-								 choice = ' ';
-								 do{
-								cout << "Continue? \n Y / N:" << endl;
-								cin >> choice;
-
-								}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
-								if (choice == 'n' || choice == 'N'){
-									cout << "Program Terminated." << endl;
-									exit(0);
-								}
-
+								
 
 /*
 The above ascii art was taken from: 
@@ -191,10 +181,19 @@ return soldier[random_num];
 //################## STORY SEGMENT 01 FUNCTION ###############
 //############################################################
 void story_segment01(characters *d){
+
+
+
 		cout << "###############################################" << endl;
 		cout << "#            THE BEACH                        #" << endl;
 		cout << "###############################################\n" << endl;
-		cout << "-You were lucky to be in the third wave." << endl;
+		cout << "-You were lucky to be in the third wave; " << endl;
+		cout << "everyone else in the higgins boat is deathly" << endl;
+		cout << "silent as the pilot starts heading to the beach" << endl;
+		cout << "front." << endl;
+		cin.get();
+		cin.get();
+		cout << "30 SECONDS TO BEACH LANDING" << endl;
 		cin.get();
 		cout << "-The first and second wave never had a chance," << endl;
 		cout << "not since the bloody germans had correctly" << endl;
@@ -202,12 +201,69 @@ void story_segment01(characters *d){
 		cout << "had since spotting our ships hours ago via" << endl;
 		cout << "scout plane." << endl;
 		cin.get();
+		cout << "22 SECONDS TO BEACH LANDING" << endl;
+		cin.get();
+		cout << "-The first two waves were mowed down by heavy" << endl;
+		cout << "machine gun fire while artillary decimated the" << endl; 
+		cout << "very ships they we were arriving on as they." << endl;
+		cout << "ran aground." << endl;
+		cin.get();
+		cout << "15 SECONDS TO BEACH LANDING" << endl;
+		cin.get();
+		cout << "-One good thing has come up though, the germans" << endl;
+		cout << "seem to have become much more conservative with" << endl;
+		cout << "their ammunition these last few hours; like they" << endl;
+		cout << "didnt expect to have to defend their positions" << endl;
+		cout << "for this long against this many enemy" << endl;
+		cout << "combatants." << endl;
+		cin.get();
+		cout << "7 SECONDS TO BEACH LANDING" << endl;
+		cin.get();
+		cout << "-Thats good news for you, it means theres a good" << endl;
+		cout << "chance you wont be killed outright the moment" << endl;
+		cout << "the frontal hull door opens." << endl;
+		cin.get();
+		cout << "BEACH LANDING IMMINENT" << endl;
+		cin.get();
+		cout << "-The higgins boat lurches up under you, grinding" << endl;
+		cout << "against the shallow ground as it plows forward" << endl;
+		cout << "into the sand. You hold onto the side but that" << endl;
+		cout << "doesnt stop you from being pushed into the guy" << endl;
+		cout << "in front of you by the one behind you." << endl;
+		cin.get();
+		cout << "-The doors open, your commanding officer is" << endl;
+		cout << "screaming GO! Go! Go! and eveyone starts" << endl;
+		cout << "running out ducking their heads as if to make" << endl;
+		cout << "them selves less of a target for the enemy we" << endl;
+		cout << "all know is watching." << endl;
+		cin.get();
+		cout << "-Your boots hit the sand, you can already hear" << endl;
+		cout << "gunfire start spraying the area as you try to" << endl;
+		cout << "run for cover." << endl;
+		cin.get();
+		cout << "-There are bodies everywhere." << endl;
+		cin.get();
+		cout << "-More gunshots, an explosive goes off 20 feet" << endl;
+		cout << "to your left, one of your buddies must have" << endl;
+		cout << "stepped on a landmine." << endl;
+		cin.get();
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cin.get();
 		cout << "" << endl;
 		
 
