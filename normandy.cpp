@@ -15,45 +15,17 @@ void check_continue();
 
 characters random_player();
 
+void up_hill_battle();
+
 
 //################################################*************************
 //################## BEGIN MAIN ##################*************************
 //################################################*************************
 int main(){
 
-/*
-Thought about how I could just have
-the pointer accept the address but after
-a few minuets of messing with it I stopped
-because the below already works
- */
-characters player = random_player();
-characters *ptr = &player;
+	random_player();
 
-//While loop control
-bool done = false;
-//Players menu choice
-char choice;
-//Players miles traveled
-int miles_to_pill = 0;
-//Players thirst level
-int thirst = 0;
-//Camels tiredness level
-int ammo = 0;
-//Amount of drinks left in canteen
-int canteen = 3;
-
-//Players health
-int health = 100;
-
-
-
-
-random_player();
-
-intro(ptr);
-
-story_segment01(ptr);
+	up_hill_battle();
 
 	return 0;
 
@@ -128,14 +100,13 @@ check_continue();
 
 check_continue();
 
-								
-
 /*
 The above ascii art was taken from: 
 http://normandy.ascii.uk/ 
 Had to change all of the " to '.
 */
 }
+
 
 
 
@@ -182,8 +153,6 @@ return soldier[random_num];
 //############################################################
 void story_segment01(characters *d){
 
-
-
 		cout << "###############################################" << endl;
 		cout << "#            THE BEACH                        #" << endl;
 		cout << "###############################################\n" << endl;
@@ -205,7 +174,7 @@ void story_segment01(characters *d){
 		cin.get();
 		cout << "-The first two waves were mowed down by heavy" << endl;
 		cout << "machine gun fire while artillary decimated the" << endl; 
-		cout << "very ships they we were arriving on as they." << endl;
+		cout << "very ships they we were arriving on as they" << endl;
 		cout << "ran aground." << endl;
 		cin.get();
 		cout << "15 SECONDS TO BEACH LANDING" << endl;
@@ -232,7 +201,7 @@ void story_segment01(characters *d){
 		cout << "in front of you by the one behind you." << endl;
 		cin.get();
 		cout << "-The doors open, your commanding officer is" << endl;
-		cout << "screaming GO! Go! Go! and eveyone starts" << endl;
+		cout << "screaming GO! GO! GO! and eveyone starts" << endl;
 		cout << "running out ducking their heads as if to make" << endl;
 		cout << "them selves less of a target for the enemy we" << endl;
 		cout << "all know is watching." << endl;
@@ -247,32 +216,42 @@ void story_segment01(characters *d){
 		cout << "to your left, one of your buddies must have" << endl;
 		cout << "stepped on a landmine." << endl;
 		cin.get();
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
+		cout << "-But you cant worry about him." << endl;
 		cin.get();
-		cout << "" << endl;
+		cout << "-The only thing you have time to worry about" << endl;
+		cout << "is how your going to keep your self alive and" << endl;
+		cout << "do what your here for.\n" << endl;
+		cin.get();
 		
-
-
-
-
 		cout << "####################################" << endl;
 		cout << "#                                  #" << endl;
 		cout << "####################################\n\n\n" << endl;
+}
 
 
+
+//##########################################################
+//################## UP HILL BATTLE FUNCTION ###############
+//##########################################################
+void up_hill_battle(){
+
+
+	/*
+	Thought about how I could just have
+	the pointer accept the address but after
+	a few minuets of messing with it I stopped
+	because the below already works
+	 */
+	characters player = random_player();
+	characters *ptr = &player;
+
+
+	intro(ptr);
+
+	story_segment01(ptr);
+
+	//While loop control
+	bool done = false;
+	//Players menu choice
+	char choice;
 }
