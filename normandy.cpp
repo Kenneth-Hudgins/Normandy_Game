@@ -25,6 +25,7 @@ void up_hill_battle();
 //################## BEGIN MAIN ##################*************************
 //################################################*************************
 int main(){
+	weapons_list();
 
 	random_player();
 
@@ -161,7 +162,9 @@ weapons weapons_list(){
 
 	//Will also need a function to determin if enemy was hit
 	//and if so which of the above to render the enemy
-	
+	//Must also take into consideration how far away player 
+	//is from nearest enemy
+
 	weapons list[6];
 
 	//Pistol, starting secondary weapon
@@ -176,12 +179,31 @@ weapons weapons_list(){
 
 	list[3].set("Browning Automatic Rifle", 20, 20); 
 
-
+	//Starting primary weapon
 	list[4].set("M1941 Johnson Rifle", 10, 10); 
 
 
-	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5); 
+	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5);
+
+//This will have to be done like the characters
+	//function above it as shown below
+weapons my_weapon = list[0];
+
+	weapons *ptr = &my_weapon;
+
+cout << ptr->get_name() << endl;
+
+	return list[4];
 }
+
+
+
+
+
+
+
+
+
 
 
 
