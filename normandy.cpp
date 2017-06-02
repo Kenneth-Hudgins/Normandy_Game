@@ -4,6 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include "characters.hpp"
+#include "weapons.hpp"
 
 using namespace std;
 
@@ -14,6 +15,8 @@ void story_segment01(characters *d);
 void check_continue();
 
 characters random_player();
+
+weapons weapons_list();
 
 void up_hill_battle();
 
@@ -143,6 +146,41 @@ soldier[2].set("Ramirez", "Vargas", "Vargo", bs02);
 
 
 return soldier[random_num];
+}
+
+
+
+
+//###################################################
+//################## WEAPONS FUNCTION ###############
+//###################################################
+weapons weapons_list(){
+
+/*Enemies when hit are either 0 dead, 1 no longer able to fight,
+2 wounded, or 3 the shot missed*/
+
+	//Will also need a function to determin if enemy was hit
+	//and if so which of the above to render the enemy
+	
+	weapons list[6];
+
+	//Pistol, starting secondary weapon
+	list[0].set("Sauer 38H Pistol", 8, 8); 
+
+
+	list[1].set("Nagant M1895 Revolver", 7, 7); 
+
+
+	list[2].set("StG 45 Storm Rifle", 30, 30); 
+
+
+	list[3].set("Browning Automatic Rifle", 20, 20); 
+
+
+	list[4].set("M1941 Johnson Rifle", 10, 10); 
+
+
+	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5); 
 }
 
 

@@ -6,7 +6,7 @@ using namespace std;
 weapons::weapons(void){
 	name = " ";
 	ammo_capacity = 0;
-	damage = 0;
+	in_clip = 0;
 }
 
 
@@ -16,12 +16,12 @@ weapons::weapons(void){
  		return name;
  	}
 
- 	int weapons::get_ammo_capacity(){
- 		return ammo_capacity;
+ 	int weapons::get_in_clip(){
+ 		return in_clip;
  	}
 
- 	int weapons::get_damage(){
- 		return damage;
+ 	int weapons::get_ammo_capacity(){
+ 		return ammo_capacity;
  	}
 
 
@@ -31,17 +31,18 @@ weapons::weapons(void){
  		name = temp;
  	}
 
+ 	void weapons::set_in_clip(int temp){
+ 		in_clip = temp;
+ 	}
+
  	void weapons::set_ammo_capacity(int temp){
  		ammo_capacity = temp;
  	}
 
- 	void weapons::set_damage(int temp){
- 		damage = temp;
- 	}
 
  //Auto sets the weapons created in main
- 	void weapons::set(string n, int ac, int d){
+ 	void weapons::set(string n, int ac, int ic){
  		name = n;
  		ammo_capacity = ac;
- 		damage = d;
+ 		in_clip = ic;
  	}
