@@ -16,20 +16,55 @@ void check_continue();
 
 characters random_player();
 
-weapons weapons_list();
+void weapons_list(weapons list[]);
 
-void up_hill_battle();
-
+void up_hill_battle(characters *your_player, weapons list[]);
 
 //################################################*************************
-//################## BEGIN MAIN ##################*************************
+//################################################*************************
+//################################################*************************
+//################################################**************************************************
+//################################################**************************************************
+//################## BEGIN MAIN ##################**************************************************
+//################################################**************************************************
+//################################################**************************************************
+//################################################*************************
+//################################################*************************
 //################################################*************************
 int main(){
-	weapons_list();
 
-	random_player();
+	/*
+	Thought about how I could just have
+	the pointer accept the address but after
+	about an hour of messing with it I stopped
+	because it was beyond me and the below 
+	already works
+	*/
+	characters player = random_player();
+	characters *your_player = &player;
+//***************************************************
 
-	up_hill_battle();
+
+	/*DOES NOT WORK????????????
+	supposed to return an array from 
+	weapons_list so we can pass it to 
+	up_hill_battle like I did with 
+	the characters variable above it*/
+	//**************
+	/*Passes list to weapons_list
+	so it can be initialized*/
+	weapons list[6];
+	weapons_list(list);
+
+
+
+
+	//Players starts making
+	//their way to the pill
+	//box
+	/*Passes your_player and list to the 
+	up_hill_battle function */
+	up_hill_battle(your_player, list);
 
 	return 0;
 
@@ -130,7 +165,7 @@ characters soldier[3];
 //how to make word wrap work without compile time errors
 
 //Character 1 backstory
-string bs00 = "Your name is John Hamstaff. Born and raised in Austin, Texas; you’re a laid-back\ncity man through and through. Life was okay back home in the city, but when your\nnumber came up in the draft you didn’t care all that much. There wasn’t much\nholding you down in Austin since most of the local guys had been drafted over\nthe last few months. You knew the war would call upon you eventually. You not\nparticularly upset about it.\n";
+string bs00 = "Your name is John Hamstaff. Born and raised in Austin, Texas; you’re a laid-back\ncity man through and through. Life was okay back home in the city, but when your\nnumber came up in the draft you didn’t care all that much. There wasn’t much\nholding you down in Austin since most of the local guys had been drafted over\nthe last few months. You knew the war would call upon you eventually. Your not\nparticularly upset about it.\n";
 
 //Character 2 backstory
 string bs01 = "Your name is Samuel Suthers. You were once a pastor of the St Marks United\nMethodist Church in Murfreesboro, Tennesse. Though never one to join the \nservice on your own you knew perfectly well that the lord had finally\ncalled apon you to serve in his army the moment you opened your door to\nsee the face of the local recruiter. Your a god fearing man, and if it\nwas his will that led to your draft number being called then so be it.\n";
@@ -155,7 +190,7 @@ return soldier[random_num];
 //###################################################
 //################## WEAPONS FUNCTION ###############
 //###################################################
-weapons weapons_list(){
+void weapons_list(weapons list[]){
 
 /*Enemies when hit are either 0 dead, 1 no longer able to fight,
 2 wounded, or 3 the shot missed*/
@@ -165,35 +200,26 @@ weapons weapons_list(){
 	//Must also take into consideration how far away player 
 	//is from nearest enemy
 
-	weapons list[6];
+	
 
 	//Pistol, starting secondary weapon
 	list[0].set("Sauer 38H Pistol", 8, 8); 
 
-
+	//Other weapon that can be found by chance
 	list[1].set("Nagant M1895 Revolver", 7, 7); 
 
-
+	//Other weapon that can be found by chance
 	list[2].set("StG 45 Storm Rifle", 30, 30); 
 
-
+	//Other weapon that can be found by chance
 	list[3].set("Browning Automatic Rifle", 20, 20); 
 
 	//Starting primary weapon
 	list[4].set("M1941 Johnson Rifle", 10, 10); 
 
-
+	//Other weapon that can be found by chance
 	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5);
 
-//This will have to be done like the characters
-	//function above it as shown below
-weapons my_weapon = list[0];
-
-	weapons *ptr = &my_weapon;
-
-cout << ptr->get_name() << endl;
-
-	return list[4];
 }
 
 
@@ -290,10 +316,19 @@ void story_segment01(characters *d){
 
 
 
+
+
+
+
+
+
+
+
+
 //##########################################################
 //################## UP HILL BATTLE FUNCTION ###############
 //##########################################################
-void up_hill_battle(){
+void up_hill_battle(characters *your_player, weapons list[]){
 
 
 	/*
@@ -302,6 +337,24 @@ void up_hill_battle(){
 	a few minuets of messing with it I stopped
 	because the below already works
 	 */
+
+/*characters needs another variable called primary
+and secondary weapon which can be set from the list.*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	characters player = random_player();
 	characters *ptr = &player;
 
@@ -314,4 +367,11 @@ void up_hill_battle(){
 	bool done = false;
 	//Players menu choice
 	char choice;
+
+
+
+	//Test
+	cout << list[2].get_name() << endl;
+	cout << list[0].get_name() << endl;
+	cout << list[1].get_name() << endl;
 }
