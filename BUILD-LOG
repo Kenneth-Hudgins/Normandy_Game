@@ -17,3 +17,10 @@ story telling because I know how bad that is already lol. The main thing about t
 coding isnt actually coding, but planning. Up until this point everything has just been 
 a general outline in my mind but tonight I took some time to plan things out and write 
 them down as a progressive graph containing what I want to happen and how. 
+
+
+6/1/17
+
+UPDATE: Attempted to do the weapons creation differently from the characters by making
+a pointer to an array of of class objects but it just wasnt working out and I got
+tired of the kernal dumps. Obviously need to look into the specifics of pointers more.
