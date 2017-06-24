@@ -20,7 +20,15 @@ them down as a progressive graph containing what I want to happen and how.
 
 
 6/1/17
-
 UPDATE: Attempted to do the weapons creation differently from the characters by making
 a pointer to an array of of class objects but it just wasnt working out and I got
 tired of the kernal dumps. Obviously need to look into the specifics of pointers more.
+
+
+6/24/17
+UPDATE: The last of my summer classes took up almost 3 weeks of my time to finish up,
+but now I am back this again. Started Menu functions and planned basic layout of 
+enemies and some other things. Pointers are giving me a huge headache so I am 
+reveiwing my textbook to try and better wrap my head around them. Cleaned up some 
+code, removed stuff that didnt need to be there, created the basis for the action
+menue, various actions.
