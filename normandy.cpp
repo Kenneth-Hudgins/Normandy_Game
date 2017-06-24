@@ -8,9 +8,11 @@
 
 using namespace std;
 
+void display();
+
 void intro(characters *d);
 
-void story_segment01(characters *d);
+void story_segment01();
 
 void check_continue();
 
@@ -19,6 +21,43 @@ characters random_player();
 void weapons_list(weapons list[]);
 
 void up_hill_battle(characters *your_player, weapons list[]);
+
+
+
+
+
+
+//To be finished.....
+void validation(char choice);
+
+void choices(char choice);
+
+void status();
+
+void drink_from_canteen();
+
+void move_forward();
+
+void find_cover();
+
+void fire_on_enemy();
+
+void change_position();
+
+void survey_forward_area();
+
+void use_medkit();
+
+//Not lucky = 0, lucky event 1 = 1,
+//lucky event 2 = 2, etc, return 
+//specific int to be checked in
+//loop or by other function to
+//enact event instance
+int  feeling_lucky();
+
+
+
+
 
 //################################################*************************
 //################################################*************************
@@ -33,6 +72,7 @@ void up_hill_battle(characters *your_player, weapons list[]);
 //################################################*************************
 int main(){
 
+display();
 	/*
 	Thought about how I could just have
 	the pointer accept the address but after
@@ -55,6 +95,10 @@ int main(){
 	so it can be initialized*/
 	weapons list[6];
 	weapons_list(list);
+
+	//cout << list[0].get_name() << endl;
+	//cout << list[1].get_name() << endl;
+	//cout << list[2].get_name() << endl;
 
 
 
@@ -237,7 +281,7 @@ void weapons_list(weapons list[]){
 //############################################################
 //################## STORY SEGMENT 01 FUNCTION ###############
 //############################################################
-void story_segment01(characters *d){
+void story_segment01(){
 
 		cout << "###############################################" << endl;
 		cout << "#            THE BEACH                        #" << endl;
@@ -322,9 +366,6 @@ void story_segment01(characters *d){
 
 
 
-
-
-
 //##########################################################
 //################## UP HILL BATTLE FUNCTION ###############
 //##########################################################
@@ -338,30 +379,31 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	because the below already works
 	 */
 
-/*characters needs another variable called primary
-and secondary weapon which can be set from the list.*/
+	
+	//Initialize primary and
+	//secondary weapons
+	weapons primary_w;
+	weapons secondary_w;
 
+	//Distance to pill box and end
+	//of up_hill_battle
+	int distance_to_pill = 200;
 
+	//Set primary weapon
+	primary_w.set(list[4].get_name(),list[4].get_ammo_capacity(),list[4].get_in_clip());
+	//cout << primary_w.get_name() << endl;
 
+	//Set secondary weapon
+	secondary_w.set(list[0].get_name(),list[0].get_ammo_capacity(),list[0].get_in_clip());
+	//cout << secondary_w.get_name() << endl;
 
+	//Calls intro function and passes it
+	intro(your_player);
 
+	//Call story segment 01 function
+	story_segment01();
 
-
-
-
-
-
-
-
-
-
-	characters player = random_player();
-	characters *ptr = &player;
-
-
-	intro(ptr);
-
-	story_segment01(ptr);
+	
 
 	//While loop control
 	bool done = false;
@@ -374,4 +416,125 @@ and secondary weapon which can be set from the list.*/
 	cout << list[2].get_name() << endl;
 	cout << list[0].get_name() << endl;
 	cout << list[1].get_name() << endl;
+
+
+
+
+/*Will need to create varios enemy positions
+based on distance to pill from notebook sketch,
+as well as their respective visual ranges, 
+weapons range, hit playey and or player 
+spotted functions/possible sneak mechanic?*/
+
+
+
+	/*
+	#
+
+	#
+
+	#
+
+	#
+
+	BUILD MENUE BLAH BLAH HERE
+
+	#
+
+	#
+
+	#
+
+	#
+	*/
+}
+
+
+
+
+
+//##########################################################
+//################## DISPLAY FUNCTION ######################
+//##########################################################
+void display(){
+
+//Change position option should have submenu asking to either stand upright, 
+//crawl, or find cover
+
+	cout <<"\n\n\n\n\n" << endl; 	
+	cout << "     #############################################################" << endl;
+	cout << "     ##----------------------ACTIONS MENU-----------------------##" << endl;
+	cout << "     #############################################################" << endl;
+	cout << "     ##                                                         ##" << endl;
+	cout << "     ##  A.   Status                   B.   Drink-From-Canteen  ##" << endl;
+	cout << "     ##                                                         ##" << endl;
+	cout << "     ##  C.   Move-Forward             D.   Find-Cover          ##" << endl;
+	cout << "     ##                                                         ##" << endl;
+	cout << "     ##  E.   Fire-On-Enemy            F.   Change-Position     ##" << endl;
+	cout << "     ##                                                         ##" << endl;
+	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit          ##" << endl;	
+	cout << "     ##                                                         ##" << endl;	
+	cout << "     ##  I.   Im-Feeling-lucky                                  ##" << endl;	
+	cout << "     ##                                                         ##" << endl;
+	cout << "     #############################################################" << endl;
+	cout << "     ##---------------------------------------------------------##" << endl;
+	cout << "     #############################################################\n\n" << endl;
+
+
+
+}
+
+
+
+
+
+
+//##########################################################
+//################## CHOICES FUNCTION ######################
+//##########################################################
+void choices(char choice){
+
+
+	switch(choice){
+
+	case 'a':
+	case 'A': /*----------*/ ;
+	break;
+
+	case 'b':
+	case 'B': /*----------*/ ;
+	break;
+
+	case 'c':
+	case 'C': /*----------*/ ;
+	break;
+
+	case 'd':
+	case 'D': /*----------*/ ;
+	break;
+
+	case 'e':
+	case 'E': /*----------*/ ;
+	break;
+
+	case 'f':
+	case 'F': /*----------*/ ;
+	break;
+
+	case 'g':
+	case 'G': /*----------*/ ;
+	break;
+
+	case 'h':
+	case 'H': /*----------*/ ;
+	break;
+
+	case 'i':
+	case 'I': /*----------*/ ;
+	break;
+
+
+
+	}
+
 }

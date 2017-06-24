@@ -12,11 +12,12 @@ using namespace std;
 	 last_name = " ";
 	 nickname = " ";
 	 backstory = " ";
-	 to_pill;
 	 fatigue = 0;		
 	 health = 10;
 	 kill_count = 0;
 	 position = 0;
+	 medkit = 4;
+
 }
 
 
@@ -40,10 +41,6 @@ using namespace std;
 	}
 
 	
- 	int characters::get_to_pill(){
-		return to_pill;
-	}
-
 	int characters::get_fatigue(){
 		return fatigue;
 	}
@@ -60,11 +57,12 @@ using namespace std;
 	}
 
 
-//Setters
- 	void characters::set_to_pill(int temp){
-		to_pill = temp;
+	int characters::get_medkit(){
+		return medkit;
 	}
 
+
+//Setters
 	void characters::set_fatigue(int temp){
 		fatigue = temp;
 	}
@@ -80,11 +78,19 @@ using namespace std;
 		position = temp;
 	}
 
+	void characters::set_medkit(int temp){
+		//Will have to pay special attention to this
+		//adding and subtracting from it
+		medkit = temp;
+	}
+
+
 //Auto sets the characters created in main
 	void characters::set(string fn, string ln, string nn, string bs){
 		 first_name = fn;
 		 last_name = ln;
 		 nickname = nn;
 		 backstory = bs;
+
 		}
  

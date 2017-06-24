@@ -20,20 +20,20 @@ private:
 	//Characters backstory
 	string backstory;
 	
-	//Distance to pill box
-	int to_pill;
-	
 	//Players fatigue level
 	int fatigue;
 
 	//Players health		
 	int health;
 
+	//Medkit, heals player
+	int medkit;
+
 	//Number of enemy soldiers player has killed
 	int kill_count;
 
 	/*Position player is currently in.
-	0 = upright, 1 = crawling.*/
+	0 = upright, 1 = crawling, 2 = behind cover*/
 	int position;
 	
 	
@@ -46,17 +46,23 @@ public:
 	string get_nickname();
 	string get_backstory();
 
-	int get_to_pill();
+	//Getters
 	int get_fatigue();
 	int get_health();
 	int get_kill_count();
 	int get_position();
+	int get_medkit();
 
-	void set_to_pill(int temp);
+
+	//Setters
 	void set_fatigue(int temp);
 	void set_health(int temp);
 	void set_kill_count(int temp);
 	void set_position(int temp);
+
+	//Will have to pay special attention to this
+	//adding and subtracting from it
+	void set_medkit(int temp);
 
 	void set(string fn, string ln, string nn, string bs);
 	
