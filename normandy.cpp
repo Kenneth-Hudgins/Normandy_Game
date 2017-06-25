@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 #include <string>
 #include <cstdlib>
@@ -32,7 +33,7 @@ void validation(char choice);
 
 void choices(char choice);
 
-void status();
+void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill);
 
 void drink_from_canteen();
 
@@ -55,6 +56,8 @@ void use_medkit();
 //enact event instance
 int  feeling_lucky();
 
+void rest_here_awhile();
+
 
 
 
@@ -72,7 +75,11 @@ int  feeling_lucky();
 //################################################*************************
 int main(){
 
-display();
+
+
+
+
+
 	/*
 	Thought about how I could just have
 	the pointer accept the address but after
@@ -83,6 +90,7 @@ display();
 	characters player = random_player();
 	characters *your_player = &player;
 //***************************************************
+
 
 
 	/*DOES NOT WORK????????????
@@ -403,7 +411,19 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//Call story segment 01 function
 	story_segment01();
 
+	//Call display function
+	display();
+
 	
+
+	//Test
+	status(your_player, primary_w, secondary_w, distance_to_pill);
+
+
+
+
+
+
 
 	//While loop control
 	bool done = false;
@@ -474,7 +494,7 @@ void display(){
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit          ##" << endl;	
 	cout << "     ##                                                         ##" << endl;	
-	cout << "     ##  I.   Im-Feeling-lucky                                  ##" << endl;	
+	cout << "     ##  I.   Rest-Here                J.   Im-Feeling-lucky    ##" << endl;	
 	cout << "     ##                                                         ##" << endl;
 	cout << "     #############################################################" << endl;
 	cout << "     ##---------------------------------------------------------##" << endl;
@@ -533,8 +553,64 @@ void choices(char choice){
 	case 'I': /*----------*/ ;
 	break;
 
+	case 'j':
+	case 'J': /*----------*/ ;
+	break;
+
+
 
 
 	}
+
+}
+
+
+
+
+
+
+
+
+
+//#########################################################
+//################## STATUS FUNCTION ######################
+//#########################################################
+void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill){
+
+
+	cout <<"\n\n\n\n\n" << endl; 	
+	cout << "     ###############################################################" << endl;
+	cout << "     ##----------------------STATUS REPORT------------------------##" << endl;
+	cout << "     ###############################################################" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  PRIMARY WEAPON:   " << setw (29) << primary_w.get_name() << "          ##" << endl;
+	cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << primary_w.get_ammo_capacity() << "                 ##" << endl;
+	cout << "     ##  IN CLIP:          " << setw( 22) << primary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  SECONDARY WEAPON:   " << setw (29) << secondary_w.get_name() << "        ##" << endl;
+	cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << secondary_w.get_ammo_capacity() << "                 ##" << endl;
+	cout << "     ##  IN CLIP:          " << setw( 22) << secondary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##                                                           ##" << endl;
+
+
+
+
+				/*Keep fixing this*/
+
+
+
+	
+
+
+	cout << "     ##  E.   Fire-On-Enemy            F.   Change-Position       ##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit            ##" << endl;	
+	cout << "     ##                                                           ##" << endl;	
+	cout << "     ##  I.   Rest-Here                J.   Im-Feeling-lucky      ##" << endl;	
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ###############################################################" << endl;
+	cout << "     ##-----------------------------------------------------------##" << endl;
+	cout << "     ###############################################################\n\n" << endl;
+
 
 }
