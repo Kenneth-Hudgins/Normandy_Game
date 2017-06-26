@@ -409,7 +409,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	intro(your_player);
 
 	//Call story segment 01 function
-	story_segment01();
+	//story_segment01();
 
 	//Call display function
 	display();
@@ -581,15 +581,22 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout <<"\n\n\n\n\n" << endl; 	
 	cout << "     ###############################################################" << endl;
 	cout << "     ##----------------------STATUS REPORT------------------------##" << endl;
+	cout << "     ##----------------------The " << setfill('-') << setw(15) << left <<your_player->get_nickname() << "------------------##" <<  setfill(' ') << endl;
 	cout << "     ###############################################################" << endl;
 	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  PRIMARY WEAPON:   " << setw (29) << primary_w.get_name() << "          ##" << endl;
-	cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << primary_w.get_ammo_capacity() << "                 ##" << endl;
-	cout << "     ##  IN CLIP:          " << setw( 22) << primary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##  HEALTH:      " << your_player->get_health() << "                    FATIGUE:      " << your_player->get_fatigue() << "       ##" << endl;
+	//cout << "     ##                                                           ##" << endl;
+	cout << "     ##___________________________________________________________##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  PRIMARY WEAPON:     " << setw (29) << primary_w.get_name() << "        ##" << endl;
+	cout << "     ##  AMMUNITION:         " << setw(2) << right << primary_w.get_in_clip() << "/" << left << primary_w.get_ammo_capacity() << "                                ##" << endl;
+	//cout << "     ##  IN CLIP:          " << setw( 22) << primary_w.get_in_clip() << "                 ##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  SECONDARY WEAPON:   " << setw (29) << secondary_w.get_name() << "        ##" << endl;
-	cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << secondary_w.get_ammo_capacity() << "                 ##" << endl;
-	cout << "     ##  IN CLIP:          " << setw( 22) << secondary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##  AMMUNITION:        " << setw(2) << right << secondary_w.get_in_clip() << "/" << left << secondary_w.get_ammo_capacity() << "                                  ##" << endl;
+
+	//cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << secondary_w.get_ammo_capacity() << "                 ##" << endl;
+	//cout << "     ##  IN CLIP:          " << setw( 22) << secondary_w.get_in_clip() << "                 ##" << endl;
 	cout << "     ##                                                           ##" << endl;
 
 
