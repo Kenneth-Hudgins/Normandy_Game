@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <ctype.h>
 #include <ctime>
 #include <string>
 #include <cstdlib>
@@ -35,19 +36,25 @@ void choices(char choice);
 
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill);
 
-void drink_from_canteen();
-
 void move_forward();
 
 void find_cover();
 
 void fire_on_enemy();
 
-void change_position();
+void change_position_menu(characters *your_player);
 
 void survey_forward_area();
 
 void use_medkit();
+
+void switch_weapons(weapons &primary_w, weapons &secondary_w);
+
+void rest_here_awhile();
+
+string show_position(characters *your_player);
+
+
 
 //Not lucky = 0, lucky event 1 = 1,
 //lucky event 2 = 2, etc, return 
@@ -55,9 +62,6 @@ void use_medkit();
 //loop or by other function to
 //enact event instance
 int  feeling_lucky();
-
-void rest_here_awhile();
-
 
 
 
@@ -172,6 +176,12 @@ void intro(characters *d){
 
 
 
+								/*
+								The above ascii art was taken from: 
+								http://normandy.ascii.uk/ 
+								Had to change all of the " to '.
+								*/
+
 check_continue();
 
 
@@ -191,11 +201,6 @@ check_continue();
 
 check_continue();
 
-/*
-The above ascii art was taken from: 
-http://normandy.ascii.uk/ 
-Had to change all of the " to '.
-*/
 }
 
 
@@ -416,7 +421,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	
 
-	//Test
+	
 	status(your_player, primary_w, secondary_w, distance_to_pill);
 
 
@@ -436,11 +441,18 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	cout << list[2].get_name() << endl;
 	cout << list[0].get_name() << endl;
 	cout << list[1].get_name() << endl;
+	cout << "\n" << endl;
+
+//Working
+//switch_weapons(primary_w, secondary_w);
+
+//Working
+//change_position_menu(your_player);
 
 
 
 
-/*Will need to create varios enemy positions
+/*Will need to create various enemy positions
 based on distance to pill from notebook sketch,
 as well as their respective visual ranges, 
 weapons range, hit playey and or player 
@@ -486,15 +498,15 @@ void display(){
 	cout << "     ##----------------------ACTIONS MENU-----------------------##" << endl;
 	cout << "     #############################################################" << endl;
 	cout << "     ##                                                         ##" << endl;
-	cout << "     ##  A.   Status                   B.   Drink-From-Canteen  ##" << endl;
+	cout << "     ##  A.   Status                   B.   Rest-Here           ##" << endl;
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  C.   Move-Forward             D.   Find-Cover          ##" << endl;
 	cout << "     ##                                                         ##" << endl;
-	cout << "     ##  E.   Fire-On-Enemy            F.   Change-Position     ##" << endl;
+	cout << "     ##  E.   Fire-On-Enemy            F.   Switch-Weapons      ##" << endl;
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit          ##" << endl;	
 	cout << "     ##                                                         ##" << endl;	
-	cout << "     ##  I.   Rest-Here                J.   Im-Feeling-lucky    ##" << endl;	
+	cout << "     ##  I.   Change-Position          J.   Im-Feeling-lucky    ##" << endl;	
 	cout << "     ##                                                         ##" << endl;
 	cout << "     #############################################################" << endl;
 	cout << "     ##---------------------------------------------------------##" << endl;
@@ -583,21 +595,29 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ##----------------------STATUS REPORT------------------------##" << endl;
 	cout << "     ##----------------------The " << setfill('-') << setw(15) << left <<your_player->get_nickname() << "------------------##" <<  setfill(' ') << endl;
 	cout << "     ###############################################################" << endl;
+	cout << "     ###                                                         ###" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  HEALTH:      " << your_player->get_health() << "                    FATIGUE:      " << your_player->get_fatigue() << "       ##" << endl;
-	//cout << "     ##                                                           ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  PRIMARY WEAPON:     " << setw (29) << primary_w.get_name() << "        ##" << endl;
-	cout << "     ##  AMMUNITION:         " << setw(2) << right << primary_w.get_in_clip() << "/" << left << primary_w.get_ammo_capacity() << "                                ##" << endl;
-	//cout << "     ##  IN CLIP:          " << setw( 22) << primary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##  PRIMARY WEAPON:          " << setw (29) << primary_w.get_name() << "   ##" << endl;
+	cout << "     ##  AMMUNITION:             " << setw(2) << right << primary_w.get_in_clip() << "/" << left << primary_w.get_ammo_capacity() << "                            ##" << endl;
 	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  SECONDARY WEAPON:   " << setw (29) << secondary_w.get_name() << "        ##" << endl;
-	cout << "     ##  AMMUNITION:        " << setw(2) << right << secondary_w.get_in_clip() << "/" << left << secondary_w.get_ammo_capacity() << "                                  ##" << endl;
-
-	//cout << "     ##  AMMO CAPPACITY:   " << setw( 22) << secondary_w.get_ammo_capacity() << "                 ##" << endl;
-	//cout << "     ##  IN CLIP:          " << setw( 22) << secondary_w.get_in_clip() << "                 ##" << endl;
+	cout << "     ##  SECONDARY WEAPON:        " << setw (29) << secondary_w.get_name() << "   ##" << endl;
+	cout << "     ##  AMMUNITION:             " << setw(2) << right << secondary_w.get_in_clip() << "/" << left << secondary_w.get_ammo_capacity() << "                             ##" << endl;
+	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  KILL COUNT:         " << setw(2) << right << your_player->get_kill_count() << "                                   ##" << endl;
+	cout << "     ##___________________________________________________________##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  MEDKITS:     " << your_player->get_medkit() << "            POSITION:     " << setw(13) << left << show_position(your_player) << "    ##" << endl;
+	cout << "     ##___________________________________________________________##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ##  DISTANCE TO GERMAN PILL BOX:     " << setw(3) << right << distance_to_pill << " METERS              ##" << endl;
+	cout << "     ##                                                           ##" << endl;
+	cout << "     ###                                                         ###" << endl;
+	cout << "     ###############################################################" << endl;
+	cout << "     ###############################################################" << endl;
 
 
 
@@ -605,19 +625,167 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 				/*Keep fixing this*/
 
 
+}
+
+
+
+
+
+
+
+
+//################################################################
+//################## SHOW POSITION FUNCTION ######################
+//################################################################
+string show_position(characters *your_player){
+
+/*Position player is currently in.
+	0 = upright, 1 = crawling, 2 = behind cover*/
+
+	/*THis function is to be used only 
+	when displaying the players 
+	position to the user, not when 
+	operating on the position data*/
+
+	int pos = your_player->get_position();
+
+	switch(pos){
+
+	case 0:
+	return "Upright";
+	break;
+
+	case 1:
+	return "Crawl";
+	break;
+
+	case 2:
+	return "Covered";
+	break;
+
+	}
+}
+
+
+
+
+
+
+
+
+//#################################################################
+//################## SWITCH WEAPONS FUNCTION ######################
+//#################################################################
+void switch_weapons(weapons &primary_w, weapons &secondary_w){
+
+	//Sets temp variables = primary weapon
+	string tn = primary_w.get_name();
+	int ac = primary_w.get_ammo_capacity();
+	int ic = primary_w.get_in_clip();
+
+	//Sets primary weapon = secondary weapon
+	primary_w.set_name(secondary_w.get_name());
+	primary_w.set_ammo_capacity(secondary_w.get_ammo_capacity());
+	primary_w.set_in_clip(secondary_w.get_in_clip());
+
+	//Sets secondary weapon = temp variables(primary weapon)
+	secondary_w.set_name(tn);
+	secondary_w.set_ammo_capacity(ac);
+	secondary_w.set_in_clip(ic);
+
+}
+
+
+
+
+
+//#################################################################
+//################## CHANGE POSITION FUNCTION ######################
+//#################################################################
+void change_position_menu(characters *your_player){
+
+	/*Position player is currently in.
+		0 = upright, 1 = crawling, 2 = behind cover*/
 
 	
+	/*While this is more complicated than just looking for a
+	char in the first place, I thought it educational to
+	learn how to protect against this type of wrong user
+	input*/
+	
+	//Temp character variable used for input verification of 
+	//position by user to guard against character inputs
+	char pos_choice;
+
+	//Final variable to be used for manipulation
+	int pc;
+
+	cout << "\n\n" << endl;
+	cout << "     ##############################################" << endl;
+	cout << "     ##-----------CHANGE POSITION MENU-----------##" << endl;
+	cout << "     ##############################################" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ##   CURRENT POSITION: " << setw(13) << left << show_position(your_player) << "        ##" << endl;
+	cout << "     ##__________________________________________##" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ##   WHAT POSITION DO YOU WANT TO CHANGE    ##" << endl;
+	cout << "     ##   TO?                                    ##" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ##   0. Upright            1. Crawling      ##" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ##   2. DONT CHANGE POSITION                ##" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ##############################################\n" << endl;
+	
+	do{
+	cout << "POSITION CHOICE: ";
+	cin >> pos_choice;
+	cout << "\n";
 
 
-	cout << "     ##  E.   Fire-On-Enemy            F.   Change-Position       ##" << endl;
-	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit            ##" << endl;	
-	cout << "     ##                                                           ##" << endl;	
-	cout << "     ##  I.   Rest-Here                J.   Im-Feeling-lucky      ##" << endl;	
-	cout << "     ##                                                           ##" << endl;
-	cout << "     ###############################################################" << endl;
-	cout << "     ##-----------------------------------------------------------##" << endl;
-	cout << "     ###############################################################\n\n" << endl;
+	//Validates that input is not of type char and is 0,1, or 2
+	while(isalpha(pos_choice) || ((pos_choice != '0') && (pos_choice != '1') && (pos_choice != '2'))){
+
+		cout << "\nINVALID SELECTION, PLEASE ENTER EITHER 0, 1, OR 2." << endl;
+
+		cout << "POSITION CHOICE: ";
+		cin >> pos_choice;	
+		cout << "\n";
+	};
+
+	//Gets the integer version of the pos_choice
+	//After validation done above
+	 pc = pos_choice - '0';
+
+	 //Checks if user doesnt want to change position
+	 //Exits this function if they enetered 2
+	 if(pc == 2){
+		return;
+	}
+
+
+	//Checks to see if user chose to change to the
+	//same position they are already in
+	//makes them choose something else
+	 if(pc == your_player->get_position()){
+	 	cout <<"You are already in the " << show_position(your_player) << " position." << endl;
+	 }
+
+
+
+	}while(pc == your_player->get_position());
+
+	//Sets player position
+	if(pc == 0){
+		your_player->set_position(pc);
+	}
+
+	//Sets player position
+	if(pc == 1){
+		your_player->set_position(pc);
+	}
+
+ 
 
 
 }
