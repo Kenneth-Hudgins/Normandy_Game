@@ -10,18 +10,26 @@
 
 using namespace std;
 
+//Main menu
 void display();
 
+//Displays intro
 void intro(characters *d);
 
+//Starts the first story segment
 void story_segment01();
 
+//Player either continues through program
+//or terminates the program
 void check_continue();
 
+//Choses random character player based from list
 characters random_player();
 
+//Creates the list of in game weapons
 void weapons_list(weapons list[]);
 
+//First mission
 void up_hill_battle(characters *your_player, weapons list[]);
 
 
@@ -46,7 +54,7 @@ void change_position_menu(characters *your_player);
 
 void survey_forward_area();
 
-void use_medkit();
+void use_medkit(characters *your_player);
 
 void switch_weapons(weapons &primary_w, weapons &secondary_w);
 
@@ -421,8 +429,8 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	
 
-	
-	status(your_player, primary_w, secondary_w, distance_to_pill);
+	//Works
+	//status(your_player, primary_w, secondary_w, distance_to_pill);
 
 
 
@@ -449,6 +457,8 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //Working
 //change_position_menu(your_player);
 
+//Works
+//use_medkit(your_player);
 
 
 
@@ -500,13 +510,13 @@ void display(){
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  A.   Status                   B.   Rest-Here           ##" << endl;
 	cout << "     ##                                                         ##" << endl;
-	cout << "     ##  C.   Move-Forward             D.   Find-Cover          ##" << endl;
+	cout << "     ##  C.   Move-Forward             D.   Change-Position     ##" << endl;
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  E.   Fire-On-Enemy            F.   Switch-Weapons      ##" << endl;
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit          ##" << endl;	
 	cout << "     ##                                                         ##" << endl;	
-	cout << "     ##  I.   Change-Position          J.   Im-Feeling-lucky    ##" << endl;	
+	cout << "     ##  I.   Im-Feeling-lucky                                  ##" << endl;	
 	cout << "     ##                                                         ##" << endl;
 	cout << "     #############################################################" << endl;
 	cout << "     ##---------------------------------------------------------##" << endl;
@@ -565,12 +575,6 @@ void choices(char choice){
 	case 'I': /*----------*/ ;
 	break;
 
-	case 'j':
-	case 'J': /*----------*/ ;
-	break;
-
-
-
 
 	}
 
@@ -618,12 +622,6 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ###                                                         ###" << endl;
 	cout << "     ###############################################################" << endl;
 	cout << "     ###############################################################" << endl;
-
-
-
-
-				/*Keep fixing this*/
-
 
 }
 
@@ -700,7 +698,7 @@ void switch_weapons(weapons &primary_w, weapons &secondary_w){
 
 
 //#################################################################
-//################## CHANGE POSITION FUNCTION ######################
+//################## CHANGE POSITION FUNCTION #####################
 //#################################################################
 void change_position_menu(characters *your_player){
 
@@ -724,6 +722,7 @@ void change_position_menu(characters *your_player){
 	cout << "     ##############################################" << endl;
 	cout << "     ##-----------CHANGE POSITION MENU-----------##" << endl;
 	cout << "     ##############################################" << endl;
+	cout << "     ###                                        ###" << endl;
 	cout << "     ##                                          ##" << endl;
 	cout << "     ##   CURRENT POSITION: " << setw(13) << left << show_position(your_player) << "        ##" << endl;
 	cout << "     ##__________________________________________##" << endl;
@@ -733,8 +732,12 @@ void change_position_menu(characters *your_player){
 	cout << "     ##                                          ##" << endl;
 	cout << "     ##   0. Upright            1. Crawling      ##" << endl;
 	cout << "     ##                                          ##" << endl;
-	cout << "     ##   2. DONT CHANGE POSITION                ##" << endl;
+	cout << "     ##   2. Find Cover                          ##" << endl;
 	cout << "     ##                                          ##" << endl;
+	cout << "     ##   3. DONT CHANGE POSITION                ##" << endl;
+	cout << "     ##                                          ##" << endl;
+	cout << "     ###                                        ###" << endl;
+	cout << "     ##############################################" << endl;
 	cout << "     ##############################################\n" << endl;
 	
 	do{
@@ -744,9 +747,9 @@ void change_position_menu(characters *your_player){
 
 
 	//Validates that input is not of type char and is 0,1, or 2
-	while(isalpha(pos_choice) || ((pos_choice != '0') && (pos_choice != '1') && (pos_choice != '2'))){
+	while(isalpha(pos_choice) || ((pos_choice != '0') && (pos_choice != '1') && (pos_choice != '2') && (pos_choice != '3'))){
 
-		cout << "\nINVALID SELECTION, PLEASE ENTER EITHER 0, 1, OR 2." << endl;
+		cout << "\nINVALID SELECTION, PLEASE ENTER EITHER 0, 1, 2, or 3." << endl;
 
 		cout << "POSITION CHOICE: ";
 		cin >> pos_choice;	
@@ -758,8 +761,8 @@ void change_position_menu(characters *your_player){
 	 pc = pos_choice - '0';
 
 	 //Checks if user doesnt want to change position
-	 //Exits this function if they enetered 2
-	 if(pc == 2){
+	 //Exits this function if they enetered 3
+	 if(pc == 3){
 		return;
 	}
 
@@ -785,7 +788,39 @@ void change_position_menu(characters *your_player){
 		your_player->set_position(pc);
 	}
 
- 
+	//Sets player position
+	if(pc == 2){
+		your_player->set_position(pc);
+	}
+}
 
+
+
+
+
+//############################################################
+//################## USE MEDKIT FUNCTION #####################
+//############################################################
+void use_medkit(characters *your_player){
+
+	if(your_player->get_medkit() == 0){
+
+		cout << "  #####################################" << endl;
+		cout << "  # You dont have any medkits to use. #" << endl;
+		cout << "  #####################################\n" << endl;
+
+	}
+
+	else{
+
+		int new_medkit = (your_player->get_medkit()) -1;
+
+		your_player->set_medkit(new_medkit);
+
+		cout << "  ##########################" << endl;
+		cout << "  # Health fully restored. #" << endl;
+		cout << "  ##########################\n" << endl;
+
+	}
 
 }
