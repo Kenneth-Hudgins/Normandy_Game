@@ -13,7 +13,7 @@ using namespace std;
 	 nickname = " ";
 	 backstory = " ";
 	 fatigue = 0;		
-	 health = 10;
+	 health = 100;
 	 kill_count = 0;
 	 position = 0;
 	 medkit = 4;
@@ -39,7 +39,6 @@ using namespace std;
 	string characters::get_backstory(){
 		return backstory;
 	}
-
 	
 	int characters::get_fatigue(){
 		return fatigue;
@@ -52,10 +51,11 @@ using namespace std;
 		return kill_count;
 	}
 
+	/*Position player is currently in.
+	0 = upright, 1 = crawling, 2 = behind cover*/
 	int characters::get_position(){
 		return position;
 	}
-
 
 	int characters::get_medkit(){
 		return medkit;
@@ -75,6 +75,9 @@ using namespace std;
 	}
 
 	void characters::set_position(int temp){
+		/*Position player is currently in.
+	0 = upright, 1 = crawling, 2 = behind cover*/
+		
 		position = temp;
 	}
 

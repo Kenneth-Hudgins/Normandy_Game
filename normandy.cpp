@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include "characters.hpp"
 #include "weapons.hpp"
+#include "enemy.hpp"
 
 using namespace std;
 
@@ -42,7 +43,7 @@ void validation(char choice);
 
 void choices(char choice);
 
-void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill);
+void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled);
 
 void move_forward();
 
@@ -409,6 +410,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//Distance to pill box and end
 	//of up_hill_battle
 	int distance_to_pill = 200;
+	int distance_traveled = 0;
 
 	//Set primary weapon
 	primary_w.set(list[4].get_name(),list[4].get_ammo_capacity(),list[4].get_in_clip());
@@ -430,7 +432,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	
 
 	//Works
-	//status(your_player, primary_w, secondary_w, distance_to_pill);
+	//status(your_player, primary_w, secondary_w, distance_to_pill, distance_traveled);
 
 
 
@@ -591,7 +593,7 @@ void choices(char choice){
 //#########################################################
 //################## STATUS FUNCTION ######################
 //#########################################################
-void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill){
+void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled){
 
 
 	cout <<"\n\n\n\n\n" << endl; 	
@@ -617,7 +619,7 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ##  MEDKITS:     " << your_player->get_medkit() << "            POSITION:     " << setw(13) << left << show_position(your_player) << "    ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  DISTANCE TO GERMAN PILL BOX:     " << setw(3) << right << distance_to_pill << " METERS              ##" << endl;
+	cout << "     ##  DISTANCE TO GERMAN PILL BOX:     " << setw(3) << right << distance_to_pill - distance_traveled << " METERS              ##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ###                                                         ###" << endl;
 	cout << "     ###############################################################" << endl;
