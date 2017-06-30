@@ -75,6 +75,22 @@ int  feeling_lucky();
 
 
 
+//+++++++++++++++++++++++++++++++++
+//+++++++++COVER STRUCTURE+++++++++
+//+++++++++++++++++++++++++++++++++
+//No range variable, will test it against 2 meters
+struct cover{
+	string name;
+	int location;
+} cover_spots[20];
+
+
+
+
+
+
+
+
 //################################################*************************
 //################################################*************************
 //################################################*************************
@@ -430,7 +446,6 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	display();
 
 	
-
 	//Works
 	//status(your_player, primary_w, secondary_w, distance_to_pill, distance_traveled);
 
@@ -463,6 +478,9 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //use_medkit(your_player);
 
 
+//Will need additional module to initialize the cover structure
+survey_forward_area();
+
 
 /*Will need to create various enemy positions
 based on distance to pill from notebook sketch,
@@ -470,6 +488,9 @@ as well as their respective visual ranges,
 weapons range, hit playey and or player 
 spotted functions/possible sneak mechanic?*/
 
+
+
+		/*Build cover structures*/
 
 
 	/*
@@ -824,5 +845,18 @@ void use_medkit(characters *your_player){
 		cout << "  ##########################\n" << endl;
 
 	}
+
+}
+
+
+
+void survey_forward_area(){
+
+
+//Obviously this needs heavy consideration
+
+
+cover_spots[1].name = "o00000000000000000o";
+cout << cover_spots[1].name << endl;
 
 }
