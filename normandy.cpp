@@ -426,7 +426,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 	//Their is a covered position every 20 meters
-	const int num_covers = 10;
+	const int num_covers = 9;
 	cover cover_spots[num_covers];
 
 	//Distance to pill box and end
@@ -488,7 +488,11 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 
-survey_forward_area(cover_spots, num_covers);
+
+populate_cover(cover_spots);
+
+
+//survey_forward_area(cover_spots, num_covers);
 
 
 /*Will need to create various enemy positions
@@ -885,8 +889,17 @@ void populate_cover(cover * cover_spots){
 	cover_spots[4].name = "pile of dead nazis";
 	cover_spots[4].location = 100;
 
-	cover_spots[0].name = "bombed out crater";
-	cover_spots[0].location = 20;
+	cover_spots[5].name = "pile of dead nazis turned inside out for some reason";
+	cover_spots[5].location = 120;
+
+	cover_spots[6].name = "few half burried crates of qaulity butter";
+	cover_spots[6].location = 140;
+
+	cover_spots[7].name = "sign asking how you made it this far";
+	cover_spots[7].location = 160; 
+
+	cover_spots[8].name = "grand fortress of solitude";
+	cover_spots[8].location = 180; 
 
 }
 
