@@ -11,8 +11,22 @@
 
 using namespace std;
 
+
+//+++++++++++++++++++++++++++++++++
+//+++++++++COVER STRUCTURE+++++++++
+//+++++++++++++++++++++++++++++++++
+//No range variable, will test it against 2 meters
+struct cover{
+	string name;
+	int location;
+};
+
+
+
 //Main menu
 void display();
+
+void populate_cover(cover * cover_spots);
 
 //Displays intro
 void intro(characters *d);
@@ -53,7 +67,7 @@ void fire_on_enemy();
 
 void change_position_menu(characters *your_player);
 
-void survey_forward_area();
+void survey_forward_area(cover * cover_spots, int num_covers);
 
 void use_medkit(characters *your_player);
 
@@ -71,19 +85,6 @@ string show_position(characters *your_player);
 //loop or by other function to
 //enact event instance
 int  feeling_lucky();
-
-
-
-
-//+++++++++++++++++++++++++++++++++
-//+++++++++COVER STRUCTURE+++++++++
-//+++++++++++++++++++++++++++++++++
-//No range variable, will test it against 2 meters
-struct cover{
-	string name;
-	int location;
-} cover_spots[20];
-
 
 
 
@@ -423,6 +424,11 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	weapons primary_w;
 	weapons secondary_w;
 
+
+	//Their is a covered position every 20 meters
+	const int num_covers = 10;
+	cover cover_spots[num_covers];
+
 	//Distance to pill box and end
 	//of up_hill_battle
 	int distance_to_pill = 200;
@@ -479,7 +485,10 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 //Will need additional module to initialize the cover structure
-survey_forward_area();
+
+
+
+survey_forward_area(cover_spots, num_covers);
 
 
 /*Will need to create various enemy positions
@@ -850,13 +859,55 @@ void use_medkit(characters *your_player){
 
 
 
-void survey_forward_area(){
+
+
+
+
+
+//################################################################
+//################## POPULATE COVER FUNCTION #####################
+//################################################################
+void populate_cover(cover * cover_spots){
+
+	//Manually set the cover positions
+	cover_spots[0].name = "bombed out crater";
+	cover_spots[0].location = 20;
+
+	cover_spots[1].name = "small dug out trench";
+	cover_spots[1].location = 40;
+
+	cover_spots[2].name = "bombed out crater";
+	cover_spots[2].location = 60;
+
+	cover_spots[3].name = "destroyed tank";
+	cover_spots[3].location = 80;
+
+	cover_spots[4].name = "pile of dead nazis";
+	cover_spots[4].location = 100;
+
+	cover_spots[0].name = "bombed out crater";
+	cover_spots[0].location = 20;
+
+}
+
+
+
+
+
+
+
+//#####################################################################
+//################## SURVEY FORWARD AREA FUNCTION #####################
+//#####################################################################
+void survey_forward_area(cover * cover_spots, int num_covers){
 
 
 //Obviously this needs heavy consideration
 
 
-cover_spots[1].name = "o00000000000000000o";
-cout << cover_spots[1].name << endl;
+//cover_spots[0].name = "o00000000000000000o";
+//cout << cover_spots[0].name << endl;
+
+
 
 }
