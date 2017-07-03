@@ -47,6 +47,28 @@ void weapons_list(weapons list[]);
 //First mission
 void up_hill_battle(characters *your_player, weapons list[]);
 
+//Moves player forward by 5
+void move_forward(int &distance_traveled);
+
+//Sets fatigue = 0
+void rest_here_awhile(characters *your_player);
+
+//Lets player change their position
+void change_position_menu(characters *your_player);
+
+//Restores player health if they have medkits
+void use_medkit(characters *your_player);
+
+//Switches primary and secondary weapons
+void switch_weapons(weapons &primary_w, weapons &secondary_w);
+
+//Sets up enemy specifics
+void set_enemy(enemy e_list[], int num_enemies);
+
+//Shows position to player, not used to operate on data
+string show_position(characters *your_player);
+
+
 
 
 
@@ -59,26 +81,21 @@ void choices(char choice);
 
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled);
 
-void move_forward();
+//Shouldnt be needed now------void find_cover();
 
-void find_cover();
-
+/*Will need random hit/miss generator*/
 void fire_on_enemy();
 
-void change_position_menu(characters *your_player);
+void survey_forward_area(cover * cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies);
 
-void survey_forward_area(cover * cover_spots, int num_covers);
+/*Used in survey forward area, only needs to come 
+up if there is a weapon to pick up on location*/
+void pick_up_weapon();
 
-void use_medkit(characters *your_player);
-
-void switch_weapons(weapons &primary_w, weapons &secondary_w);
-
-void rest_here_awhile();
-
-string show_position(characters *your_player);
-
-void set_enemy(enemy e_list[], int num_enemies);
-
+/*Will need random hit/miss generator, random damage done
+based on type of enemy, perhaps even where player was
+hit?*/
+void enemy_fire_on_player();
 
 
 
@@ -159,6 +176,32 @@ int main(){
 //################################################***********************
 //################## END MAIN ####################***********************
 //################################################***********************
+
+
+
+
+
+
+//###############################################################
+//################## MOVE FORWARD FUNCTION ######################
+//###############################################################
+void rest_here_awhile(characters *your_player){
+	your_player->set_fatigue(0);
+}
+
+
+
+
+
+//###############################################################
+//################## MOVE FORWARD FUNCTION ######################
+//###############################################################
+void move_forward(int &distance_traveled){
+ distance_traveled+= 5;
+}
+
+
+
 
 
 
@@ -289,22 +332,22 @@ void weapons_list(weapons list[]){
 	
 
 	//Pistol, starting secondary weapon
-	list[0].set("Sauer 38H Pistol", 8, 8); 
+	list[0].set("Sauer 38H Pistol", 8, 8, 50); 
 
 	//Other weapon that can be found by chance
-	list[1].set("Nagant M1895 Revolver", 7, 7); 
+	list[1].set("Nagant M1895 Revolver", 7, 7, 20 ); 
 
 	//Other weapon that can be found by chance
-	list[2].set("StG 45 Storm Rifle", 30, 30); 
+	list[2].set("StG 45 Storm Rifle", 30, 30, 160); 
 
 	//Other weapon that can be found by chance
-	list[3].set("Browning Automatic Rifle", 20, 20); 
+	list[3].set("Browning Automatic Rifle", 20, 20, 80); 
 
 	//Starting primary weapon
-	list[4].set("M1941 Johnson Rifle", 10, 10); 
+	list[4].set("M1941 Johnson Rifle", 10, 10, 100); 
 
 	//Other weapon that can be found by chance
-	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5);
+	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5, 130);
 
 }
 
@@ -413,7 +456,9 @@ void story_segment01(){
 //##########################################################
 void up_hill_battle(characters *your_player, weapons list[]){
 
-	int num_enemies = 9;
+
+
+	int num_enemies = 4;
 	enemy e_list[num_enemies];
 
 	set_enemy(e_list, num_enemies);
@@ -430,6 +475,9 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	weapons primary_w;
 	weapons secondary_w;
 
+	//Random weapons, need to modify class to add location
+	//DOnt need this, have the weapons list passed from main-----weapons random_w[4];
+
 
 	//There is a covered position every 20 meters
 	//excluding the last 20
@@ -442,11 +490,11 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	int distance_traveled = 0;
 
 	//Set primary weapon
-	primary_w.set(list[4].get_name(),list[4].get_ammo_capacity(),list[4].get_in_clip());
+	primary_w.set(list[4].get_name(),list[4].get_ammo_capacity(),list[4].get_in_clip(), 0);
 	//cout << primary_w.get_name() << endl;
 
 	//Set secondary weapon
-	secondary_w.set(list[0].get_name(),list[0].get_ammo_capacity(),list[0].get_in_clip());
+	secondary_w.set(list[0].get_name(),list[0].get_ammo_capacity(),list[0].get_in_clip(), 0);
 	//cout << secondary_w.get_name() << endl;
 
 	//Calls intro function and passes it
@@ -499,7 +547,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 populate_cover(cover_spots);
 
 
-//---not finished---------------------survey_forward_area(cover_spots, num_covers);
+//---not finished---------------------survey_forward_area(cover_spots, num_covers, );
 
 
 /*Will need to create various enemy positions
@@ -711,9 +759,6 @@ string show_position(characters *your_player){
 
 
 
-
-
-
 //#################################################################
 //################## SWITCH WEAPONS FUNCTION ######################
 //#################################################################
@@ -733,7 +778,6 @@ void switch_weapons(weapons &primary_w, weapons &secondary_w){
 	secondary_w.set_name(tn);
 	secondary_w.set_ammo_capacity(ac);
 	secondary_w.set_in_clip(ic);
-
 }
 
 
@@ -872,9 +916,6 @@ void use_medkit(characters *your_player){
 
 
 
-
-
-
 //################################################################
 //################## POPULATE COVER FUNCTION #####################
 //################################################################
@@ -902,7 +943,7 @@ void populate_cover(cover * cover_spots){
 	cover_spots[6].name = "small dug out trench";
 	cover_spots[6].location = 140;
 
-	cover_spots[7].name = "sign asking how you made it this far";
+	cover_spots[7].name = "small boulder";
 	cover_spots[7].location = 160; 
 
 	cover_spots[8].name = "grand fortress of solitude";
@@ -919,11 +960,10 @@ void populate_cover(cover * cover_spots){
 //#####################################################################
 //################## SURVEY FORWARD AREA FUNCTION #####################
 //#####################################################################
-void survey_forward_area(cover * cover_spots, int num_covers){
+void survey_forward_area(cover * cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies){
 
 
 //Obviously this needs heavy consideration
-
 
 //cover_spots[0].name = "o00000000000000000o";
 //cout << cover_spots[0].name << endl;
@@ -939,6 +979,24 @@ void survey_forward_area(cover * cover_spots, int num_covers){
 //###########################################################
 void set_enemy(enemy e_list[], int size){
 
+//Setting up enemy specifics
+	e_list[0].set_name("machine gunners");
+	e_list[0].set_num_e(2);
+	e_list[0].set_location(70);
+	e_list[0].set_range(20);
 
+	e_list[1].set_name("machine gunners");
+	e_list[1].set_num_e(2);
+	e_list[1].set_location(110);
+	e_list[1].set_range(20);
 
+	e_list[2].set_name("snipers");
+	e_list[2].set_num_e(3);
+	e_list[2].set_location(160);
+	e_list[2].set_range(20);
+
+	e_list[3].set_name("pill box soldiers");
+	e_list[3].set_num_e(4);
+	e_list[3].set_location(195);
+	e_list[3].set_range(20);
 }

@@ -46,6 +46,7 @@ enemy::enemy(void){
 
 	void enemy::set_num_e(int temp){
 		num_e = temp;
+		health = num_e*2;
 	}
 
 	void enemy::set_location(int temp){
@@ -56,15 +57,14 @@ enemy::enemy(void){
 		range = temp;
 	}
 
-	void enemy::set_health(int temp){
+	/*void enemy::set_health(int temp){
 		health = temp;
-	}
+	}*/
 
-	void enemy::set(string nme, int ne, int loc, int rng, int hlth){
+	void enemy::set(string nme, int ne, int loc, int rng){
 		name = nme;
 		num_e = ne;
 		location = loc;
 		range = rng;
-		health = hlth;
-
+		health = num_e*2;
 	}

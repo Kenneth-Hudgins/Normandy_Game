@@ -7,6 +7,7 @@ weapons::weapons(void){
 	name = " ";
 	ammo_capacity = 0;
 	in_clip = 0;
+	location = 0;
 }
 
 
@@ -24,6 +25,10 @@ weapons::weapons(void){
  		return ammo_capacity;
  	}
 
+ 	int weapons::get_location(){
+ 		return location;
+ 	}
+
 
 
  //Setters
@@ -39,10 +44,16 @@ weapons::weapons(void){
  		ammo_capacity = temp;
  	}
 
+ 	void weapons::set_location(int temp){
+ 		location = temp;
+ 	}
+
+
 
  //Auto sets the weapons created in main
- 	void weapons::set(string n, int ac, int ic){
+ 	void weapons::set(string n, int ac, int ic, int local){
  		name = n;
  		ammo_capacity = ac;
  		in_clip = ic;
+ 		location = local;
  	}
