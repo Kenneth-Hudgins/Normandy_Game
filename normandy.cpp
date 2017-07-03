@@ -77,6 +77,9 @@ void rest_here_awhile();
 
 string show_position(characters *your_player);
 
+void set_enemy(enemy e_list[], int num_enemies);
+
+
 
 
 //Not lucky = 0, lucky event 1 = 1,
@@ -410,6 +413,11 @@ void story_segment01(){
 //##########################################################
 void up_hill_battle(characters *your_player, weapons list[]){
 
+	int num_enemies = 9;
+	enemy e_list[num_enemies];
+
+	set_enemy(e_list, num_enemies);
+
 
 	/*
 	Thought about how I could just have
@@ -417,16 +425,15 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	a few minuets of messing with it I stopped
 	because the below already works
 	 */
-
-	
 	//Initialize primary and
 	//secondary weapons
 	weapons primary_w;
 	weapons secondary_w;
 
 
-	//Their is a covered position every 20 meters
-	const int num_covers = 9;
+	//There is a covered position every 20 meters
+	//excluding the last 20
+	/*If for whatever reason this doesnt work make it a const*/ int num_covers = 9;
 	cover cover_spots[num_covers];
 
 	//Distance to pill box and end
@@ -475,13 +482,13 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	cout << "\n" << endl;
 
 //Working
-//switch_weapons(primary_w, secondary_w);
+//---------------------switch_weapons(primary_w, secondary_w);
 
 //Working
-//change_position_menu(your_player);
+//---------------------change_position_menu(your_player);
 
 //Works
-//use_medkit(your_player);
+//---------------------use_medkit(your_player);
 
 
 //Will need additional module to initialize the cover structure
@@ -492,7 +499,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 populate_cover(cover_spots);
 
 
-//survey_forward_area(cover_spots, num_covers);
+//---not finished---------------------survey_forward_area(cover_spots, num_covers);
 
 
 /*Will need to create various enemy positions
@@ -889,10 +896,10 @@ void populate_cover(cover * cover_spots){
 	cover_spots[4].name = "pile of dead nazis";
 	cover_spots[4].location = 100;
 
-	cover_spots[5].name = "pile of dead nazis turned inside out for some reason";
+	cover_spots[5].name = "super bombed out crater";
 	cover_spots[5].location = 120;
 
-	cover_spots[6].name = "few half burried crates of qaulity butter";
+	cover_spots[6].name = "small dug out trench";
 	cover_spots[6].location = 140;
 
 	cover_spots[7].name = "sign asking how you made it this far";
@@ -920,6 +927,17 @@ void survey_forward_area(cover * cover_spots, int num_covers){
 
 //cover_spots[0].name = "o00000000000000000o";
 //cout << cover_spots[0].name << endl;
+}
+
+
+
+
+
+
+//###########################################################
+//################## SET ENEMY FUNCTION #####################
+//###########################################################
+void set_enemy(enemy e_list[], int size){
 
 
 

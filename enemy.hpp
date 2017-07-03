@@ -15,8 +15,16 @@ class enemy{
 private:
 	
 	string name;
+
+	/*num_e is the number of enemies for a particular enemy position,
+	instead of creating multiple enemies with the same location to 
+	add difficulty this is much simpler, single enemy can have 
+	multiple num_e's which increases health and therefore difficulty 
+	for the player*/
 	int num_e;
-	int location;	
+	//Location based on 200 meters to pill
+	int location;
+	//"Weapons range" at which the enemy can hurt player	
 	int range;
 	//health = 2 times number_e
 	int health;

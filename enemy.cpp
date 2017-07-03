@@ -13,6 +13,7 @@ enemy::enemy(void){
 	
 }
 
+
 //Getters
 	string enemy::get_name(){
 		return name;
@@ -33,6 +34,9 @@ enemy::enemy(void){
 	int enemy::get_health(){
 		return health;
 	}
+
+
+
 
 
 //Setters
