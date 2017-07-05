@@ -68,6 +68,18 @@ void set_enemy(enemy e_list[], int num_enemies);
 //Shows position to player, not used to operate on data
 string show_position(characters *your_player);
 
+//Determines if enemy fire misses player or not
+bool e_hit_or_miss();
+
+//Determines if player fire misses player or not
+bool p_hit_or_miss();
+
+//Calculates damage done by enemy
+int damage_calc();
+
+//Displays player death outro and terminates program
+void killed();
+
 
 
 
@@ -81,8 +93,6 @@ void choices(char choice);
 
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled);
 
-//Shouldnt be needed now------void find_cover();
-
 /*Will need random hit/miss generator*/
 void fire_on_enemy();
 
@@ -95,7 +105,9 @@ void pick_up_weapon();
 /*Will need random hit/miss generator, random damage done
 based on type of enemy, perhaps even where player was
 hit?*/
-void enemy_fire_on_player();
+void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies);
+
+
 
 
 
@@ -182,6 +194,78 @@ int main(){
 
 
 
+//########################################################
+//################## KILLED FUNCTION #####################
+//########################################################
+void killed(){
+	
+	cout << "\n\n\n";
+	cout << "         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+	cout << "         !################################!" << endl;
+	cout << "         !#           YOU DIED           #!" << endl;
+	cout << "         !################################!" << endl;
+	cout << "         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n" << endl;
+	
+	cin.get();
+
+	exit(0);
+}
+
+
+
+
+
+//#############################################################
+//################## DAMAGE CALC FUNCTION #####################
+//#############################################################
+int damage_calc(){
+	int damage = (rand()% (10 - 3 + 1)) + 4;
+
+	return damage;
+}
+
+
+
+
+
+//###############################################################
+//################## P HIT OR MISS FUNCTION #####################
+//###############################################################
+bool p_hit_or_miss(){
+	bool missed = false;
+
+	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
+
+	if(rand_hit <= 3){
+		missed = true;
+	}
+	return missed;
+}
+
+
+
+
+
+
+
+//###############################################################
+//################## E HIT OR MISS FUNCTION #####################
+//###############################################################
+bool e_hit_or_miss(){
+	bool missed = false;
+
+	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
+
+	if(rand_hit = 7){
+		missed = true;
+	}
+	return missed;
+}
+
+
+
+
+
 //###############################################################
 //################## MOVE FORWARD FUNCTION ######################
 //###############################################################
@@ -213,7 +297,7 @@ void check_continue(){
 	char choice = ' ';
 
 	do{
-	cout << "Continue? \n Y / N: ";
+	cout << "\n\nContinue? \n Y / N: ";
 	cin >> choice;
 	}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
 	if (choice == 'n' || choice == 'N'){
@@ -518,6 +602,10 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	//While loop control
 	bool done = false;
+
+	//When player turn = true then enemies cant do anything except see player
+	bool player_turn = true;
+
 	//Players menu choice
 	char choice;
 
@@ -538,13 +626,9 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //Works
 //---------------------use_medkit(your_player);
 
-
-//Will need additional module to initialize the cover structure
-
-
-
-
 populate_cover(cover_spots);
+
+e_hit_or_miss();
 
 
 //---not finished---------------------survey_forward_area(cover_spots, num_covers, );
@@ -990,13 +1074,89 @@ void set_enemy(enemy e_list[], int size){
 	e_list[1].set_location(110);
 	e_list[1].set_range(20);
 
+	/*Will need something to tell player that there are snipers ahead
+	maybe when pllayer tries to return fire could display message 
+	saying because they are too far away they might miss along
+	with generator that makes them miss more the farther away they
+	are*/
 	e_list[2].set_name("snipers");
 	e_list[2].set_num_e(3);
 	e_list[2].set_location(160);
-	e_list[2].set_range(20);
+	e_list[2].set_range(30);
 
 	e_list[3].set_name("pill box soldiers");
 	e_list[3].set_num_e(4);
 	e_list[3].set_location(195);
 	e_list[3].set_range(20);
+}
+
+
+
+
+
+
+//######################################################################
+//################## ENEMY FIRE ON PLAYER FUNCTION #####################
+//######################################################################
+void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies){
+
+/*Will need to finish survey forward area so player can know they are within range of
+enemy, as well as code a message below telling player they were hit and by which 
+enemy, as well add to the module this function is in that enemy cant hit player
+if they are behind cover, as well as limiting factor allowing only, say, 3 menu 
+inputs before their turn is over?*/
+
+
+
+
+
+
+//Damage variable
+int d;
+int new_health;
+
+	//this could be moved to the main for loop/ maybe/maybe not
+	if(player_turn == false){
+		
+		//Checks if player is within range of enemy in front or behind them
+		for(int ix = 0; ix < num_enemies; ix++){
+			
+			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
+				
+				if(e_hit_or_miss() == false){
+
+					d = damage_calc();
+					new_health = your_player->get_health() - d;
+					your_player->set_health(new_health);
+
+
+						
+						if(your_player->get_health() <= 0){
+							killed();
+						} 
+
+
+						//!!!!!!!!!!Left off here!!!!!!!!!!
+
+
+				}
+
+				else{
+					cout << "\n" << endl;
+					cout << "  ##################################" << endl;
+					cout << "  # Bullets fly by you just a few  #" << endl;
+					cout << "  # inches away.                   #" << endl;
+					cout << "  ##################################\n\n" << endl;
+
+					check_continue();
+				}
+
+
+			}/*End of range check for()*/
+			ix++;
+		}
+
+	}/*End of player_turn if()*/
+
+
 }
