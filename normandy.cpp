@@ -48,7 +48,7 @@ void weapons_list(weapons list[]);
 void up_hill_battle(characters *your_player, weapons list[]);
 
 //Moves player forward by 5
-void move_forward(int &distance_traveled);
+void move_forward(int &distance_traveled, characters *your_player);
 
 //Sets fatigue = 0
 void rest_here_awhile(characters *your_player);
@@ -266,9 +266,9 @@ bool e_hit_or_miss(){
 
 
 
-//###############################################################
-//################## MOVE FORWARD FUNCTION ######################
-//###############################################################
+//###################################################################
+//################## REST HERE AWHILE FUNCTION ######################
+//###################################################################
 void rest_here_awhile(characters *your_player){
 	your_player->set_fatigue(0);
 }
@@ -280,8 +280,21 @@ void rest_here_awhile(characters *your_player){
 //###############################################################
 //################## MOVE FORWARD FUNCTION ######################
 //###############################################################
-void move_forward(int &distance_traveled){
+void move_forward(int &distance_traveled, characters *your_player){
+
+	if(your_player->get_position() == 2){
+		your_player->set_position(0);
+
+		cout << "\n\n";
+		cout << "     ############################" << endl;
+		cout << "     # You have changed into an #" << endl;
+		cout << "     # " << setw(8) << left << show_position(your_player) << "position.        #" << endl;
+		cout << "     ############################" << endl;
+	}
+
  distance_traveled+= 5;
+ 			/*Build display here telling player 
+ 			they have moved so and such a distance*/
 }
 
 
@@ -589,6 +602,10 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	//Call display function
 	display();
+
+
+	your_player->set_position(2);
+	move_forward(distance_traveled, your_player);
 
 	
 	//Works
@@ -1116,7 +1133,7 @@ int d;
 int new_health;
 
 	//this could be moved to the main for loop/ maybe/maybe not
-	if(player_turn == false){
+	if((player_turn == false) && (your_player->get_position() != 2)){
 		
 		//Checks if player is within range of enemy in front or behind them
 		for(int ix = 0; ix < num_enemies; ix++){
