@@ -69,7 +69,7 @@ void set_enemy(enemy e_list[], int num_enemies);
 string show_position(characters *your_player);
 
 //Determines if enemy fire misses player or not
-bool e_hit_or_miss();
+bool e_hit_or_miss(characters *your_player);
 
 //Determines if player fire misses player or not
 bool p_hit_or_miss();
@@ -79,6 +79,10 @@ int damage_calc();
 
 //Displays player death outro and terminates program
 void killed();
+
+//Enemy attacks player
+void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies);
+
 
 
 
@@ -96,15 +100,13 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 /*Will need random hit/miss generator*/
 void fire_on_enemy();
 
-void survey_forward_area(cover * cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies);
+void survey_forward_area(cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int distance_traveled);
 
 /*Used in survey forward area, only needs to come 
 up if there is a weapon to pick up on location*/
 void pick_up_weapon();
 
-/*Will need random hit/miss generator, random damage done
-based on type of enemy, perhaps even where player was
-hit?*/
+
 void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies);
 
 
@@ -194,6 +196,72 @@ int main(){
 
 
 
+
+
+//######################################################################
+//################## ENEMY FIRE ON PLAYER FUNCTION #####################
+//######################################################################
+void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies){
+
+//Damage variable
+int d;
+//Variable will calculate new health if enemy didnt miss
+int new_health;
+
+	//this could be moved to the main for loop/ maybe/maybe not
+	if((player_turn == false) && (your_player->get_position() != 2)){
+		
+		//Checks if player is within range of enemy in front or behind them
+		for(int ix = 0; ix < num_enemies; ix++){
+			
+			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
+				
+				if(e_hit_or_miss(your_player) == false){
+
+					d = damage_calc();
+
+					//Calculates the new health and sets player health accordingly
+					new_health = your_player->get_health() - d;
+					your_player->set_health(new_health);
+
+					//Player will need to survey forward area to see how far out enemies are
+
+					cout << "\n     ###########################################"<< endl;
+					cout << "     # You took damage from " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
+					cout << "     #                                         #" << endl;
+					cout << "     # Your health: " << setw(3) << left << your_player->get_health() << "                        #" << endl;
+					cout << "     ###########################################\n\n" << endl;
+					cin.get();
+
+
+						//Calls killed function if players health is <= 0
+						if(your_player->get_health() <= 0){
+							killed();
+						}
+
+				}
+
+				else{
+					cout << "\n" << endl;
+					cout << "  ##################################" << endl;
+					cout << "  # Bullets fly by you just a few  #" << endl;
+					cout << "  # inches away.                   #" << endl;
+					cout << "  ##################################\n\n" << endl;
+					cin.get();
+
+					check_continue();
+				}
+			}/*End of range check for()*/
+			ix++;
+		}
+	}/*End of player_turn if()*/
+}
+
+
+
+
+
+
 //########################################################
 //################## KILLED FUNCTION #####################
 //########################################################
@@ -251,14 +319,26 @@ bool p_hit_or_miss(){
 //###############################################################
 //################## E HIT OR MISS FUNCTION #####################
 //###############################################################
-bool e_hit_or_miss(){
+bool e_hit_or_miss(characters *your_player){
 	bool missed = false;
 
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
-
+	
+	//If player is upright they have a 1/16 chance of not being hit
+	if(your_player->get_position() == 0){
 	if(rand_hit = 7){
 		missed = true;
 	}
+}
+
+
+	//If player is crawling they have a 4/16 chance of not being hit
+	if(your_player->get_position() == 0){
+	if((rand_hit = 7) || (rand_hit = 6) || (rand_hit = 5) || (rand_hit = 4)){
+		missed = true;
+	}
+}
+
 	return missed;
 }
 
@@ -293,8 +373,11 @@ void move_forward(int &distance_traveled, characters *your_player){
 	}
 
  distance_traveled+= 5;
- 			/*Build display here telling player 
- 			they have moved so and such a distance*/
+
+ 	cout << "\n\n";
+	cout << "     ###############################" << endl;
+	cout << "     # You moved forward 5 meters. #" << endl;
+	cout << "     ###############################\n\n" << endl;
 }
 
 
@@ -553,8 +636,6 @@ void story_segment01(){
 //##########################################################
 void up_hill_battle(characters *your_player, weapons list[]){
 
-
-
 	int num_enemies = 4;
 	enemy e_list[num_enemies];
 
@@ -578,7 +659,8 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	//There is a covered position every 20 meters
 	//excluding the last 20
-	/*If for whatever reason this doesnt work make it a const*/ int num_covers = 9;
+	/*If for whatever reason this doesnt work make it a const*/ 
+	int num_covers = 9;
 	cover cover_spots[num_covers];
 
 	//Distance to pill box and end
@@ -628,11 +710,11 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 
-	//Test
-	cout << list[2].get_name() << endl;
-	cout << list[0].get_name() << endl;
-	cout << list[1].get_name() << endl;
-	cout << "\n" << endl;
+	//Works
+	//cout << list[2].get_name() << endl;
+	//cout << list[0].get_name() << endl;
+	//cout << list[1].get_name() << endl;
+	//cout << "\n" << endl;
 
 //Working
 //---------------------switch_weapons(primary_w, secondary_w);
@@ -645,7 +727,9 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 populate_cover(cover_spots);
 
-e_hit_or_miss();
+e_hit_or_miss(your_player);
+
+
 
 
 //---not finished---------------------survey_forward_area(cover_spots, num_covers, );
@@ -654,7 +738,7 @@ e_hit_or_miss();
 /*Will need to create various enemy positions
 based on distance to pill from notebook sketch,
 as well as their respective visual ranges, 
-weapons range, hit playey and or player 
+weapons range, hit player and or player 
 spotted functions/possible sneak mechanic?*/
 
 
@@ -960,6 +1044,7 @@ void change_position_menu(characters *your_player){
 	//makes them choose something else
 	 if(pc == your_player->get_position()){
 	 	cout <<"You are already in the " << show_position(your_player) << " position." << endl;
+	 	cin.get();
 	 }
 
 
@@ -996,6 +1081,7 @@ void use_medkit(characters *your_player){
 		cout << "  #####################################" << endl;
 		cout << "  # You dont have any medkits to use. #" << endl;
 		cout << "  #####################################\n" << endl;
+		cin.get();
 
 	}
 
@@ -1008,6 +1094,7 @@ void use_medkit(characters *your_player){
 		cout << "  ##########################" << endl;
 		cout << "  # Health fully restored. #" << endl;
 		cout << "  ##########################\n" << endl;
+		cin.get();
 
 	}
 
@@ -1081,12 +1168,12 @@ void survey_forward_area(cover * cover_spots, int num_covers, weapons list[], en
 void set_enemy(enemy e_list[], int size){
 
 //Setting up enemy specifics
-	e_list[0].set_name("machine gunners");
+	e_list[0].set_name("machine gunners.");
 	e_list[0].set_num_e(2);
 	e_list[0].set_location(70);
 	e_list[0].set_range(20);
 
-	e_list[1].set_name("machine gunners");
+	e_list[1].set_name("machine gunners.");
 	e_list[1].set_num_e(2);
 	e_list[1].set_location(110);
 	e_list[1].set_range(20);
@@ -1096,12 +1183,12 @@ void set_enemy(enemy e_list[], int size){
 	saying because they are too far away they might miss along
 	with generator that makes them miss more the farther away they
 	are*/
-	e_list[2].set_name("snipers");
+	e_list[2].set_name("snipers.");
 	e_list[2].set_num_e(3);
 	e_list[2].set_location(160);
 	e_list[2].set_range(30);
 
-	e_list[3].set_name("pill box soldiers");
+	e_list[3].set_name("pill box soldiers.");
 	e_list[3].set_num_e(4);
 	e_list[3].set_location(195);
 	e_list[3].set_range(20);
@@ -1112,68 +1199,21 @@ void set_enemy(enemy e_list[], int size){
 
 
 
-//######################################################################
-//################## ENEMY FIRE ON PLAYER FUNCTION #####################
-//######################################################################
-void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies){
 
-/*Will need to finish survey forward area so player can know they are within range of
-enemy, as well as code a message below telling player they were hit and by which 
-enemy, as well add to the module this function is in that enemy cant hit player
-if they are behind cover, as well as limiting factor allowing only, say, 3 menu 
-inputs before their turn is over?*/
+//#####################################################################
+//################## SURVEY FORWARD AREA FUNCTION #####################
+//#####################################################################
+void survey_forward_area(cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int distance_traveled){
 
+/*This function needs to be built, perhaps using loop structure to go througheach array
+as was done in enemy fire on player function and compare it to the players range, which 
+we will set at 20 meters. If they are withing 5 meters of cover then they can go ahead
+and jump to it by taking cover. Need to compare everything to players current location 
+and display how far it is from player.*/ 
 
-
-
-
-
-//Damage variable
-int d;
-int new_health;
-
-	//this could be moved to the main for loop/ maybe/maybe not
-	if((player_turn == false) && (your_player->get_position() != 2)){
-		
-		//Checks if player is within range of enemy in front or behind them
-		for(int ix = 0; ix < num_enemies; ix++){
-			
-			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
-				
-				if(e_hit_or_miss() == false){
-
-					d = damage_calc();
-					new_health = your_player->get_health() - d;
-					your_player->set_health(new_health);
-
-
-						
-						if(your_player->get_health() <= 0){
-							killed();
-						} 
-
-
-						//!!!!!!!!!!Left off here!!!!!!!!!!
-
-
-				}
-
-				else{
-					cout << "\n" << endl;
-					cout << "  ##################################" << endl;
-					cout << "  # Bullets fly by you just a few  #" << endl;
-					cout << "  # inches away.                   #" << endl;
-					cout << "  ##################################\n\n" << endl;
-
-					check_continue();
-				}
-
-
-			}/*End of range check for()*/
-			ix++;
-		}
-
-	}/*End of player_turn if()*/
+/*Need do make sure that if player wants to move forward from a covered position they
+move to a crawl not an upright position as well as insure player cant move forward
+while remaining covered */
 
 
 }
