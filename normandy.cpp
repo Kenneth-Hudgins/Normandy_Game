@@ -726,7 +726,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //---------------------use_medkit(your_player);
 
 //Works
-//---------------------populate_cover(cover_spots);
+populate_cover(cover_spots);
 
 //Works
 //---------------------e_hit_or_miss(your_player);
@@ -737,69 +737,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //---not finished---------------------survey_forward_area(cover_spots, num_covers, );
 
 
-
-/*^^^^^^^^^^^^^^^^^^^
-^^^^^^^^^^^^^^^^^^^^^
-Test
-^^^^^^^^^^^^^^^^^^^^^
-^^^^^^^^^^^^^^^^^^^^^*/
-
-cout << "\n\n" << endl;
-	cout << "     ####################################################" << endl;
-	cout << "     #          SURVEY OF AREA 20 METERS AHEAD          #" << endl;
-	cout << "     ####################################################" << endl;
-	cout << "     #                                                  #" << endl;
-	cout << "     # Current Location: " << setw(3) << left << distance_traveled << "                            #" << endl;
-	cout << "     #                                                  #" << endl;
-	cout << "     # ENEMIES:                                         #" << endl;
-
-//Variable is used to calculate display no enemies are visable
-int no_e = 0;
-
-
-//------------------------Need loop going through enemies here
-	for(int ix = 0; ix < num_enemies; ix++){
-
-		//Checks for forward enemies
-		//Ensures no negative numbers are displayed
-		if(e_list[ix].get_location() - distance_traveled > 0){
-
-			//Makes sure enemy is within player range
-			if( e_list[ix].get_location() - distance_traveled <= 20 ){
-
-				cout << "     # " << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
-				cout << "     #                                                  #" << endl;
-			}
-	}
-
-			//Checks for enemies behind player
-			//Ensures no negative numbers are displayed
-			 if(distance_traveled - e_list[ix].get_location() > 0){
-
-			 	//Makes sure enemy is within player range
-			 	if(distance_traveled - e_list[ix].get_location() <= 20){
-			 	cout << "     # " << distance_traveled - e_list[ix].get_location() << " meters behind there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
-	
-			 	}
-			}
-
-			//If none of the above are present this is incremented up
-			//For the purpose of the code below it
-			else{no_e++;}
-	}
-
-		if(no_e == num_enemies){
-			cout << "     #         NO VISABLE ENEMIES AHEAD                 #" << endl;
-
-		}
-
-/*^^^^^^^^^^^^^^^^^^^
-^^^^^^^^^^^^^^^^^^^^^
-Test
-^^^^^^^^^^^^^^^^^^^^^
-^^^^^^^^^^^^^^^^^^^^^*/
-
-
+survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled);
 
 
 
@@ -1173,32 +1111,34 @@ void use_medkit(characters *your_player){
 void populate_cover(cover * cover_spots){
 
 	//Manually set the cover positions
-	cover_spots[0].name = "bombed out crater";
+	cover_spots[0].name = "bombed out crater.";
 	cover_spots[0].location = 20;
 
-	cover_spots[1].name = "small dug out trench";
+	cover_spots[1].name = "small dug out trench.";
 	cover_spots[1].location = 40;
 
-	cover_spots[2].name = "bombed out crater";
+	cover_spots[2].name = "bombed out crater.";
 	cover_spots[2].location = 60;
 
-	cover_spots[3].name = "destroyed tank";
+	cover_spots[3].name = "destroyed tank.";
 	cover_spots[3].location = 80;
 
-	cover_spots[4].name = "pile of dead nazis";
+	cover_spots[4].name = "pile of dead nazis.";
 	cover_spots[4].location = 100;
 
-	cover_spots[5].name = "super bombed out crater";
+	cover_spots[5].name = "super bombed out crater.";
 	cover_spots[5].location = 120;
 
-	cover_spots[6].name = "small dug out trench";
+	cover_spots[6].name = "small dug out trench.";
 	cover_spots[6].location = 140;
 
-	cover_spots[7].name = "small boulder";
+	cover_spots[7].name = "small boulder.";
 	cover_spots[7].location = 160; 
 
-	cover_spots[8].name = "grand fortress of solitude";
+	cover_spots[8].name = "grand fortress of solitude.";
 	cover_spots[8].location = 180; 
+
+
 
 }
 
@@ -1282,30 +1222,110 @@ while remaining covered */
 and if they move forward change cover to crawl*/
 
 cout << "\n\n" << endl;
-	cout << "     ################################################" << endl;
-	cout << "     #        SURVEY OF AREA 20 METERS AHEAD        #" << endl;
-	cout << "     ################################################" << endl;
-	cout << "     #                                              #" << endl;
+	cout << "     ####################################################" << endl;
+	cout << "     #          SURVEY OF AREA 20 METERS AHEAD          #" << endl;
+	cout << "     ####################################################" << endl;
+	cout << "     #                                                  #" << endl;
+	cout << "     # Current Location: " << setw(3) << left << distance_traveled << "                            #" << endl;
+	cout << "     #                                                  #" << endl;
+	cout << "     # ENEMIES:                                         #" << endl;
+
+//Variable is used to calculate display no enemies are visable
+int no_e = 0;
 
 
-	//Need loop going through enemies here
+//------------------------Need loop going through enemies here
 	for(int ix = 0; ix < num_enemies; ix++){
-		if( e_list[ix].get_location() - distance_traveled <= 20 ){
 
-			cout << "     # " << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "           #" << endl;
-		}
+		//Checks for forward enemies
+		//Ensures no negative numbers are displayed
+		if(e_list[ix].get_location() - distance_traveled > 0){
+
+			//Makes sure enemy is within player range
+			if( e_list[ix].get_location() - distance_traveled <= 20 ){
+
+				cout << "     # " << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
+				cout << "     #                                                  #" << endl;
+			}
 	}
 
+			//Checks for enemies behind player
+			//Ensures no negative numbers are displayed
+			 if(distance_traveled - e_list[ix].get_location() > 0){
 
+			 	//Makes sure enemy is within player range
+			 	if(distance_traveled - e_list[ix].get_location() <= 20){
+			 	cout << "     # " << distance_traveled - e_list[ix].get_location() << " meters behind there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
+	
+			 	}
+			}
 
+			//If none of the above are present this is incremented up
+			//For the purpose of the code below it
+			else{no_e++;}
+	}
 
-	//Need loop going through cover spots here
+		if(no_e == num_enemies){
+			cout << "     #         NO VISABLE ENEMIES AHEAD                 #" << endl;
+			cout << "     #                                                  #" << endl;
+			cout << "     ####################################################" << endl;
 
+		}
+			cout << "     #                                                  #" << endl;
+			cout << "     # PLACES TO TAKE COVER:                            #" << endl;
+
+//Need loop going through cover spots here
+		int no_c = 0;
+
+	for(int ix = 0; ix < num_covers; ix++){
+
+		//Checks for forward enemies
+		//Ensures no negative numbers are displayed
+		if(cover_spots[ix].location - distance_traveled > 0){
+
+			//Makes sure enemy is within player range
+			if( cover_spots[ix].location - distance_traveled <= 20 ){
+
+				cout << "     #                                                  #" << endl;
+				cout << "     # " <<setw(2) << left <<  cover_spots[ix].location - distance_traveled << " meters ahead there is a:                      #" << endl;
+				cout << "     #                " << setw(27) << left<< cover_spots[ix].name << "       #" << endl;
+				cout << "     #                                                  #" << endl;
+			}
+
+			//If none of the above are present this is incremented up
+			//For the purpose of the code below it
+			else{no_c++;}
+		}
+
+	}
+
+		if(no_c == num_covers){
+			cout << "     #         NO WHERE TO TAKE COVER AHEAD             #" << endl;
+			cout << "     #                                                  #" << endl;
+			cout << "     ####################################################" << endl;
+
+		}
 
 
 
 
 	//Need loop going through weapons list here
+		/*Will need to display nearby weapons as thus:
+		name and location
+			ammo capacity
+				in clip
+				-
+				-
+				-
+	If player wants to switch weapons then the switch weapon function
+	should have a sub menu of its own where it checks if a weapon nearby
+	is able to be picked up, say 5 meters, and ask player if they want to
+	 swap their primary or secondary weapon for this new one, then do so.
+	 This beats having a seperate function for that. If there are no 
+	 weapons nearby then it should display that to the player and return 
+	 from the function.*/
+
+
 
 
 }
