@@ -512,7 +512,7 @@ void weapons_list(weapons list[]){
 	
 
 	//Pistol, starting secondary weapon
-	list[0].set("Sauer 38H Pistol", 8, 8, 50); 
+	list[0].set("Sauer 38H Pistol", 8, 8, 50);  
 
 	//Other weapon that can be found by chance
 	list[1].set("Nagant M1895 Revolver", 7, 7, 20 ); 
@@ -691,7 +691,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	
 	//Works
-	//status(your_player, primary_w, secondary_w, distance_to_pill, distance_traveled);
+	status(your_player, primary_w, secondary_w, distance_to_pill, distance_traveled);
 
 
 
@@ -733,8 +733,6 @@ populate_cover(cover_spots);
 
 
 
-
-//---not finished---------------------survey_forward_area(cover_spots, num_covers, );
 
 
 survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled);
@@ -878,7 +876,7 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ###############################################################" << endl;
 	cout << "     ###                                                         ###" << endl;
 	cout << "     ##                                                           ##" << endl;
-	cout << "     ##  HEALTH:      " << your_player->get_health() << "                    FATIGUE:      " << your_player->get_fatigue() << "       ##" << endl;
+	cout << "     ##  HEALTH:      " <<setw(3) << left << your_player->get_health() << "                   FATIGUE:      " << setw(1) << left << your_player->get_fatigue() << "       ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  PRIMARY WEAPON:          " << setw (29) << primary_w.get_name() << "   ##" << endl;
@@ -1112,7 +1110,7 @@ void populate_cover(cover * cover_spots){
 
 	//Manually set the cover positions
 	cover_spots[0].name = "bombed out crater.";
-	cover_spots[0].location = 20;
+	cover_spots[0].location = 20; 
 
 	cover_spots[1].name = "small dug out trench.";
 	cover_spots[1].location = 40;
@@ -1173,12 +1171,12 @@ void set_enemy(enemy e_list[], int size){
 //Setting up enemy specifics
 	e_list[0].set_name("machine gunners.");
 	e_list[0].set_num_e(2);
-	e_list[0].set_location(70);
+	e_list[0].set_location(70); 
 	e_list[0].set_range(20);
 
 	e_list[1].set_name("machine gunners.");
 	e_list[1].set_num_e(2);
-	e_list[1].set_location(110);
+	e_list[1].set_location(110); 
 	e_list[1].set_range(20);
 
 	/*Will need something to tell player that there are snipers ahead
@@ -1234,7 +1232,7 @@ cout << "\n\n" << endl;
 int no_e = 0;
 
 
-//------------------------Need loop going through enemies here
+//Loop going through enemies here
 	for(int ix = 0; ix < num_enemies; ix++){
 
 		//Checks for forward enemies
@@ -1243,8 +1241,8 @@ int no_e = 0;
 
 			//Makes sure enemy is within player range
 			if( e_list[ix].get_location() - distance_traveled <= 20 ){
-
-				cout << "     # " << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
+				cout << "     #                                                  #" << endl;
+				cout << "     # " << setw(2) << left << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
 				cout << "     #                                                  #" << endl;
 			}
 	}
@@ -1255,14 +1253,19 @@ int no_e = 0;
 
 			 	//Makes sure enemy is within player range
 			 	if(distance_traveled - e_list[ix].get_location() <= 20){
-			 	cout << "     # " << distance_traveled - e_list[ix].get_location() << " meters behind there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
-	
+			 	cout << "     #                                                  #" << endl;
+			 	cout << "     # " << setw(2) << left << distance_traveled - e_list[ix].get_location() << " meters behind there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
+				cout << "     #                                                  #" << endl;
+
 			 	}
+
+			 	
 			}
 
 			//If none of the above are present this is incremented up
 			//For the purpose of the code below it
 			else{no_e++;}
+			
 	}
 
 		if(no_e == num_enemies){
@@ -1271,19 +1274,31 @@ int no_e = 0;
 			cout << "     ####################################################" << endl;
 
 		}
+
+
+		if(no_e < num_enemies){
+			cout << "     ####################################################" << endl;
+		}
+
+
+
+
+
+
+
 			cout << "     #                                                  #" << endl;
 			cout << "     # PLACES TO TAKE COVER:                            #" << endl;
 
-//Need loop going through cover spots here
+//Loop going through cover spots here
 		int no_c = 0;
 
 	for(int ix = 0; ix < num_covers; ix++){
 
-		//Checks for forward enemies
+		//Checks for forward cover spots
 		//Ensures no negative numbers are displayed
 		if(cover_spots[ix].location - distance_traveled > 0){
 
-			//Makes sure enemy is within player range
+			//Makes sure cover is within player range
 			if( cover_spots[ix].location - distance_traveled <= 20 ){
 
 				cout << "     #                                                  #" << endl;
@@ -1307,9 +1322,59 @@ int no_e = 0;
 		}
 
 
+		if(no_c < num_covers){
+			cout << "     ####################################################" << endl;
+		}
 
 
-	//Need loop going through weapons list here
+	cout << "     #                                                  #" << endl;
+	cout << "     # NEARBY WEAPONS ON THE GROUND:                    #" << endl;
+
+
+//Loop going through weapons list
+
+				int no_w = 0;
+				int num_weapons = 6;
+
+	for(int ix = 0; ix < num_weapons; ix++){
+
+		//Checks for forward weapons
+		//Ensures no negative numbers are displayed
+		if(list[ix].get_location() - distance_traveled > 0){
+
+			//Makes sure weapon is within player range
+			if( list[ix].get_location() - distance_traveled <= 20 ){
+
+				cout << "     #                                                  #" << endl;
+				cout << "     # " <<setw(2) << left <<  list[ix].get_location() - distance_traveled << " meters ahead there is a:                      #" << endl;
+				cout << "     #                " << setw(27) << left<< list[ix].get_name() << "       #" << endl;
+				cout << "     #                                                  #" << endl;
+			}
+
+			//If none of the above are present this is incremented up
+			//For the purpose of the code below it
+			else{no_w++;}
+		}
+
+	}
+
+		if(no_w == num_weapons){
+			cout << "     #         NO NEARBY WEAPONS                        #" << endl;
+			cout << "     #                                                  #" << endl;
+			cout << "     ####################################################" << endl;
+
+		}
+
+
+		if(no_w < num_weapons){
+			cout << "     ####################################################" << endl;
+		}
+
+
+
+
+
+
 		/*Will need to display nearby weapons as thus:
 		name and location
 			ammo capacity
@@ -1319,13 +1384,13 @@ int no_e = 0;
 				-
 	If player wants to switch weapons then the switch weapon function
 	should have a sub menu of its own where it checks if a weapon nearby
-	is able to be picked up, say 5 meters, and ask player if they want to
+	is able to be picked up, say 5 meters nearby, and ask player if they want to
 	 swap their primary or secondary weapon for this new one, then do so.
 	 This beats having a seperate function for that. If there are no 
 	 weapons nearby then it should display that to the player and return 
 	 from the function.*/
 
-
+ 
 
 
 }
