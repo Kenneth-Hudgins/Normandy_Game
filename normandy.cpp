@@ -102,12 +102,8 @@ void fire_on_enemy();
 
 void survey_forward_area(cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int distance_traveled);
 
-/*Used in survey forward area, only needs to come 
-up if there is a weapon to pick up on location*/
-void pick_up_weapon();
+void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w);
 
-
-void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies);
 
 
 
@@ -165,7 +161,7 @@ int main(){
 	//**************
 	/*Passes list to weapons_list
 	so it can be initialized*/
-	weapons list[6];
+	weapons list[6];	//This should have a variable for size
 	weapons_list(list);
 
 	//cout << list[0].get_name() << endl;
@@ -738,6 +734,9 @@ populate_cover(cover_spots);
 survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled);
 
 
+ pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
+
+
 
 
 
@@ -962,6 +961,7 @@ void switch_weapons(weapons &primary_w, weapons &secondary_w){
 	secondary_w.set_name(tn);
 	secondary_w.set_ammo_capacity(ac);
 	secondary_w.set_in_clip(ic);
+	
 }
 
 
@@ -1348,6 +1348,7 @@ int no_e = 0;
 				cout << "     #                                                  #" << endl;
 				cout << "     # " <<setw(2) << left <<  list[ix].get_location() - distance_traveled << " meters ahead there is a:                      #" << endl;
 				cout << "     #                " << setw(27) << left<< list[ix].get_name() << "       #" << endl;
+				cout << "     #         AMMUNITION: " << setw(2) << right << list[ix].get_in_clip() << "          CAPACITY: " << setw(2) << right << list[ix].get_ammo_capacity() << "     #" << endl;
 				cout << "     #                                                  #" << endl;
 			}
 
@@ -1375,22 +1376,71 @@ int no_e = 0;
 
 
 
-		/*Will need to display nearby weapons as thus:
-		name and location
-			ammo capacity
-				in clip
-				-
-				-
+		/*
 				-
 	If player wants to switch weapons then the switch weapon function
 	should have a sub menu of its own where it checks if a weapon nearby
 	is able to be picked up, say 5 meters nearby, and ask player if they want to
 	 swap their primary or secondary weapon for this new one, then do so.
-	 This beats having a seperate function for that. If there are no 
+	
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	-
+	 It does need its own sub menu. If there are no 
 	 weapons nearby then it should display that to the player and return 
 	 from the function.*/
 
  
 
 
+}
+
+
+
+
+
+
+
+
+
+
+//################################################################
+//################## PICK UP WEAPON FUNCTION #####################
+//################################################################
+void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w){
+
+int no_w = 0;
+
+list[0].set_location(5);
+	for (int i = 0; i < 6; i++)
+	{
+		if((list[i].get_location() - distance_traveled == 5) || (list[i].get_location() - distance_traveled == 0)) {
+			cout << "\n\n\n";
+			cout << "     ######################################################" << endl;
+			cout << "     #                                                    #" << endl;
+			cout << "     # Do you want to switch your primary weapon with the #" << endl;
+			cout << "     #           " << setw(27) << left<< list[i].get_name() << " on the ground? #" << endl;
+
+		}
+		else{no_w++;}
+	}
+
+	if(no_w == 6){
+		cout << "\n\n\n";
+		cout << "     ###############################" << endl;
+		cout << "     # No weapons to pickup nearby #" << endl;
+		cout << "     ###############################" << endl;
+		cin.get();
+		cin.get();
+
+	}
 }
