@@ -1370,38 +1370,6 @@ int no_e = 0;
 		if(no_w < num_weapons){
 			cout << "     ####################################################" << endl;
 		}
-
-
-
-
-
-
-		/*
-				-
-	If player wants to switch weapons then the switch weapon function
-	should have a sub menu of its own where it checks if a weapon nearby
-	is able to be picked up, say 5 meters nearby, and ask player if they want to
-	 swap their primary or secondary weapon for this new one, then do so.
-	
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	-
-	 It does need its own sub menu. If there are no 
-	 weapons nearby then it should display that to the player and return 
-	 from the function.*/
-
- 
-
-
 }
 
 
@@ -1418,9 +1386,16 @@ int no_e = 0;
 //################################################################
 void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w){
 
+//Explained below
 int no_w = 0;
 
-list[0].set_location(5);
+char choice = ' ';
+
+//Temp variables used for swapping
+string tn;
+int ac;
+int ic;
+
 	for (int i = 0; i < 6; i++)
 	{
 		if((list[i].get_location() - distance_traveled == 5) || (list[i].get_location() - distance_traveled == 0)) {
@@ -1428,9 +1403,44 @@ list[0].set_location(5);
 			cout << "     ######################################################" << endl;
 			cout << "     #                                                    #" << endl;
 			cout << "     # Do you want to switch your primary weapon with the #" << endl;
-			cout << "     #           " << setw(27) << left<< list[i].get_name() << " on the ground? #" << endl;
+			cout << "     #               " << setw(27) << left<< list[i].get_name() << "          #" << endl;
+			cout << "     #                                                    #" << endl;
+			cout << "     ######################################################" << endl;
+
+
+
+			do{
+			cout << "\n\nContinue? \n Y / N: ";
+			cin >> choice;
+			}while(choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
+				
+				if (choice == 'n' || choice == 'N'){
+				return;
+				}
+
+				else{
+
+
+//Sets temp variables = primary weapon
+	string tn = primary_w.get_name();
+	int ac = primary_w.get_ammo_capacity();
+	int ic = primary_w.get_in_clip();
+
+//Sets primary weapon = list[i]
+	primary_w.set_name(list[i].get_name());
+	primary_w.set_ammo_capacity(list[i].get_ammo_capacity());
+	primary_w.set_in_clip(list[i].get_in_clip());
+
+//Sets list[i] = temp variables (primary Weapon)
+	list[i].set_name(tn);
+	list[i].set_ammo_capacity(ac);
+	list[i].set_in_clip(ic);
+
+				}
 
 		}
+	//If no weapons are in range this is incrimented up for the
+		//purpose of the code below it
 		else{no_w++;}
 	}
 
@@ -1441,6 +1451,5 @@ list[0].set_location(5);
 		cout << "     ###############################" << endl;
 		cin.get();
 		cin.get();
-
 	}
 }
