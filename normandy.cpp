@@ -929,9 +929,18 @@ bool p_hit_or_miss(characters *your_player){
 
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
 
+	if(your_player->get_position() !=2){
 	if(rand_hit <= 3){
 		missed = true;
 	}
+	}
+
+	else{
+		if(rand_hit <= 6){
+		missed = true;
+	}
+	}
+
 	return missed;
 }
 
@@ -955,6 +964,7 @@ bool e_hit_or_miss(characters *your_player){
 		missed = true;
 	}
 }
+
 
 
 	//If player is crawling they have a 4/16 chance of not being hit
@@ -1503,7 +1513,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 	int new_health;
 
 	//Checks if player is within range of enemy in front or behind them
-		for(int ix = 0; ix < num_enemies; ix++){
+	/*	for(int ix = 0; ix < num_enemies; ix++){
 			
 			//This is range, must rethink for player
 			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
@@ -1512,6 +1522,6 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 				}
 	}
-}
+}*/
 
 }
