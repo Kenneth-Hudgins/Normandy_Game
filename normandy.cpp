@@ -72,7 +72,7 @@ string show_position(characters *your_player);
 bool e_hit_or_miss(characters *your_player);
 
 //Determines if player fire misses player or not
-bool p_hit_or_miss();
+bool p_hit_or_miss(characters *your_player);
 
 //Calculates damage done by enemy
 int damage_calc();
@@ -108,8 +108,10 @@ void validation(char choice);
 void choices(char choice);
 
 /*Will need its own random hit/miss generator, as 
-well as consideration for how this affect enemy health*/
-void player_fire_on_enemy();
+well as consideration for how this affects enemy health,
+as well as different fire rates/ hit or miss decisions 
+based on if player is covered or not*/
+void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies);
 
 
 
@@ -469,10 +471,7 @@ void populate_cover(cover * cover_spots){
 	cover_spots[7].location = 160; 
 
 	cover_spots[8].name = "grand fortress of solitude.";
-	cover_spots[8].location = 180; 
-
-
-
+	cover_spots[8].location = 180;
 }
 
 
@@ -832,7 +831,9 @@ void enemy_fire_on_player(characters *your_player, bool player_turn, int distanc
 int d;
 //Variable will calculate new health if enemy didnt miss
 int new_health;
-
+	
+	//This outer if statement could have been done outside of this function
+	//Will fix when creating player version of this module
 	if((player_turn == false) && (your_player->get_position() != 2)){
 		
 		//Checks if player is within range of enemy in front or behind them
@@ -923,7 +924,7 @@ int damage_calc(){
 //###############################################################
 //################## P HIT OR MISS FUNCTION #####################
 //###############################################################
-bool p_hit_or_miss(){
+bool p_hit_or_miss(characters *your_player){
 	bool missed = false;
 
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
@@ -1479,5 +1480,38 @@ void choices(char choice){
 
 
 	}
+
+}
+
+
+
+
+
+
+
+
+
+//#######################################################################
+//################## PLAYER FIRE ON ENEMY FUNCTION ######################
+//#######################################################################
+void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies){
+
+
+	//Damage variable
+	int d;
+	//Variable will calculate new health if player didnt miss
+	int new_health;
+
+	//Checks if player is within range of enemy in front or behind them
+		for(int ix = 0; ix < num_enemies; ix++){
+			
+			//This is range, must rethink for player
+			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
+				
+				if(p_hit_or_miss(your_player) == false){
+
+				}
+	}
+}
 
 }

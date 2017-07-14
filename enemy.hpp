@@ -48,7 +48,7 @@ public:
 	void set_num_e(int temp);
 	void set_location(int temp);
 	void set_range(int temp);
-	//void set_health(int temp);
+	void set_health(int temp);
 	void set(string nme, int ne, int loc, int rng);
 
 

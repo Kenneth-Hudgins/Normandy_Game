@@ -57,9 +57,9 @@ enemy::enemy(void){
 		range = temp;
 	}
 
-	/*void enemy::set_health(int temp){
+	void enemy::set_health(int temp){
 		health = temp;
-	}*/
+	}
 
 	void enemy::set(string nme, int ne, int loc, int rng){
 		name = nme;
