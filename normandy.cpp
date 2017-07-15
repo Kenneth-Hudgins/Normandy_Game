@@ -95,6 +95,10 @@ void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, w
 //Makes player covered if they are in the same location as a covered spot
 void make_covered(int distance_traveled, characters *your_player, cover *cover_spots, int num_covers);
 
+//Player attacks enemy
+void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies);
+
+
 
 
 
@@ -106,12 +110,6 @@ void make_covered(int distance_traveled, characters *your_player, cover *cover_s
 void validation(char choice);
 
 void choices(char choice);
-
-/*Will need its own random hit/miss generator, as 
-well as consideration for how this affects enemy health,
-as well as different fire rates/ hit or miss decisions 
-based on if player is covered or not*/
-void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies);
 
 
 
@@ -574,7 +572,7 @@ int no_e = 0;
 		if(e_list[ix].get_location() - distance_traveled > 0){
 
 			//Makes sure enemy is within player range
-			if( e_list[ix].get_location() - distance_traveled <= 20 ){
+			if( (e_list[ix].get_location() - distance_traveled <= 20) && (e_list[ix].get_health() > 0) ){
 				cout << "     #                                                  #" << endl;
 				cout << "     # " << setw(2) << left << e_list[ix].get_location() - distance_traveled << " meters ahead there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
 				cout << "     #                                                  #" << endl;
@@ -839,7 +837,7 @@ int new_health;
 		//Checks if player is within range of enemy in front or behind them
 		for(int ix = 0; ix < num_enemies; ix++){
 			
-			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
+			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range()) && (e_list[ix].get_health() > 0)){
 				
 				if(e_hit_or_miss(your_player) == false){
 
@@ -930,15 +928,15 @@ bool p_hit_or_miss(characters *your_player){
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
 
 	if(your_player->get_position() !=2){
-	if(rand_hit <= 3){
-		missed = true;
-	}
+		if(rand_hit <= 3){
+			missed = true;
+		}
 	}
 
 	else{
 		if(rand_hit <= 6){
 		missed = true;
-	}
+		}
 	}
 
 	return missed;
@@ -1375,6 +1373,12 @@ survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance
 
  pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
 
+e_list[0].set_location(14);
+cout << "E Health: " << e_list[0].get_health() << endl;
+ player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies);
+cout << "E Health: " << e_list[0].get_health() << endl;
+
+
 
 
 
@@ -1506,22 +1510,87 @@ void choices(char choice){
 //#######################################################################
 void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies){
 
+	if((primary_w.get_in_clip() == 0) && (secondary_w.get_in_clip() == 0)){
+		cout << "\n\n\n";
+		cout << "     ###########################" << endl;
+		cout << "     # Your out of ammunition. #" << endl;
+		cout << "     ###########################" << endl;
+		cin.get();
+		cin.get();//This one and the below are tests
+		cin.get();
+		return;
+	}
 
-	//Damage variable
-	int d;
+
+	if(primary_w.get_in_clip() <= 0){
+		cout << "\n\n\n";
+		cout << "     #############################################" << endl;
+		cout << "     # Your primary weapon is out of ammunition, #" << endl;
+		cout << "     # switch to your secondary.                 #" << endl;
+		cout << "     #############################################" << endl;
+		cin.get();
+		cin.get();//This one and the below are tests
+		cin.get();
+		return;
+	}
+
+	
 	//Variable will calculate new health if player didnt miss
 	int new_health;
+	int new_in_clip;
 
 	//Checks if player is within range of enemy in front or behind them
-	/*	for(int ix = 0; ix < num_enemies; ix++){
+		for(int ix = 0; ix < num_enemies; ix++){
 			
-			//This is range, must rethink for player
-			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) || distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())){
+			//Checks if enemy is within range of player, front only
+			if((e_list[ix].get_location() - distance_traveled <= 20) /*||(distance_traveled - e_list[ix].get_location() <= 20)*/ ){
+
+					if(e_list[ix].get_health() == 0){
+					cout << "\n\n\n";
+					cout << "     ########################################" << endl;
+					cout << "     # The nazis in that position are dead, #" << endl;
+					cout << "     # no point in wasting ammunition.      #" << endl;
+					cout << "     ########################################" << endl;
+					cin.get();
+					cin.get();//This one and the below are tests
+					cin.get();
+					return;
+					}
 				
 				if(p_hit_or_miss(your_player) == false){
 
+					//Subtracts 1 from primary w ammo
+					new_in_clip = primary_w.get_in_clip() -1;
+					primary_w.set_in_clip(new_in_clip);
+					
+					//Subtracts 1 from enemy health
+					new_health = e_list[ix].get_health() -1;
+					e_list[ix].set_health(new_health);
+
+
+					cout << "\n\n\n";
+					cout << "     ##################################" << endl; 
+					cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
+					cout << "     ##################################\n\n" << endl;
+					cin.get();
+					cin.get();//This one and the below are tests
+					cin.get();
 				}
+
+				else{
+					new_in_clip = primary_w.get_in_clip() -1;
+					primary_w.set_in_clip(new_in_clip);
+
+					cout << "\n\n\n";
+					cout << "     ###############" << endl;
+					cout << "     # You missed. #" << endl;
+					cout << "     ###############" << endl;
+					cin.get();
+					cin.get();//This one and the below are tests
+					cin.get();
+				}
+
 	}
-}*/
+}
 
 }
