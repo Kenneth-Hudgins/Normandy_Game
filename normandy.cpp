@@ -107,9 +107,9 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 
 //To be finished.....
-void validation(char choice);
+void validation(char &choice);
 
-void choices(char choice);
+void choices(char &choice);
 
 
 
@@ -1269,10 +1269,40 @@ void story_segment01(){
 //##########################################################
 void up_hill_battle(characters *your_player, weapons list[]){
 
+
+
+
+	/*Will have to pass all variables needed by display choices fuctions to 
+	choices function and be sure which ones need to be by referance. Which 
+	will result in a long ass function call.
+
+	validation functions needs to insure user input is sanitized.
+
+	After that the main loop should be constructed, look at camel
+	game for referance.
+
+	After that do do the im-feeling-lucky module, then figure out
+	whats going to happen once you reach the pill box.*/
+
+
+
+
+
+
+
+
 	int num_enemies = 4;
+
+	//While loop control, is true when distance traveled = 200
+	bool done = false;
+
+	//When player turn = true then enemies cant do anything except see player
+	bool player_turn = true;
+
 	enemy e_list[num_enemies];
 
 	set_enemy(e_list, num_enemies);
+
 
 
 	/*
@@ -1332,11 +1362,8 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 
-	//While loop control
-	bool done = false;
 
-	//When player turn = true then enemies cant do anything except see player
-	bool player_turn = true;
+	
 
 	//Players menu choice
 	char choice;
@@ -1374,6 +1401,7 @@ survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance
  pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
 
 e_list[0].set_location(14);
+
 cout << "E Health: " << e_list[0].get_health() << endl;
  player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies);
 cout << "E Health: " << e_list[0].get_health() << endl;
@@ -1451,7 +1479,12 @@ void display(){
 //##########################################################
 //################## CHOICES FUNCTION ######################
 //##########################################################
-void choices(char choice){
+void choices(char &choice){
+
+	cout << "     ###############################" << endl;
+	cout << "     # Enter your selection below: #" << endl;
+	cout << "     ###############################" << endl;
+
 
 
 	switch(choice){
@@ -1516,8 +1549,6 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 		cout << "     # Your out of ammunition. #" << endl;
 		cout << "     ###########################" << endl;
 		cin.get();
-		cin.get();//This one and the below are tests
-		cin.get();
 		return;
 	}
 
@@ -1528,8 +1559,6 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 		cout << "     # Your primary weapon is out of ammunition, #" << endl;
 		cout << "     # switch to your secondary.                 #" << endl;
 		cout << "     #############################################" << endl;
-		cin.get();
-		cin.get();//This one and the below are tests
 		cin.get();
 		return;
 	}
@@ -1552,12 +1581,16 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					cout << "     # no point in wasting ammunition.      #" << endl;
 					cout << "     ########################################" << endl;
 					cin.get();
-					cin.get();//This one and the below are tests
-					cin.get();
 					return;
 					}
 				
 				if(p_hit_or_miss(your_player) == false){
+
+
+					cout << "\n\n     #############" << endl;
+					cout << "     # Firing... #" << endl;
+					cout << "     #############" << endl;
+					cin.get();
 
 					//Subtracts 1 from primary w ammo
 					new_in_clip = primary_w.get_in_clip() -1;
@@ -1568,26 +1601,28 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					e_list[ix].set_health(new_health);
 
 
-					cout << "\n\n\n";
+					cout << "\n\n";
 					cout << "     ##################################" << endl; 
 					cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 					cout << "     ##################################\n\n" << endl;
 					cin.get();
-					cin.get();//This one and the below are tests
-					cin.get();
 				}
 
 				else{
+
+						cout << "\n\n     #############" << endl;
+					cout << "     # Firing... #" << endl;
+					cout << "     #############" << endl;
+					cin.get();
+
 					new_in_clip = primary_w.get_in_clip() -1;
 					primary_w.set_in_clip(new_in_clip);
 
-					cout << "\n\n\n";
+					cout << "\n\n";
 					cout << "     ###############" << endl;
 					cout << "     # You missed. #" << endl;
 					cout << "     ###############" << endl;
-					cin.get();
-					cin.get();//This one and the below are tests
-					cin.get();
+					cin.get();					
 				}
 
 	}
