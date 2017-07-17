@@ -109,7 +109,8 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 //To be finished.....
 void validation(char &choice);
 
-void choices(char &choice);
+/*This should have all of the needed variables passed by their correct values*/
+void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w);
 
 
 
@@ -1401,6 +1402,7 @@ survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance
  pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
 
 e_list[0].set_location(14);
+e_list[0].set_health(1);
 
 cout << "E Health: " << e_list[0].get_health() << endl;
  player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies);
@@ -1479,7 +1481,7 @@ void display(){
 //##########################################################
 //################## CHOICES FUNCTION ######################
 //##########################################################
-void choices(char &choice){
+void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w){
 
 	cout << "     ###############################" << endl;
 	cout << "     # Enter your selection below: #" << endl;
@@ -1606,6 +1608,17 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 					cout << "     ##################################\n\n" << endl;
 					cin.get();
+
+
+					if(new_health == 0){
+						cout << "\n\n";
+						cout << "     ###########################################" << endl;
+						cout << "     # You killed everyone in that position of #" << endl;
+						cout << "     # " << setw(18) << left << e_list[ix].get_name() << "                      #" << endl;
+						cout << "     ###########################################\n\n" << endl;
+						cin.get();
+					}
+
 				}
 
 				else{
