@@ -114,6 +114,8 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 
 void tips();
 
+void check_fatigue(characters *your_player);
+
 
 
 
@@ -208,6 +210,24 @@ int main(){
 
 
 void tips(){
+
+	char see_t = ' ';
+
+cout << "     See helpful tips?" << endl;
+	cout << "     Y/N: ";
+	cin >> see_t;
+	 	
+		 while((see_t != 'y') && (see_t != 'Y') && (see_t != 'n') && (see_t != 'N')){
+		 	cout << "\n\n     Y/N: ";
+		cin >> see_t;
+		 }
+
+		 	if((see_t == 'y') || (see_t == 'Y')){
+		 		
+		 	
+
+
+
 	cout << "\n\n\n";
 	cout << "     ########################################################" << endl;
 	cout << "     #                     HELPFUL TIPS                     #" << endl;
@@ -215,49 +235,48 @@ void tips(){
 	cout << "     #                                                      #" << endl;
 	cout << "     # TIP 1. In the menu, use the Survey-Forward-Area      #" << endl;
 	cout << "     # option often so you can get an idea of what you      #" << endl;
-	cout << "     # can expect from the 20 meters ahead of you.          #" << endl;
+	cout << "     # can expect from the next 20 meters ahead of you.     #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl; 	cin.get(); cin.get();
 	cout << "     # TIP 2. When you choose the Move-Forward option your  #" << endl;
 	cout << "     # player will move 5 meters ahead. The same applies    #" << endl;
 	cout << "     # while your player is in a crawling position,         #" << endl;
 	cout << "     # however, your ability to hit the enemy when firing   #" << endl;
 	cout << "     # from a crawling position will be hampered.           #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl; cin.get(); 
 	cout << "     # TIP 3. You can pick up a weapon if you are within 5  #" << endl;
 	cout << "     # meters of it. Your primary weapon will be switched   #" << endl;
 	cout << "     # in its place.                                        #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 4. If you try to fire at the enemy from behind   #" << endl;
 	cout << "     # cover your ability to hit them when will be          #" << endl;
 	cout << "     # hampered.                                            #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get();
 	cout << "     # TIP 5. If you make it to a location with a place to  #" << endl;
 	cout << "     # take cover then you will automaticly move to a       #" << endl;
 	cout << "     # covered position.                                    #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 6. If behind cover and wanting to move forward,  #" << endl;
 	cout << "     # make extra sure its what you want to do because      #" << endl;
 	cout << "     # there is no going back.                              #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 7. Some enemies will see you before you see      #" << endl;
 	cout << "     # them.                                                #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 8. Keep track of your health and fatigue levels. #" << endl;
 	cout << "     # Health can be restored by the use of your limited    #" << endl;
-	cout << "     # amount of medkits.Fatigue can only be alleviated by  #" << endl;
+	cout << "     # amount of medkits. Fatigue can only be alleviated by #" << endl;
 	cout << "     # resting.                                             #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;
+	cout << "     ########################################################\n\n" << endl;
+	cin.get();
+	}
 
 }
 
@@ -1146,6 +1165,7 @@ cout << "\n\n\n";
 //################## INTRO FUNCTION ###############
 //#################################################
 void intro(characters *d){
+	
 
 	cout << "\n\n\n";
 	cout << "                                                              888         " << endl;
@@ -1159,6 +1179,11 @@ void intro(characters *d){
 	cout << "                                                                      888 " << endl;
 	cout << "                                                                 Y8b d88P " << endl;
 	cout << "                                                                  'Y88P' \n\n\n " << endl;
+	cin.get();
+	
+	tips();
+	
+
 
 
 
