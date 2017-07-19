@@ -40,6 +40,9 @@ using namespace std;
 		return backstory;
 	}
 	
+	/*Goes up after certain choices made by player,
+	when it reaches 3 should allert player that
+	they need to rest, 4 should call killed module.*/
 	int characters::get_fatigue(){
 		return fatigue;
 	}

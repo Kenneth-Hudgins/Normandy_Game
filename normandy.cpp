@@ -112,6 +112,8 @@ void validation(char &choice);
 /*This should have all of the needed variables passed by their correct values*/
 void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w);
 
+void tips();
+
 
 
 
@@ -199,6 +201,65 @@ int main(){
 //################## END MAIN ####################***********************
 //################################################***********************
 
+
+
+
+
+
+
+void tips(){
+	cout << "\n\n\n";
+	cout << "     ########################################################" << endl;
+	cout << "     #                     HELPFUL TIPS                     #" << endl;
+	cout << "     ########################################################" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 1. In the menu, use the Survey-Forward-Area      #" << endl;
+	cout << "     # option often so you can get an idea of what you      #" << endl;
+	cout << "     # can expect from the 20 meters ahead of you.          #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 2. When you choose the Move-Forward option your  #" << endl;
+	cout << "     # player will move 5 meters ahead. The same applies    #" << endl;
+	cout << "     # while your player is in a crawling position,         #" << endl;
+	cout << "     # however, your ability to hit the enemy when firing   #" << endl;
+	cout << "     # from a crawling position will be hampered.           #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 3. You can pick up a weapon if you are within 5  #" << endl;
+	cout << "     # meters of it. Your primary weapon will be switched   #" << endl;
+	cout << "     # in its place.                                        #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 4. If you try to fire at the enemy from behind   #" << endl;
+	cout << "     # cover your ability to hit them when will be          #" << endl;
+	cout << "     # hampered.                                            #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 5. If you make it to a location with a place to  #" << endl;
+	cout << "     # take cover then you will automaticly move to a       #" << endl;
+	cout << "     # covered position.                                    #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 6. If behind cover and wanting to move forward,  #" << endl;
+	cout << "     # make extra sure its what you want to do because      #" << endl;
+	cout << "     # there is no going back.                              #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 7. Some enemies will see you before you see      #" << endl;
+	cout << "     # them.                                                #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     # TIP 8. Keep track of your health and fatigue levels. #" << endl;
+	cout << "     # Health can be restored by the use of your limited    #" << endl;
+	cout << "     # amount of medkits.Fatigue can only be alleviated by  #" << endl;
+	cout << "     # resting.                                             #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;
+
+}
 
 
 
@@ -332,7 +393,7 @@ void change_position_menu(characters *your_player){
 
 	/*Position player is currently in.
 		0 = upright, 1 = crawling, 2 = behind cover*/
-
+cout << "Current position: " << your_player->get_position() << "\n\n\n";
 	
 	/*While this is more complicated than just looking for a
 	char in the first place, I thought it educational to
@@ -375,7 +436,9 @@ void change_position_menu(characters *your_player){
 	//Validates that input is not of type char and is 0,1, or 2
 	while(isalpha(pos_choice) || ((pos_choice != '0') && (pos_choice != '1') && (pos_choice != '2') )){
 
-		cout << "\nINVALID SELECTION, PLEASE ENTER EITHER 0, 1, 2." << endl;
+		cout << "\n\n     ###################################################" << endl;
+		cout << "     # INVALID SELECTION, PLEASE ENTER EITHER 0, 1, 2. #" << endl;
+		cout << "     ###################################################" << endl;
 
 		cout << "POSITION CHOICE: ";
 		cin >> pos_choice;	
@@ -390,7 +453,13 @@ void change_position_menu(characters *your_player){
 	 //Exits this function if they enetered 2
 	 if(pc == 2){
 
+	 	cout << "\n\n\n";
+	 	cout << "     ########################################" << endl;
 	 	cout << "     # Okay, your position will not change. #" << endl;
+	 	cout << "     ########################################" << endl;
+	 	cin.get();
+	 	cin.get();
+
 		return;
 	}
 
@@ -399,7 +468,12 @@ void change_position_menu(characters *your_player){
 	//same position they are already in
 	//makes them choose something else
 	 if(pc == your_player->get_position()){
-	 	cout <<"You are already in the " << show_position(your_player) << " position." << endl;
+
+	 	cout << "\n\n";
+	 	cout << "     #####################################" << endl;
+	 	cout << "     # You are already in that position. #" << endl;
+	 	cout << "     #####################################" << endl;
+	 	cin.get();
 	 	cin.get();
 	 }
 
@@ -410,11 +484,25 @@ void change_position_menu(characters *your_player){
 	//Sets player position
 	if(pc == 0){
 		your_player->set_position(pc);
+
+		cout << "\n\n";
+		cout << "     ################################" << endl;
+		cout << "     # Changed to upright position. #" << endl;
+		cout << "     ################################\n" << endl;
+		cin.get();
+		cin.get();
 	}
 
 	//Sets player position
 	if(pc == 1){
 		your_player->set_position(pc);
+
+		cout << "\n\n";
+		cout << "     #################################" << endl;
+		cout << "     # Changed to crawling position. #" << endl;
+		cout << "     #################################\n" << endl;
+		cin.get();
+		cin.get();
 	}
 }
 
@@ -930,7 +1018,7 @@ bool p_hit_or_miss(characters *your_player){
 
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
 
-	if(your_player->get_position() !=2){
+	if((your_player->get_position() !=2) && (your_player->get_position() !=1)){
 		if(rand_hit <= 3){
 			missed = true;
 		}
@@ -1342,9 +1430,6 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	weapons primary_w;
 	weapons secondary_w;
 
-	//Random weapons, need to modify class to add location
-	//DOnt need this, have the weapons list passed from main-----weapons random_w[4];
-
 
 	//There is a covered position every 20 meters
 	//excluding the last 20
@@ -1374,9 +1459,6 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//Call display function
 	//display();
 
-
-	your_player->set_position(2);
-	//move_forward(distance_traveled, your_player);
 
 	
 	//Works
@@ -1433,7 +1515,7 @@ populate_cover(cover_spots);
 //pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
 
 
-//----------test----e_list[0].set_location(8);
+e_list[0].set_location(8);
 //----------test----e_list[0].set_health(1);
 
 
@@ -1522,6 +1604,7 @@ void display(){
 //################## PLAYER FIRE ON ENEMY FUNCTION ######################
 //#######################################################################
 void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies){
+	int no_e = 0;
 
 	//Checks if player even has ammo
 	if((primary_w.get_in_clip() == 0) && (secondary_w.get_in_clip() == 0)){
@@ -1565,40 +1648,40 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					return;
 					}
 				
-				if(p_hit_or_miss(your_player) == false){
+						if(p_hit_or_miss(your_player) == false){
 
 
-					cout << "\n\n     #############" << endl;
-					cout << "     # Firing... #" << endl;
-					cout << "     #############" << endl;
-					cin.get();
+							cout << "\n\n     #############" << endl;
+							cout << "     # Firing... #" << endl;
+							cout << "     #############" << endl;
+							cin.get();
 
-					//Subtracts 1 from primary w ammo
-					new_in_clip = primary_w.get_in_clip() -1;
-					primary_w.set_in_clip(new_in_clip);
-					
-					//Subtracts 1 from enemy health
-					new_health = e_list[ix].get_health() -1;
-					e_list[ix].set_health(new_health);
-
-
-					cout << "\n\n";
-					cout << "     ##################################" << endl; 
-					cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
-					cout << "     ##################################\n\n" << endl;
-					cin.get();
+							//Subtracts 1 from primary w ammo
+							new_in_clip = primary_w.get_in_clip() -1;
+							primary_w.set_in_clip(new_in_clip);
+							
+							//Subtracts 1 from enemy health
+							new_health = e_list[ix].get_health() -1;
+							e_list[ix].set_health(new_health);
 
 
-					if(new_health == 0){
-						cout << "\n\n";
-						cout << "     ###########################################" << endl;
-						cout << "     # You killed everyone in that position of #" << endl;
-						cout << "     # " << setw(18) << left << e_list[ix].get_name() << "                      #" << endl;
-						cout << "     ###########################################\n\n" << endl;
-						cin.get();
-					}
+							cout << "\n\n";
+							cout << "     ##################################" << endl; 
+							cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
+							cout << "     ##################################\n\n" << endl;
+							cin.get();
 
-				}
+
+								if(new_health == 0){
+									cout << "\n\n";
+									cout << "     ###########################################" << endl;
+									cout << "     # You killed everyone in that position of #" << endl;
+									cout << "     # " << setw(18) << left << e_list[ix].get_name() << "                      #" << endl;
+									cout << "     ###########################################\n\n" << endl;
+									cin.get();
+								}
+
+						}
 
 				else{
 
@@ -1611,13 +1694,19 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					primary_w.set_in_clip(new_in_clip);
 
 					cout << "\n\n";
-					cout << "     ###############" << endl;
-					cout << "     # You missed. #" << endl;
-					cout << "     ###############" << endl;
+					cout << "     #####################################" << endl;
+					cout << "     # You missed the " <<setw(18) << left << e_list[ix].get_name() << " #" << endl;
+					cout << "     #####################################" << endl;
 					cin.get();					
 				}
 
 	}
+
+	else{no_e++;}
+}
+
+if(no_e == num_enemies){
+	cout << "nothing in range" << endl;
 }
 
 }
@@ -1711,6 +1800,6 @@ void validation(char &choice){
 		cout << "     #################################################\n" << endl;
 		cin >> choice;
 	}
-
+cin.get();
 
 }
