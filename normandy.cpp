@@ -209,12 +209,19 @@ int main(){
 
 
 
+
+//#######################################################
+//################## TIPS FUNCTION ######################
+//#######################################################
 void tips(){
 
 	char see_t = ' ';
 
-cout << "     See helpful tips?" << endl;
-	cout << "     Y/N: ";
+	cout << "     #############################################" << endl;
+	cout << "     # Would you like to view some helpful tips? #" << endl;
+	cout << "     # Entering 'Y' will display tips, 'N' will  #" << endl;
+	cout << "     # start the game.                           #" << endl;
+	cout << "     #############################################" << endl;
 	cin >> see_t;
 	 	
 		 while((see_t != 'y') && (see_t != 'Y') && (see_t != 'n') && (see_t != 'N')){
@@ -1179,9 +1186,21 @@ void intro(characters *d){
 	cout << "                                                                      888 " << endl;
 	cout << "                                                                 Y8b d88P " << endl;
 	cout << "                                                                  'Y88P' \n\n\n " << endl;
+	cout << "     Press eneter: ";
 	cin.get();
 	
-	tips();
+
+	/*Rework this as a sort of menu, take out what isnt needed from tips
+	as you go along. Consider altering contineu function if not scrapping
+	it all togethor.*/
+
+
+	cout << "\n\n     ####################################################################" << endl;
+	cout << "     #  1. PLAY-GAME  #  2. VIEW-TIPS  #  3. QUIT  #  4. ABOUT CREATOR  #" << endl;
+	cout << "     ####################################################################" << endl;
+	cin.get();
+
+	//tips();
 	
 
 
