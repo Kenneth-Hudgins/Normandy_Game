@@ -116,6 +116,8 @@ void tips();
 
 void check_fatigue(characters *your_player);
 
+void about_creator();
+
 
 
 
@@ -215,24 +217,7 @@ int main(){
 //#######################################################
 void tips(){
 
-	char see_t = ' ';
-
-	cout << "     #############################################" << endl;
-	cout << "     # Would you like to view some helpful tips? #" << endl;
-	cout << "     # Entering 'Y' will display tips, 'N' will  #" << endl;
-	cout << "     # start the game.                           #" << endl;
-	cout << "     #############################################" << endl;
-	cin >> see_t;
-	 	
-		 while((see_t != 'y') && (see_t != 'Y') && (see_t != 'n') && (see_t != 'N')){
-		 	cout << "\n\n     Y/N: ";
-		cin >> see_t;
-		 }
-
-		 	if((see_t == 'y') || (see_t == 'Y')){
-		 		
-		 	
-
+	char choice = ' ';
 
 
 	cout << "\n\n\n";
@@ -258,8 +243,7 @@ void tips(){
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 4. If you try to fire at the enemy from behind   #" << endl;
-	cout << "     # cover your ability to hit them when will be          #" << endl;
-	cout << "     # hampered.                                            #" << endl;
+	cout << "     # cover your ability to hit them will be hampered.     #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get();
 	cout << "     # TIP 5. If you make it to a location with a place to  #" << endl;
@@ -283,8 +267,34 @@ void tips(){
 	cout << "     #                                                      #" << endl;
 	cout << "     ########################################################\n\n" << endl;
 	cin.get();
-	}
 
+	cout << "\n\n";
+	cout << "     ##############################" << endl;
+	cout << "     #  1. PLAY-GAME  #  2. QUIT  #" << endl;
+	cout << "     ##############################" << endl;
+
+	cout << "     #####################################" << endl;
+	cout << "     # Enter you choice of 1 or 2 below. #" << endl;
+	cout << "     #####################################" << endl;
+
+	cin >> choice;
+
+		while((choice != '1') && (choice != '2')){
+			cout << "\n\n";
+			cout << "     #####################################" << endl;
+			cout << "     # Enter you choice of 1 or 2 below. #" << endl;
+			cout << "     #####################################" << endl;
+
+			cin >> choice; 
+		}
+
+		if(choice == '2'){
+			cout << "\n\n\n";
+			cout << "     ######################" << endl;
+			cout << "     # PROGRAM TERMINATED #" << endl;
+			cout << "     ######################" << endl;
+			exit(0);
+		}
 }
 
 
@@ -1173,6 +1183,7 @@ cout << "\n\n\n";
 //#################################################
 void intro(characters *d){
 	
+	char choice = ' ';
 
 	cout << "\n\n\n";
 	cout << "                                                              888         " << endl;
@@ -1188,6 +1199,13 @@ void intro(characters *d){
 	cout << "                                                                  'Y88P' \n\n\n " << endl;
 	cout << "     Press eneter: ";
 	cin.get();
+
+
+								/*
+								The above ascii art was taken from: 
+								http://normandy.ascii.uk/ 
+								Had to change all of the " to '.
+								*/
 	
 
 	/*Rework this as a sort of menu, take out what isnt needed from tips
@@ -1198,26 +1216,45 @@ void intro(characters *d){
 	cout << "\n\n     ####################################################################" << endl;
 	cout << "     #  1. PLAY-GAME  #  2. VIEW-TIPS  #  3. QUIT  #  4. ABOUT CREATOR  #" << endl;
 	cout << "     ####################################################################" << endl;
-	cin.get();
 
-	//tips();
-	
+	cout << "             ###################################################" << endl;
+	cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
+	cout << "             ###################################################" << endl;
 
+	cin >> choice;
 
+		while((choice != '1') && (choice != '2') && (choice != '3') && (choice != '4')){
+			cout << "\n\n             ###################################################" << endl;
+			cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
+			cout << "             ###################################################" << endl;
 
+			cin >> choice; 
+		}
 
-								/*
-								The above ascii art was taken from: 
-								http://normandy.ascii.uk/ 
-								Had to change all of the " to '.
-								*/
+			//If player chose 1 then program will 
+			//already continue on
+			switch(choice){
 
-check_continue();
+				case '2': tips();
+				break;
+
+				case '3': 
+					cout << "\n\n\n";
+					cout << "     ######################" << endl;
+					cout << "     # PROGRAM TERMINATED #" << endl;
+					cout << "     ######################" << endl;
+					exit(0);
+				break;
+
+				case '4': about_creator();
+				break; 
+			}
+
 
 
 //Displays the characters backstory so they have a sense of who
 //they are playing as.
-		cout << "\n####################################" << endl;
+		cout << "\n\n\n\n\n####################################" << endl;
 		cout << "#         PLAYER CHARACTER         #" << endl;
 		cout << "####################################\n" << endl;
 		cout << d->get_backstory() << endl;
@@ -1228,8 +1265,14 @@ check_continue();
 		//Pause
 		cin.get();
 
+		check_continue();
 
-check_continue();
+		/*When done testing program this 
+		should be uncommented
+		-
+		-
+		-
+		------story_segment01();*/
 
 }
 
@@ -1846,4 +1889,21 @@ void validation(char &choice){
 	}
 cin.get();
 
+}
+
+
+
+
+
+
+//################################################################
+//################## ABOUT CREATOR FUNCTION ######################
+//################################################################
+void about_creator(){
+
+	cout << "\n\n\n     #####################################" << endl;
+	cout << "     #***********************************#" << endl;
+	cout << "     # This module is under construction #" << endl;
+	cout << "     #***********************************#" << endl;
+	cout << "     #####################################" << endl;
 }
