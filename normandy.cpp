@@ -12,14 +12,14 @@
 using namespace std;
 
 
-//+++++++++++++++++++++++++++++++++
-//+++++++++COVER STRUCTURE+++++++++
-//+++++++++++++++++++++++++++++++++
-//No range variable, will test it against 2 meters
-struct cover{
-	string name;
-	int location;
-};
+		//+++++++++++++++++++++++++++++++++
+		//+++++++++COVER STRUCTURE+++++++++
+		//+++++++++++++++++++++++++++++++++
+		//No range variable, will test it against 2 meters
+		struct cover{
+			string name;
+			int location;
+		};
 
 
 
@@ -38,7 +38,7 @@ void story_segment01();
 //or terminates the program
 void check_continue();
 
-//Choses random character player based from list
+//Chooses random character player based from list
 characters random_player();
 
 //Creates the list of in game weapons
@@ -48,10 +48,10 @@ void weapons_list(weapons list[]);
 void up_hill_battle(characters *your_player, weapons list[]);
 
 //Moves player forward by 5
-void move_forward(int &distance_traveled, characters *your_player);
+void move_forward(int &distance_traveled, characters *your_player, bool &player_turn, bool &done);
 
 //Sets fatigue = 0
-void rest_here_awhile(characters *your_player);
+void rest_here_awhile(characters *your_player, bool &player_turn);
 
 //Lets player change their position
 void change_position_menu(characters *your_player);
@@ -96,7 +96,7 @@ void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, w
 void make_covered(int distance_traveled, characters *your_player, cover *cover_spots, int num_covers);
 
 //Player attacks enemy
-void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies);
+void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies, bool &player_turn);
 
 
 
@@ -110,7 +110,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 void validation(char &choice);
 
 /*This should have all of the needed variables passed by their correct values*/
-void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w);
+void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn, bool &done);
 
 void tips();
 
@@ -229,7 +229,7 @@ void tips(){
 	cout << "     # option often so you can get an idea of what you      #" << endl;
 	cout << "     # can expect from the next 20 meters ahead of you.     #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl; 	cin.get(); cin.get();
+	cout << "     #                                                      #" << endl;cin.get(); cin.get();
 	cout << "     # TIP 2. When you choose the Move-Forward option your  #" << endl;
 	cout << "     # player will move 5 meters ahead. The same applies    #" << endl;
 	cout << "     # while your player is in a crawling position,         #" << endl;
@@ -1109,8 +1109,10 @@ bool e_hit_or_miss(characters *your_player){
 //###################################################################
 //################## REST HERE AWHILE FUNCTION ######################
 //###################################################################
-void rest_here_awhile(characters *your_player){
+void rest_here_awhile(characters *your_player, bool &player_turn){
 	your_player->set_fatigue(0);
+
+	player_turn = false;
 
 	cout << "\n\n\n";
 	cout << "     ##########################" << endl;
@@ -1118,6 +1120,8 @@ void rest_here_awhile(characters *your_player){
 	cout << "     ##########################" << endl;
 	cin.get();
 	cin.get();
+
+
 }
 
 
@@ -1127,7 +1131,7 @@ void rest_here_awhile(characters *your_player){
 //###############################################################
 //################## MOVE FORWARD FUNCTION ######################
 //###############################################################
-void move_forward(int &distance_traveled, characters *your_player){
+void move_forward(int &distance_traveled, characters *your_player, bool &player_turn, bool &done){
 
 	if(your_player->get_position() == 2){
 		your_player->set_position(0);
@@ -1147,6 +1151,12 @@ void move_forward(int &distance_traveled, characters *your_player){
 	cout << "     # You moved forward 5 meters. #" << endl;
 	cout << "     ###############################\n\n" << endl;
 	cin.get();
+
+	player_turn = false;
+
+	if(distance_traveled == 200){
+		done == true;
+	}
 }
 
 
@@ -1252,8 +1262,8 @@ void intro(characters *d){
 
 
 
-//Displays the characters backstory so they have a sense of who
-//they are playing as.
+		//Displays the characters backstory so they have a sense of who
+		//they are playing as.
 		cout << "\n\n\n\n\n####################################" << endl;
 		cout << "#         PLAYER CHARACTER         #" << endl;
 		cout << "####################################\n" << endl;
@@ -1266,6 +1276,9 @@ void intro(characters *d){
 		cin.get();
 
 		check_continue();
+
+
+
 
 		/*When done testing program this 
 		should be uncommented
@@ -1456,24 +1469,8 @@ void story_segment01(){
 //################## UP HILL BATTLE FUNCTION ###############
 //##########################################################
 void up_hill_battle(characters *your_player, weapons list[]){
-
-
-
-
-	/*---
-	---
-	---
-	---
-	---
-	---
-	---
-	Need a small optional tutorial module with short helpful 
-	tips such as telling the player what they need to do and 
-	stressing the fact that they should use surevey forward 
-	area often
-	---
-	---
-	---
+	
+	/*
 	---
 	---
 	---
@@ -1481,42 +1478,25 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	After that the main loop should be constructed, look at camel
 	game for referance.
-
-	After that do do the im-feeling-lucky module, then figure out
-	whats going to happen once you reach the pill box.*/
-
-
-
-
-
-
+	*/
 
 
 	int num_enemies = 4;
 
-	//While loop control, is true when distance traveled = 200
-	bool done = false;
+		//While loop control, is true when distance traveled = 200
+		bool done = false;
 
-	//When player turn = true then enemies cant do anything except see player
-	bool player_turn = true;
+		//When player turn = true then enemies cant do anything except see player
+		bool player_turn = true;
 
 	enemy e_list[num_enemies];
 
 	set_enemy(e_list, num_enemies);
 
-
-
-	/*
-	Thought about how I could just have
-	the pointer accept the address but after
-	a few minuets of messing with it I stopped
-	because the below already works
-	 */
 	//Initialize primary and
 	//secondary weapons
 	weapons primary_w;
 	weapons secondary_w;
-
 
 	//There is a covered position every 20 meters
 	//excluding the last 20
@@ -1540,6 +1520,12 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//Calls intro function and passes it
 	intro(your_player);
 
+	//Creates and sets cover spots
+	populate_cover(cover_spots);
+
+	//Players menu choice
+	char choice;
+
 	//Call story segment 01 function
 	//story_segment01();
 
@@ -1560,8 +1546,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 	
 
-	//Players menu choice
-	char choice;
+	
 
 
 
@@ -1581,7 +1566,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 //---------------------use_medkit(your_player);
 
 //Works
-populate_cover(cover_spots);
+
 
 //Works
 //---------------------e_hit_or_miss(your_player);
@@ -1602,9 +1587,6 @@ populate_cover(cover_spots);
 //pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
 
 
-e_list[0].set_location(8);
-//----------test----e_list[0].set_health(1);
-
 
 
 
@@ -1617,33 +1599,37 @@ e_list[0].set_location(8);
 //cout << "E Health: " << e_list[0].get_health() << endl;
 
 
-display();
-choices(choice, your_player, cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled, primary_w, secondary_w);
 
 
 
-		/*Build cover structures*/
+
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+	//do{
+		//do{
+
+			display();
+
+			choices(choice, your_player, cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled, primary_w, secondary_w, player_turn, done);
+		//}while(player_turn == true);	
+
+			//Put stuff after players turn here.
+
+	//}while(done == false);
 
 
-	/*
-	#
 
-	#
-
-	#
-
-	#
-
-	BUILD MENUE BLAH BLAH HERE
-
-	#
-
-	#
-
-	#
-
-	#
-	*/
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
 
 
@@ -1690,7 +1676,7 @@ void display(){
 //#######################################################################
 //################## PLAYER FIRE ON ENEMY FUNCTION ######################
 //#######################################################################
-void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies){
+void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons primary_w, weapons secondary_w,  enemy e_list[], int num_enemies, bool &player_turn){
 	int no_e = 0;
 
 	//Checks if player even has ammo
@@ -1796,6 +1782,8 @@ if(no_e == num_enemies){
 	cout << "nothing in range" << endl;
 }
 
+
+player_turn = false;
 }
 
 
@@ -1808,7 +1796,7 @@ if(no_e == num_enemies){
 //##########################################################
 //################## CHOICES FUNCTION ######################
 //##########################################################
-void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w){
+void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn, bool &done){
 
 	cout << "     ###############################" << endl;
 	cout << "     # Enter your selection below: #" << endl;
@@ -1825,11 +1813,11 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	break;
 
 	case 'b':
-	case 'B': rest_here_awhile(your_player);
+	case 'B': rest_here_awhile(your_player, player_turn);
 	break;
 
 	case 'c':
-	case 'C': move_forward(distance_traveled, your_player);
+	case 'C': move_forward(distance_traveled, your_player, player_turn, done);
 	break;
 
 	case 'd':
@@ -1837,7 +1825,7 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	break;
 
 	case 'e':
-	case 'E': player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies);
+	case 'E': player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies, player_turn);
 	break;
 
 	case 'f':
