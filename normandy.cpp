@@ -81,7 +81,7 @@ int damage_calc();
 void killed();
 
 //Enemy attacks player
-void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies);
+void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies);
 
 //Shows status report to player
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled);
@@ -221,6 +221,7 @@ void check_fatigue(characters *your_player){
 		cout << "     ###################" << endl;
 		cout << "     # Your exhausted. #" << endl;
 		cout << "     ###################" << endl;
+		cin.get();
 	}
 
 
@@ -833,7 +834,7 @@ int no_e = 0;
 
 		//Checks for forward weapons
 		//Ensures no negative numbers are displayed
-		if(list[ix].get_location() - distance_traveled > 0){
+		if((list[ix].get_location() - distance_traveled) > 0){
 
 			//Makes sure weapon is within player range
 			if( (list[ix].get_location() - distance_traveled <= 20) && (list[ix].get_location() - distance_traveled >= 0) ){
@@ -849,7 +850,7 @@ int no_e = 0;
 			//For the purpose of the code below it
 			else{no_w++;}
 		}
-
+		else{no_w++;}
 	}
 
 		if(no_w == num_weapons){
@@ -991,7 +992,7 @@ void make_covered(int distance_traveled, characters *your_player, cover *cover_s
 //######################################################################
 //################## ENEMY FIRE ON PLAYER FUNCTION #####################
 //######################################################################
-void enemy_fire_on_player(characters *your_player, bool player_turn, int distance_traveled, enemy e_list[], int num_enemies){
+void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies){
 
 //Damage variable
 int d;
@@ -1582,79 +1583,8 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//Players menu choice
 	char choice;
 
-	//Call story segment 01 function
-	//story_segment01();
 
-	//Call display function
-	//display();
-
-
-	
-	//Works
-	//status(your_player, primary_w, secondary_w, distance_to_pill, distance_traveled);
-
-
-
-
-
-
-
-
-	
-
-	
-
-
-
-	//Works
-	//cout << list[2].get_name() << endl;
-	//cout << list[0].get_name() << endl;
-	//cout << list[1].get_name() << endl;
-	//cout << "\n" << endl;
-
-//Working
-//---------------------switch_weapons(primary_w, secondary_w);
-
-//Working
-//---------------------change_position_menu(your_player);
-
-//Works
-//---------------------use_medkit(your_player);
-
-//Works
-
-
-//Works
-//---------------------e_hit_or_miss(your_player);
-
-
-
-
-//Works
-//------------
-//------------
-//survey_forward_area(cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled);
-
-
-
-//Works
-//------------
-//------------
-//pick_up_weapon(list, distance_traveled,primary_w, secondary_w);
-
-
-
-
-
-
-//Works
-//------------
-//------------
-//cout << "E Health: " << e_list[0].get_health() << endl;
- //player_fire_on_enemy(distance_traveled, your_player, primary_w, secondary_w, e_list, num_enemies);
-//cout << "E Health: " << e_list[0].get_health() << endl;
-
-
+					//story_segment01()
 
 
 
@@ -1668,35 +1598,29 @@ void up_hill_battle(characters *your_player, weapons list[]){
 
 
 
-				distance_traveled = 55;
-				player_turn = false;
-						
-						while(2 == 2){
-							enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies);
-
-						}
+				
 						
 
-	/*do{
+	while(done == false){
 
-			do{
+			while(player_turn == true){
+				
 				display();
 
 				choices(choice, your_player, cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled, primary_w, secondary_w, player_turn, done);
 
 				check_fatigue(your_player);
-
 				make_covered(distance_traveled, your_player, cover_spots, num_covers);
+				
 			
-			}while(player_turn == true);	
-
+			}
 
 	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies);
 
 
 
-	}while(done == false);
-	*/
+	}
+	
 
 
 
@@ -1865,6 +1789,7 @@ if(no_e == num_enemies){
 
 
 player_turn = false;
+//cout << "I am the greatest." << endl;
 }
 
 
