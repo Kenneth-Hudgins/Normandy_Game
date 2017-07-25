@@ -353,10 +353,10 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  PRIMARY WEAPON:          " << setw (29) << primary_w.get_name() << "   ##" << endl;
-	cout << "     ##  AMMUNITION:             " << setw(2) << right << primary_w.get_in_clip() << "/" << left << primary_w.get_ammo_capacity() << "                            ##" << endl;
+	cout << "     ##  AMMUNITION:             " << setw(2) << right << primary_w.get_in_clip() << "/" << setw(2) << left << primary_w.get_ammo_capacity() << "                            ##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  SECONDARY WEAPON:        " << setw (29) << secondary_w.get_name() << "   ##" << endl;
-	cout << "     ##  AMMUNITION:             " << setw(2) << right << secondary_w.get_in_clip() << "/" << left << secondary_w.get_ammo_capacity() << "                             ##" << endl;
+	cout << "     ##  AMMUNITION:             " << setw(2) << right << secondary_w.get_in_clip() << "/" << setw(2) << left << secondary_w.get_ammo_capacity() << "                            ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  KILL COUNT:         " << setw(2) << right << your_player->get_kill_count() << "                                   ##" << endl;
@@ -747,14 +747,17 @@ int no_e = 0;
 				//Ensures no negative numbers are displayed
 				 if(distance_traveled - e_list[ix].get_location() > 0){
 
-				 	//Makes sure enemy is within player range
-				 	if(distance_traveled - e_list[ix].get_location() <= 20){
-				 	cout << "     #                                                  #" << endl;
-				 	cout << "     # " << setw(2) << left << distance_traveled - e_list[ix].get_location() << " meters behind there are " << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << "   #" << endl;
-					cout << "     #                                                  #" << endl;
+				 	//Ensures only live enemies are displayed
+				 	if(e_list[ix].get_health() != 0){
 
-				 	}
+					 	//Makes sure enemy is within player range
+					 	if(distance_traveled - e_list[ix].get_location() <= 20){
+					 	cout << "     #                                                  #" << endl;
+					 	cout << "     # " << setw(2) << left << distance_traveled - e_list[ix].get_location() << " meters behind there are " << setw(2) << left << e_list[ix].get_num_e() << " " << setw(18) << left <<  e_list[ix].get_name() << " #" << endl;
+						cout << "     #                                                  #" << endl;
+					 	}
 
+				 	}				 	
 			 	
 			}
 
@@ -841,7 +844,7 @@ int no_e = 0;
 
 				cout << "     #                                                  #" << endl;
 				cout << "     # " <<setw(2) << left <<  list[ix].get_location() - distance_traveled << " meters ahead there is a:                      #" << endl;
-				cout << "     #                " << setw(27) << left<< list[ix].get_name() << "       #" << endl;
+				cout << "     #                " << setw(27) << left<< list[ix].get_name() << "    #" << endl;
 				cout << "     #         AMMUNITION: " << setw(2) << right << list[ix].get_in_clip() << "          CAPACITY: " << setw(2) << right << list[ix].get_ammo_capacity() << "     #" << endl;
 				cout << "     #                                                  #" << endl;
 			}
@@ -1108,14 +1111,15 @@ bool p_hit_or_miss(characters *your_player){
 
 	int rand_hit = (rand()% (15 - 0 + 1)) + 0;
 
-	if((your_player->get_position() !=2) && (your_player->get_position() !=1)){
-		if(rand_hit <= 3){
-			missed = true;
+		if((your_player->get_position() !=2) && (your_player->get_position() !=1)){
+
+			if(rand_hit <= 5){
+				missed = true;
+			}
 		}
-	}
 
 	else{
-		if(rand_hit <= 6){
+		if(rand_hit <= 8){
 		missed = true;
 		}
 	}
@@ -1587,7 +1591,50 @@ void up_hill_battle(characters *your_player, weapons list[]){
 					//story_segment01()
 
 
+/*
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+Known issues:
 
+-Survey area and status weapons may or may not be misaligned in some places
+
+-fire on enemies may or may not work if you are past dead enemies and trying
+to fire on newer enemies
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+*/
+
+
+
+
+
+	
 
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1709,7 +1756,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 		for(int ix = 0; ix < num_enemies; ix++){
 			
 			//Checks if enemy is within range of player, front only
-			if((e_list[ix].get_location() - distance_traveled <= 20) /*||(distance_traveled - e_list[ix].get_location() <= 20)*/ ){
+			if((e_list[ix].get_location() - distance_traveled <= 20) && (e_list[ix].get_location() - distance_traveled >= 0) ){
 
 					if(e_list[ix].get_health() == 0){
 					cout << "\n\n\n";
