@@ -60,7 +60,7 @@ void change_position_menu(characters *your_player);
 void use_medkit(characters *your_player);
 
 //Switches primary and secondary weapons
-void switch_weapons(weapons &primary_w, weapons &secondary_w);
+void switch_weapons(weapons &primary_w, weapons &secondary_w, bool &player_turn);
 
 //Sets up enemy specifics
 void set_enemy(enemy e_list[], int num_enemies);
@@ -81,7 +81,7 @@ int damage_calc();
 void killed();
 
 //Enemy attacks player
-void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies);
+void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies, bool &done);
 
 //Shows status report to player
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled);
@@ -90,7 +90,7 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 void survey_forward_area(cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int distance_traveled);
 
 //Switchtes primary weapon with weapon on the ground
-void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w);
+void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn);
 
 //Makes player covered if they are in the same location as a covered spot
 void make_covered(int distance_traveled, characters *your_player, cover *cover_spots, int num_covers);
@@ -419,7 +419,7 @@ string show_position(characters *your_player){
 //#################################################################
 //################## SWITCH WEAPONS FUNCTION ######################&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 //#################################################################
-void switch_weapons(weapons &primary_w, weapons &secondary_w){
+void switch_weapons(weapons &primary_w, weapons &secondary_w, bool &player_turn){
 
 	
 
@@ -444,7 +444,8 @@ void switch_weapons(weapons &primary_w, weapons &secondary_w){
 	cout << "     # have been switched.                #" << endl;
 	cout << "     ######################################\n\n" << endl;
 	cin.get(); 	
-	cin.get(); 
+	
+	player_turn = false;
 
 	/*In regards to the occasional extra cin.get's, it gets to me
 	that somewhere somehow there is something that the first cin.get
@@ -586,6 +587,16 @@ cout << "Current position: " << your_player->get_position() << "\n\n\n";
 //############################################################
 void use_medkit(characters *your_player){
 
+	if(your_player->get_health() == 100){
+		cout << "\n\n\n";
+		cout << "     ####################################" << endl;
+		cout << "     # Your health is already full, you #" << endl;
+		cout << "     # cant use a medkit right now.     #" << endl;
+		cout << "     ####################################\n\n" << endl;
+		return;
+
+	}
+
 	if(your_player->get_medkit() == 0){
 
 		cout << "\n\n\n";
@@ -674,15 +685,10 @@ void set_enemy(enemy e_list[], int size){
 	e_list[0].set_range(20);
 
 	e_list[1].set_name("machine gunners.");
-	e_list[1].set_num_e(2);
+	e_list[1].set_num_e(3);
 	e_list[1].set_location(110); 
 	e_list[1].set_range(20);
 
-	/*Will need something to tell player that there are snipers ahead
-	maybe when pllayer tries to return fire could display message 
-	saying because they are too far away they might miss along
-	with generator that makes them miss more the farther away they
-	are*/
 	e_list[2].set_name("snipers.");
 	e_list[2].set_num_e(3);
 	e_list[2].set_location(160);
@@ -800,7 +806,7 @@ int no_e = 0;
 
 				cout << "     #                                                  #" << endl;
 				cout << "     # " <<setw(2) << left <<  cover_spots[ix].location - distance_traveled << " meters ahead there is a:                      #" << endl;
-				cout << "     #                " << setw(27) << left<< cover_spots[ix].name << "       #" << endl;
+				cout << "     #                " << setw(27) << left << cover_spots[ix].name << "       #" << endl;
 				cout << "     #                                                  #" << endl;
 			}
 
@@ -844,7 +850,7 @@ int no_e = 0;
 
 				cout << "     #                                                  #" << endl;
 				cout << "     # " <<setw(2) << left <<  list[ix].get_location() - distance_traveled << " meters ahead there is a:                      #" << endl;
-				cout << "     #                " << setw(27) << left<< list[ix].get_name() << "    #" << endl;
+				cout << "     #              " << setw(29) << left<< list[ix].get_name() << "       #" << endl;
 				cout << "     #         AMMUNITION: " << setw(2) << right << list[ix].get_in_clip() << "          CAPACITY: " << setw(2) << right << list[ix].get_ammo_capacity() << "     #" << endl;
 				cout << "     #                                                  #" << endl;
 			}
@@ -883,7 +889,7 @@ int no_e = 0;
 //################################################################
 //################## PICK UP WEAPON FUNCTION #####################&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 //################################################################
-void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w){
+void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn){
 
 //Explained below
 int no_w = 0;
@@ -918,6 +924,7 @@ int ic;
 				}
 
 				else{
+					player_turn = false;
 
 
 //Sets temp variables = primary weapon
@@ -995,7 +1002,7 @@ void make_covered(int distance_traveled, characters *your_player, cover *cover_s
 //######################################################################
 //################## ENEMY FIRE ON PLAYER FUNCTION #####################
 //######################################################################
-void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies){
+void enemy_fire_on_player(characters *your_player, bool &player_turn, int distance_traveled, enemy e_list[], int num_enemies, bool &done){
 
 //Damage variable
 int d;
@@ -1007,10 +1014,12 @@ int new_health;
 	if((player_turn == false) && (your_player->get_position() != 2)){
 		
 		//Checks if player is within range of enemy in front or behind them
-		for(int ix = 0; ix < num_enemies; ix++){
+		for(int ix = 0; ix < 4/*num_enemies*/; ix++){
 			
-			if(distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range()) && distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range()) && (e_list[ix].get_health() > 0)){
-				
+			if((distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range())) && (distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())) && e_list[ix].get_health() >= 1){	
+	
+
+
 				if(e_hit_or_miss(your_player) == false){
 
 					d = damage_calc();
@@ -1039,11 +1048,7 @@ int new_health;
 					cout << "     # Your health: " << setw(3) << left << your_player->get_health() << "                        #" << endl;
 					cout << "     ###########################################\n\n" << endl;
 					check_continue();
-
-
-						
-
-				}
+					}
 
 				else if(e_hit_or_miss(your_player) == true){
 					cout << "\n" << endl;
@@ -1051,17 +1056,20 @@ int new_health;
 					cout << "  # Bullets fly by you just a few  #" << endl;
 					cout << "  # inches away.                   #" << endl;
 					cout << "  ##################################\n\n" << endl;
-					
-
-
 					check_continue();
 				}
 			}/*End of range check for()*/
-			ix++;
+			
 		}
 	}
 
-	player_turn = true;
+
+	//Placement for this could be better
+	if(distance_traveled >= 200){
+		done = true;
+	}
+
+	else{player_turn = true;}
 }
 
 
@@ -1256,7 +1264,7 @@ void intro(characters *d){
 	
 	char choice = ' ';
 
-	cout << "\n\n\n";
+	cout << "\n\n\n\n\n\n\n\n";
 	cout << "                                                              888         " << endl;
 	cout << "                                                              888         " << endl;
 	cout << "                                                              888         " << endl;
@@ -1268,36 +1276,30 @@ void intro(characters *d){
 	cout << "                                                                      888 " << endl;
 	cout << "                                                                 Y8b d88P " << endl;
 	cout << "                                                                  'Y88P' \n\n\n " << endl;
-	cout << "     Press eneter: ";
-	cin.get();
-
-
 								/*
 								The above ascii art was taken from: 
 								http://normandy.ascii.uk/ 
 								Had to change all of the " to '.
 								*/
-	
-
-	/*Rework this as a sort of menu, take out what isnt needed from tips
-	as you go along. Consider altering contineu function if not scrapping
-	it all togethor.*/
 
 
-	cout << "\n\n     ####################################################################" << endl;
+	cout << "\n\n";
+	cout << "     ####################################################################" << endl;
 	cout << "     #  1. PLAY-GAME  #  2. VIEW-TIPS  #  3. QUIT  #  4. ABOUT CREATOR  #" << endl;
 	cout << "     ####################################################################" << endl;
 
-	cout << "             ###################################################" << endl;
+	cout << "             #                                                 #" << endl;
 	cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
-	cout << "             ###################################################" << endl;
-
+	cout << "             ###################################################\n" << endl;
+	cout << "             Choice: ";
 	cin >> choice;
 
 		while((choice != '1') && (choice != '2') && (choice != '3') && (choice != '4')){
-			cout << "\n\n             ###################################################" << endl;
-			cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
+			cout << "\n\n";
 			cout << "             ###################################################" << endl;
+			cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
+			cout << "             ###################################################\n" << endl;
+			cout << "             Choice: ";
 
 			cin >> choice; 
 		}
@@ -1407,19 +1409,19 @@ void weapons_list(weapons list[]){
 	
 
 	//Pistol, starting secondary weapon
-	list[0].set("Sauer 38H Pistol", 8, 8, 50);  
+	list[0].set("Sauer 38H Pistol", 8, 8, 50); 
 
 	//Other weapon that can be found by chance
-	list[1].set("Nagant M1895 Revolver", 7, 7, 20); 
+	list[1].set("Nagant M1895 Revolver", 7, 7, 20);
 
 	//Other weapon that can be found by chance
-	list[2].set("StG 45 Storm Rifle", 30, 30, 160); 
+	list[2].set("StG 45 Storm Rifle", 30, 30, 160);
 
 	//Other weapon that can be found by chance
-	list[3].set("Browning Automatic Rifle", 20, 20, 80); 
+	list[3].set("Browning Automatic Rifle", 20, 20, 80);
 
 	//Starting primary weapon
-	list[4].set("M1941 Johnson Rifle", 10, 10, 100); 
+	list[4].set("M1941 Johnson Rifle", 10, 10, 100);
 
 	//Other weapon that can be found by chance
 	list[5].set("Ithaca 37 Pump-Action Shotgun", 5, 5, 130);
@@ -1591,44 +1593,7 @@ void up_hill_battle(characters *your_player, weapons list[]){
 					//story_segment01()
 
 
-/*
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
-Known issues:
 
--Survey area and status weapons may or may not be misaligned in some places
-
--fire on enemies may or may not work if you are past dead enemies and trying
-to fire on newer enemies
--
--
--
--
--
--
--
--
--
--
--
--
--
--
--
-*/
 
 
 
@@ -1644,9 +1609,8 @@ to fire on newer enemies
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-
 				
-						
+							
 
 	while(done == false){
 
@@ -1662,7 +1626,7 @@ to fire on newer enemies
 			
 			}
 
-	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies);
+	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
 
 
 
@@ -1678,6 +1642,9 @@ to fire on newer enemies
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }
+
+
+
 
 
 
@@ -1704,7 +1671,7 @@ void display(){
 	cout << "     ##                                                         ##" << endl;
 	cout << "     ##  G.   Survey-Forward-Area      H.   Use-Medkit          ##" << endl;	
 	cout << "     ##                                                         ##" << endl;	
-	cout << "     ##  I.   Pick_Up_Weapon           J.   Im-Feeling-lucky    ##" << endl;	
+	cout << "     ##  I.   Pick_Up_Weapon                                    ##" << endl;	
 	cout << "     ##                                                         ##" << endl;
 	cout << "     #############################################################" << endl;
 	cout << "     ##---------------------------------------------------------##" << endl;
@@ -1882,7 +1849,7 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	break;
 
 	case 'f':
-	case 'F': switch_weapons(primary_w, secondary_w);
+	case 'F': switch_weapons(primary_w, secondary_w, player_turn);
 	break;
 
 	case 'g':
@@ -1894,10 +1861,11 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	break;
 
 	case 'i':
-	case 'I': pick_up_weapon(list, distance_traveled, primary_w, secondary_w);
+	case 'I': pick_up_weapon(list, distance_traveled, primary_w, secondary_w, player_turn);
 	break;
 
-	case 'j':
+
+/*	case 'j':
 	case 'J':
 	 	cout << "     #####################################" << endl;
 				cout << "     #***********************************#" << endl;
@@ -1905,7 +1873,15 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 				cout << "     #***********************************#" << endl;
 				cout << "     #####################################" << endl;
 	break;
+			
+			REASON FOR DEPRECATION: I had origionally planned to add this feature to
+			allow for rare events in which the player would get say a special long 
+			range weapon or the chance for a beneficial special event to occur. 
+			However, due to my lack of including support for this throught the 
+			construction of this program I  have decided it would be best to scrap
+			the whole feature. 
 
+	*/
 	}
 
 }
@@ -1924,7 +1900,7 @@ void validation(char &choice){
 	cout << "     Your choice: ";
 	cin >> choice;
 
-	while((choice != 'a') && (choice != 'A') && (choice != 'b') && (choice != 'B') && (choice != 'c') && (choice != 'C') && (choice != 'd') && (choice != 'D') && (choice != 'e') && (choice != 'E') && (choice != 'f') && (choice != 'F') && (choice != 'g') && (choice != 'G') && (choice != 'h') && (choice != 'H') && (choice != 'i') && (choice != 'I') && (choice != 'j') && (choice != 'J')){
+	while((choice != 'a') && (choice != 'A') && (choice != 'b') && (choice != 'B') && (choice != 'c') && (choice != 'C') && (choice != 'd') && (choice != 'D') && (choice != 'e') && (choice != 'E') && (choice != 'f') && (choice != 'F') && (choice != 'g') && (choice != 'G') && (choice != 'h') && (choice != 'H') && (choice != 'i') && (choice != 'I')){
 
 		cout << "\n\n";
 		cout << "     #################################################" << endl;

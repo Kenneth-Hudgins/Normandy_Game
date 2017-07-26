@@ -16,7 +16,7 @@ using namespace std;
 	 health = 100;
 	 kill_count = 0;
 	 position = 0;
-	 medkit = 4;
+	 medkit = 2;
 
 }
 
