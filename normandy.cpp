@@ -44,8 +44,15 @@ characters random_player();
 //Creates the list of in game weapons
 void weapons_list(weapons list[]);
 
-//First mission
-void up_hill_battle(characters *your_player, weapons list[]);
+
+
+								/*First mission
+								should be changed to return a char to determin what happens
+								once the player reaches the pillbox depending on if they 
+								killed all of the pillbox soldiers or not.*/
+								bool up_hill_battle(characters *your_player, weapons list[]);
+
+
 
 //Moves player forward by 5
 void move_forward(int &distance_traveled, characters *your_player, bool &player_turn, bool &done);
@@ -98,8 +105,47 @@ void make_covered(int distance_traveled, characters *your_player, cover *cover_s
 //Player attacks enemy
 void player_fire_on_enemy(int distance_traveled, characters *your_player, weapons &primary_w, weapons &secondary_w,  enemy e_list[], int num_enemies, bool &player_turn);
 
+//Tells player if they need to rest
+void check_fatigue(characters *your_player);
+
+//Displays what is basically the tutorial
+void tips();
+
+/*This should have all of the needed variables passed by their correct values*/
+void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn, bool &done);
+
+//Validates main menu input for up_hill_battle function
+void validation(char &choice);
 
 
+
+
+/*Things to do:
+
+-Need to build something that outputs certain comments from the
+players character depending on their character and their location
+*
+*
+*
+*
+*
+*
+*
+-Need to plan out whats going to happen once the player reaches the pillbox,
+how the story is going to play out depending on if they killed all of the 
+enemies
+*
+*
+*
+*
+*
+*
+*
+
+-Need to suggest in tips function that player can run past enemies if they 
+can make it but that they shouldnt and they cant turn around and fire on
+them if they do.
+*/
 
 
 
@@ -107,28 +153,9 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 
 //To be finished.....
-void validation(char &choice);
-
-/*This should have all of the needed variables passed by their correct values*/
-void choices(char &choice, characters *your_player, cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int &distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn, bool &done);
-
-void tips();
-
-void check_fatigue(characters *your_player);
 
 void about_creator();
 
-
-
-
-
-
-//Not lucky = 0, lucky event 1 = 1,
-//lucky event 2 = 2, etc, return 
-//specific int to be checked in
-//loop or by other function to
-//enact event instance
-int  feeling_lucky();
 
 
 
@@ -358,9 +385,9 @@ void status(characters *your_player, weapons primary_w, weapons secondary_w, int
 	cout << "     ##  SECONDARY WEAPON:        " << setw (29) << secondary_w.get_name() << "   ##" << endl;
 	cout << "     ##  AMMUNITION:             " << setw(2) << right << secondary_w.get_in_clip() << "/" << setw(2) << left << secondary_w.get_ammo_capacity() << "                            ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
-	cout << "     ##                                                           ##" << endl;
+	/*cout << "     ##                                                           ##" << endl;
 	cout << "     ##  KILL COUNT:         " << setw(2) << right << your_player->get_kill_count() << "                                   ##" << endl;
-	cout << "     ##___________________________________________________________##" << endl;
+	cout << "     ##___________________________________________________________##" << endl;*/
 	cout << "     ##                                                           ##" << endl;
 	cout << "     ##  MEDKITS:     " << your_player->get_medkit() << "            POSITION:     " << setw(13) << left << show_position(your_player) << "    ##" << endl;
 	cout << "     ##___________________________________________________________##" << endl;
@@ -421,6 +448,7 @@ string show_position(characters *your_player){
 //#################################################################
 void switch_weapons(weapons &primary_w, weapons &secondary_w, bool &player_turn){
 
+player_turn = false;
 	
 
 	//Sets temp variables = primary weapon
@@ -445,7 +473,7 @@ void switch_weapons(weapons &primary_w, weapons &secondary_w, bool &player_turn)
 	cout << "     ######################################\n\n" << endl;
 	cin.get(); 	
 	
-	player_turn = false;
+	
 
 	/*In regards to the occasional extra cin.get's, it gets to me
 	that somewhere somehow there is something that the first cin.get
@@ -517,8 +545,10 @@ cout << "Current position: " << your_player->get_position() << "\n\n\n";
 		cout << "\n";
 	};
 
-	//Gets the integer version of the pos_choice
-	//After validation done above
+	/*The below gets the integer version of the pos_choice
+	 after validation done above. Resources online say it 
+	 works because of how the ascii characters are store 
+	 in memory, which I can understand.*/
 	 pc = pos_choice - '0';
 
 	 //Checks if user doesnt want to change position
@@ -1014,7 +1044,7 @@ int new_health;
 	if((player_turn == false) && (your_player->get_position() != 2)){
 		
 		//Checks if player is within range of enemy in front or behind them
-		for(int ix = 0; ix < 4/*num_enemies*/; ix++){
+		for(int ix = 0; ix < num_enemies; ix++){
 			
 			if((distance_traveled >= (e_list[ix].get_location() - e_list[ix].get_range())) && (distance_traveled <= (e_list[ix].get_location() + e_list[ix].get_range())) && e_list[ix].get_health() >= 1){	
 	
@@ -1531,18 +1561,11 @@ void story_segment01(){
 //##########################################################
 //################## UP HILL BATTLE FUNCTION ###############
 //##########################################################
-void up_hill_battle(characters *your_player, weapons list[]){
-	
-	/*
-	---
-	---
-	---
-	---
+bool up_hill_battle(characters *your_player, weapons list[]){
 
-	After that the main loop should be constructed, look at camel
-	game for referance.
-	*/
-
+/*Will be returned by this function to do what was
+described in its header*/ 	
+bool all_e_killed = true;
 
 	int num_enemies = 4;
 
@@ -1627,9 +1650,6 @@ void up_hill_battle(characters *your_player, weapons list[]){
 			}
 
 	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
-
-
-
 	}
 	
 
@@ -1641,6 +1661,17 @@ void up_hill_battle(characters *your_player, weapons list[]){
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
+	for(int ix = 0; ix < num_enemies; ix++){
+
+	if(e_list[ix].get_health() != 0){
+		all_e_killed = false;
+
+	}
+
+	}
+	return all_e_killed;
+
 }
 
 
@@ -1803,7 +1834,6 @@ if(no_e == num_enemies){
 
 
 player_turn = false;
-//cout << "I am the greatest." << endl;
 }
 
 
