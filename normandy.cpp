@@ -121,30 +121,12 @@ void validation(char &choice);
 
 
 /*Things to do:
-
--Need to build something that outputs certain comments from the
-players character depending on their character and their location
-*
-*
-*
-*
-*
-*
-*
+-
+-
+-
 -Need to plan out whats going to happen once the player reaches the pillbox,
 how the story is going to play out depending on if they killed all of the 
-enemies
-*
-*
-*
-*
-*
-*
-*
-
--Need to suggest in tips function that player can run past enemies if they 
-can make it but that they shouldnt and they cant turn around and fire on
-them if they do.
+enemies.
 */
 
 
@@ -153,6 +135,12 @@ them if they do.
 
 
 //To be finished.....
+
+//Player killed all enemies
+void pillbox_a();
+
+//Player didnt kill enemies
+void pillbox_b();
 
 void about_creator();
 
@@ -316,11 +304,17 @@ void tips(){
 	cout << "     # there is no going back.                              #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 7. Some enemies will see you before you see      #" << endl;
+	cout << "     # TIP 7. The above also applies to enemies. You can    #" << endl;
+	cout << "     # move past enemy soldiers without defeating them,     #" << endl;
+	cout << "     # but once you do that they can still attack you       #" << endl;
+	cout << "     # without you being able to return fire on them.       #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get();  
+	cout << "     # TIP 8. Some enemies will see you before you see      #" << endl;
 	cout << "     # them.                                                #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 8. Keep track of your health and fatigue levels. #" << endl;
+	cout << "     # TIP 9. Keep track of your health and fatigue levels. #" << endl;
 	cout << "     # Health can be restored by the use of your limited    #" << endl;
 	cout << "     # amount of medkits. Fatigue can only be alleviated by #" << endl;
 	cout << "     # resting.                                             #" << endl;
@@ -750,8 +744,7 @@ cout << "\n\n\n" << endl;
 	cout << "     #                                                  #" << endl;
 	cout << "     # ENEMIES:                                         #" << endl;
 
-//Variable is used to calculate display no enemies are visable
-	
+//Variable is used to calculate display no enemies are visable	
 	/*For future reference, the reason this particular variable was giving me
 	issues was because I was using it to search for both forward and backward 
 	enemies, which is why it was always printing the wrong thing for the 
@@ -767,7 +760,7 @@ int no_e = 0;
 
 		//Checks for forward enemies
 		//Ensures no negative numbers are displayed
-		if(e_list[ix].get_location() - distance_traveled > 0){
+		if(e_list[ix].get_location() - distance_traveled >= 0){
 
 			//Makes sure enemy is within player range
 			if( (e_list[ix].get_location() - distance_traveled <= 20) && (e_list[ix].get_health() > 0) ){
@@ -778,6 +771,7 @@ int no_e = 0;
 
 			else{no_e++;} 
 	}
+	else{no_e++;} 
 
 				//Checks for enemies behind player
 				//Ensures no negative numbers are displayed
@@ -801,7 +795,7 @@ int no_e = 0;
 			
 	}
 
-		if(no_e == num_enemies){
+		if(no_e >= num_enemies){
 			cout << "     #         NO VISABLE ENEMIES AHEAD                 #" << endl;
 			cout << "     #                                                  #" << endl;
 			cout << "     ####################################################" << endl;
@@ -842,8 +836,11 @@ int no_e = 0;
 
 			//If none of the above are present this is incremented up
 			//For the purpose of the code below it
-			else{no_c++;}
+			
+			else{no_c++;} //Origional
 		}
+
+		else{no_c++;}
 
 	}
 
@@ -935,12 +932,12 @@ int ic;
 	{
 		if((list[i].get_location() - distance_traveled == 5) || (list[i].get_location() - distance_traveled == 0)) {
 			cout << "\n\n\n";
-			cout << "     ######################################################" << endl;
-			cout << "     #                                                    #" << endl;
-			cout << "     # Do you want to switch your primary weapon with the #" << endl;
-			cout << "     #               " << setw(27) << left<< list[i].get_name() << "          #" << endl;
-			cout << "     #                                                    #" << endl;
-			cout << "     ######################################################" << endl;
+			cout << "     #######################################################" << endl;
+			cout << "     #                                                     #" << endl;
+			cout << "     # Do you want to switch your primary weapon with the  #" << endl;
+			cout << "     #            " << setw(29) << left<< list[i].get_name() << "?           #" << endl;
+			cout << "     #                                                     #" << endl;
+			cout << "     #######################################################" << endl;
 
 
 
@@ -1613,7 +1610,11 @@ bool all_e_killed = true;
 	char choice;
 
 
-					//story_segment01()
+	
+
+
+	story_segment01();
+
 
 
 
@@ -1727,6 +1728,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 	//Checks if player even has ammo
 	if((primary_w.get_in_clip() == 0) && (secondary_w.get_in_clip() == 0)){
 		cout << "\n\n\n";
+		player_turn = false;
 		cout << "     ###########################" << endl;
 		cout << "     # Your out of ammunition. #" << endl;
 		cout << "     ###########################" << endl;
@@ -1736,6 +1738,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 	/*Assuming at least the secondary has ammo but primary doesnt, tells player they need to switch weapons*/
 	if(primary_w.get_in_clip() <= 0){
+		player_turn = false;
 		cout << "\n\n\n";
 		cout << "     #############################################" << endl;
 		cout << "     # Your primary weapon is out of ammunition, #" << endl;
@@ -1788,6 +1791,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 							cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 							cout << "     ##################################\n\n" << endl;
 							cin.get();
+							player_turn = false;
 
 
 								if(new_health == 0){
@@ -1815,7 +1819,8 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					cout << "     #####################################" << endl;
 					cout << "     # You missed the " <<setw(18) << left << e_list[ix].get_name() << " #" << endl;
 					cout << "     #####################################" << endl;
-					cin.get();					
+					cin.get();		
+					player_turn = false;			
 				}
 
 	}
@@ -1824,6 +1829,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 }
 
 if(no_e == num_enemies){
+	player_turn = false;
 	cout << "\n\n";
 	cout << "     #####################" << endl;
 	cout << "     # Nothing in range. #" << endl;
@@ -1832,7 +1838,9 @@ if(no_e == num_enemies){
 
 }
 
-
+/*I have this statement in this function a few times more than what seems needed
+because occasionaly it doesnt seem to work and I cant pinpoint where is causing
+it*/
 player_turn = false;
 }
 
