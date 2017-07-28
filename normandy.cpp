@@ -232,7 +232,7 @@ int main(){
 void check_fatigue(characters *your_player){
 
 	if(your_player->get_fatigue() == 3){
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n";
 		cout << "     ###################" << endl;
 		cout << "     # Your exhausted. #" << endl;
 		cout << "     ###################" << endl;
@@ -241,7 +241,7 @@ void check_fatigue(characters *your_player){
 
 
 		if(your_player->get_fatigue() > 3){
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n";
 		cout << "         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 		cout << "         !#############################################!" << endl;
 		cout << "         !#           YOU DIED OF EXHAUSTION          #!" << endl;
@@ -268,7 +268,7 @@ void tips(){
 	char choice = ' ';
 
 
-	cout << "\n\n\n";
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	cout << "     ########################################################" << endl;
 	cout << "     #                     HELPFUL TIPS                     #" << endl;
 	cout << "     ########################################################" << endl;
@@ -363,7 +363,7 @@ void tips(){
 void status(characters *your_player, weapons primary_w, weapons secondary_w, int distance_to_pill, int distance_traveled){
 
 
-	cout <<"\n\n\n\n\n" << endl; 	
+	cout <<"\n\n\n\n\n\n\n\n\n\n\n" << endl; 	
 	cout << "     ###############################################################" << endl;
 	cout << "     ##----------------------STATUS REPORT------------------------##" << endl;
 	cout << "     ##----------------------The " << setfill('-') << setw(15) << left <<your_player->get_nickname() << "------------------##" <<  setfill(' ') << endl;
@@ -460,7 +460,7 @@ player_turn = false;
 	secondary_w.set_ammo_capacity(ac);
 	secondary_w.set_in_clip(ic);
 
-	cout << "\n\n" << endl;
+	cout << "\n\n\n\n\n\n\n\n\n\n\n" << endl;
 	cout << "     ######################################" << endl;
 	cout << "     # Your primary and secondary weapons #" << endl;
 	cout << "     # have been switched.                #" << endl;
@@ -487,7 +487,6 @@ void change_position_menu(characters *your_player){
 
 	/*Position player is currently in.
 		0 = upright, 1 = crawling, 2 = behind cover*/
-cout << "Current position: " << your_player->get_position() << "\n\n\n";
 	
 	/*While this is more complicated than just looking for a
 	char in the first place, I thought it educational to
@@ -501,7 +500,7 @@ cout << "Current position: " << your_player->get_position() << "\n\n\n";
 	//Final variable to be used for manipulation
 	int pc;
 
-	cout << "\n\n" << endl;
+	cout << "\n\n\n\n\n\n\n\n" << endl;
 	cout << "     ##############################################" << endl;
 	cout << "     ##-----------CHANGE POSITION MENU-----------##" << endl;
 	cout << "     ##############################################" << endl;
@@ -612,18 +611,19 @@ cout << "Current position: " << your_player->get_position() << "\n\n\n";
 void use_medkit(characters *your_player){
 
 	if(your_player->get_health() == 100){
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		cout << "     ####################################" << endl;
 		cout << "     # Your health is already full, you #" << endl;
 		cout << "     # cant use a medkit right now.     #" << endl;
 		cout << "     ####################################\n\n" << endl;
+		cin.get();
 		return;
 
 	}
 
 	if(your_player->get_medkit() == 0){
 
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		cout << "     #####################################" << endl;
 		cout << "     # You dont have any medkits to use. #" << endl;
 		cout << "     #####################################\n" << endl;
@@ -637,7 +637,7 @@ void use_medkit(characters *your_player){
 
 		your_player->set_medkit(new_medkit);
 
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		cout << "     ##########################" << endl;
 		cout << "     # Health fully restored. #" << endl;
 		cout << "     ##########################\n" << endl;
@@ -735,7 +735,7 @@ void set_enemy(enemy e_list[], int size){
 //#####################################################################
 void survey_forward_area(cover *cover_spots, int num_covers, weapons list[], enemy e_list[], int num_enemies, int distance_to_pill, int distance_traveled){
 
-cout << "\n\n\n" << endl;
+cout << "\n\n\n\n\n\n\n\n\n\n" << endl;
 	cout << "     ####################################################" << endl;
 	cout << "     #          SURVEY OF AREA 20 METERS AHEAD          #" << endl;
 	cout << "     ####################################################" << endl;
@@ -931,7 +931,7 @@ int ic;
 	for (int i = 0; i < 6; i++)
 	{
 		if((list[i].get_location() - distance_traveled == 5) || (list[i].get_location() - distance_traveled == 0)) {
-			cout << "\n\n\n";
+			cout << "\n\n\n\n\n\n\n\n\n";
 			cout << "     #######################################################" << endl;
 			cout << "     #                                                     #" << endl;
 			cout << "     # Do you want to switch your primary weapon with the  #" << endl;
@@ -978,11 +978,10 @@ int ic;
 	}
 
 	if(no_w == 6){
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		cout << "     ###############################" << endl;
 		cout << "     # No weapons to pickup nearby #" << endl;
 		cout << "     ###############################" << endl;
-		cin.get();
 		cin.get();
 	}
 }
@@ -1006,7 +1005,7 @@ void make_covered(int distance_traveled, characters *your_player, cover *cover_s
 
 	for(int ix = 0; ix < num_covers; ix++){
 		if(distance_traveled - cover_spots[ix].location == 0){
-			cout << "\n\n" << endl;
+			cout << "\n\n\n\n\n\n\n" << endl;
 			cout << "     ##################################" << endl;
 			cout << "     # You have found cover behind a  #" << endl;
 			cout << "     # " << setw(27) << left << cover_spots[ix].name << "    #" << endl;
@@ -1058,7 +1057,7 @@ int new_health;
 
 								//Calls killed function if players health is <= 0
 								if(your_player->get_health() <= 0){
-									cout << "\n\n     ###########################################"<< endl;
+									cout << "\n\n\n\n\n\n\n\n     ###########################################"<< endl;
 									cout << "     # You took damage from " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 									cout << "     ###########################################"<< endl;
 									cin.get();
@@ -1069,7 +1068,7 @@ int new_health;
 
 
 
-					cout << "\n     ###########################################"<< endl;
+					cout << "\n\n\n\n\n\n\n\n     ###########################################"<< endl;
 					cout << "     # You took damage from " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 					cout << "     #                                         #" << endl;
 					cout << "     # Your health: " << setw(3) << left << your_player->get_health() << "                        #" << endl;
@@ -1078,7 +1077,7 @@ int new_health;
 					}
 
 				else if(e_hit_or_miss(your_player) == true){
-					cout << "\n" << endl;
+					cout << "\n\n\n\n\n" << endl;
 					cout << "  ##################################" << endl;
 					cout << "  # Bullets fly by you just a few  #" << endl;
 					cout << "  # inches away.                   #" << endl;
@@ -1109,7 +1108,7 @@ int new_health;
 //########################################################
 void killed(){
 	
-	cout << "\n\n\n";
+	cout << "\n\n\n\n\n\n\n\n\n";
 	cout << "         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
 	cout << "         !################################!" << endl;
 	cout << "         !#           YOU DIED           #!" << endl;
@@ -1207,7 +1206,7 @@ void rest_here_awhile(characters *your_player, bool &player_turn){
 
 	player_turn = false;
 
-	cout << "\n\n\n";
+	cout << "\n\n\n\n\n\n\n\n\n";
 	cout << "     ##########################" << endl;
 	cout << "     # Your now fully rested. #" << endl;
 	cout << "     ##########################" << endl;
@@ -1232,7 +1231,7 @@ void move_forward(int &distance_traveled, characters *your_player, bool &player_
 	if(your_player->get_position() == 2){
 		your_player->set_position(0);
 
-		cout << "\n\n";
+		cout << "\n\n\n\n\n\n\n\n";
 		cout << "     ############################" << endl;
 		cout << "     # You have changed into an #" << endl;
 		cout << "     # " << setw(8) << left << show_position(your_player) << "position.        #" << endl;
@@ -1242,7 +1241,7 @@ void move_forward(int &distance_traveled, characters *your_player, bool &player_
 
  distance_traveled+= 5;
 
- 	cout << "\n\n";
+ 	cout << "\n\n\n\n\n\n\n\n";
 	cout << "     ###############################" << endl;
 	cout << "     # You moved forward 5 meters. #" << endl;
 	cout << "     ###############################\n\n" << endl;
@@ -1311,34 +1310,30 @@ void intro(characters *d){
 
 
 	cout << "\n\n";
-	cout << "     ####################################################################" << endl;
-	cout << "     #  1. PLAY-GAME  #  2. VIEW-TIPS  #  3. QUIT  #  4. ABOUT CREATOR  #" << endl;
-	cout << "     ####################################################################" << endl;
+	cout << "     #####################################################################" << endl;
+	cout << "     #     1. PLAY-GAME     #     2. QUIT     #     3. ABOUT CREATOR     #" << endl;
+	cout << "     #####################################################################" << endl;
 
-	cout << "             #                                                 #" << endl;
-	cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
-	cout << "             ###################################################\n" << endl;
-	cout << "             Choice: ";
+	cout << "\n     ################################################" << endl;
+	cout << "     # Enter you choice of either 1, 2, or 3 below. #" << endl;
+	cout << "     ################################################\n" << endl;
+	cout << "     Choice: ";
 	cin >> choice;
 
-		while((choice != '1') && (choice != '2') && (choice != '3') && (choice != '4')){
+		while((choice != '1') && (choice != '2') && (choice != '3')){
 			cout << "\n\n";
-			cout << "             ###################################################" << endl;
-			cout << "             # Enter you choice of either 1, 2, 3, or 4 below. #" << endl;
-			cout << "             ###################################################\n" << endl;
-			cout << "             Choice: ";
-
-			cin >> choice; 
+			cout << "         ################################################" << endl;
+			cout << "         # Enter you choice of either 1, 2, or 3 below. #" << endl;
+			cout << "         ################################################\n" << endl;
+			cout << "         Choice: ";
+			cin >> choice;
 		}
 
 			//If player chose 1 then program will 
 			//already continue on
 			switch(choice){
 
-				case '2': tips();
-				break;
-
-				case '3': 
+				case '2': 
 					cout << "\n\n\n";
 					cout << "     ######################" << endl;
 					cout << "     # PROGRAM TERMINATED #" << endl;
@@ -1346,15 +1341,16 @@ void intro(characters *d){
 					exit(0);
 				break;
 
-				case '4': about_creator();
+				case '3': about_creator();
 				break; 
 			}
 
+		tips();
 
 
 		//Displays the characters backstory so they have a sense of who
 		//they are playing as.
-		cout << "\n\n\n\n\n####################################" << endl;
+		cout << "\n\n\n\n\n\n\n\n\n####################################" << endl;
 		cout << "#         PLAYER CHARACTER         #" << endl;
 		cout << "####################################\n" << endl;
 		cout << d->get_backstory() << endl;
@@ -1370,12 +1366,7 @@ void intro(characters *d){
 
 
 
-		/*When done testing program this 
-		should be uncommented
-		-
-		-
-		-
-		------story_segment01();*/
+		
 
 }
 
@@ -1472,7 +1463,7 @@ void weapons_list(weapons list[]){
 //############################################################
 void story_segment01(){
 
-		cout << "###############################################" << endl;
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n###############################################" << endl;
 		cout << "#            THE BEACH                        #" << endl;
 		cout << "###############################################\n" << endl;
 		cout << "-You were lucky to be in the third wave; " << endl;
@@ -1631,7 +1622,7 @@ bool all_e_killed = true;
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+//distance_traveled = 55;
 
 				
 							
@@ -1649,7 +1640,7 @@ bool all_e_killed = true;
 				
 			
 			}
-
+			
 	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
 	}
 	
@@ -1690,7 +1681,7 @@ void display(){
 //Change position option should have submenu asking to either stand upright, 
 //crawl, or find cover
 
-	cout <<"\n\n\n\n\n" << endl; 	
+	cout <<"\n\n\n\n\n\n\n\n\n\n\n\n" << endl; 	
 	cout << "     #############################################################" << endl;
 	cout << "     ##----------------------ACTIONS MENU-----------------------##" << endl;
 	cout << "     #############################################################" << endl;
@@ -1727,7 +1718,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 	//Checks if player even has ammo
 	if((primary_w.get_in_clip() == 0) && (secondary_w.get_in_clip() == 0)){
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		player_turn = false;
 		cout << "     ###########################" << endl;
 		cout << "     # Your out of ammunition. #" << endl;
@@ -1739,7 +1730,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 	/*Assuming at least the secondary has ammo but primary doesnt, tells player they need to switch weapons*/
 	if(primary_w.get_in_clip() <= 0){
 		player_turn = false;
-		cout << "\n\n\n";
+		cout << "\n\n\n\n\n\n\n\n\n";
 		cout << "     #############################################" << endl;
 		cout << "     # Your primary weapon is out of ammunition, #" << endl;
 		cout << "     # switch to your secondary.                 #" << endl;
@@ -1760,7 +1751,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 			if((e_list[ix].get_location() - distance_traveled <= 20) && (e_list[ix].get_location() - distance_traveled >= 0) ){
 
 					if(e_list[ix].get_health() == 0){
-					cout << "\n\n\n";
+					cout << "\n\n\n\n\n\n\n\n\n";
 					cout << "     ########################################" << endl;
 					cout << "     # The nazis in that position are dead, #" << endl;
 					cout << "     # no point in wasting ammunition.      #" << endl;
@@ -1772,7 +1763,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 						if(p_hit_or_miss(your_player) == false){
 
 
-							cout << "\n\n     #############" << endl;
+							cout << "\n\n\n\n\n\n\n\n     #############" << endl;
 							cout << "     # Firing... #" << endl;
 							cout << "     #############" << endl;
 							cin.get();
@@ -1786,7 +1777,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 							e_list[ix].set_health(new_health);
 
 
-							cout << "\n\n";
+							cout << "\n\n\n\n\n\n\n\n";
 							cout << "     ##################################" << endl; 
 							cout << "     # You hit the " << setw(18) << left << e_list[ix].get_name() << " #" << endl;
 							cout << "     ##################################\n\n" << endl;
@@ -1795,7 +1786,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 
 								if(new_health == 0){
-									cout << "\n\n";
+									cout << "\n\n\n\n\n\n\n\n";
 									cout << "     ###########################################" << endl;
 									cout << "     # You killed everyone in that position of #" << endl;
 									cout << "     # " << setw(18) << left << e_list[ix].get_name() << "                      #" << endl;
@@ -1807,7 +1798,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 				else{
 
-						cout << "\n\n     #############" << endl;
+						cout << "\n\n\n\n\n\n\n\n     #############" << endl;
 					cout << "     # Firing... #" << endl;
 					cout << "     #############" << endl;
 					cin.get();
@@ -1815,7 +1806,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 					new_in_clip = primary_w.get_in_clip() -1;
 					primary_w.set_in_clip(new_in_clip);
 
-					cout << "\n\n";
+					cout << "\n\n\n\n\n\n\n\n";
 					cout << "     #####################################" << endl;
 					cout << "     # You missed the " <<setw(18) << left << e_list[ix].get_name() << " #" << endl;
 					cout << "     #####################################" << endl;
@@ -1830,7 +1821,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 
 if(no_e == num_enemies){
 	player_turn = false;
-	cout << "\n\n";
+	cout << "\n\n\n\n\n";
 	cout << "     #####################" << endl;
 	cout << "     # Nothing in range. #" << endl;
 	cout << "     #####################" << endl;
@@ -1961,7 +1952,7 @@ cin.get();
 //################################################################
 void about_creator(){
 
-	cout << "\n\n\n     #####################################" << endl;
+	cout << "\n\n\n\n\n\n     #####################################" << endl;
 	cout << "     #***********************************#" << endl;
 	cout << "     # This module is under construction #" << endl;
 	cout << "     #***********************************#" << endl;
