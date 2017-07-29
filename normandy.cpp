@@ -273,51 +273,60 @@ void tips(){
 	cout << "     #                     HELPFUL TIPS                     #" << endl;
 	cout << "     ########################################################" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     # TIP 1. In the menu, use the Survey-Forward-Area      #" << endl;
+	cout << "     # TIP 1. You will need to mpress the enter key to move #" << endl;
+	cout << "     # through all of the displays and after choice input   #" << endl;
+	cout << "     # inorder to progress through the game.                #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get();
+	cout << "     # TIP 2. Expand your terminal window, preferably to    #" << endl;
+	cout << "     # full screen, so you can best see the displays.       #" << endl;
+	cout << "     #                                                      #" << endl;
+	cout << "     #                                                      #" << endl;cin.get();
+	cout << "     # TIP 3. In the menu, use the Survey-Forward-Area      #" << endl;
 	cout << "     # option often so you can get an idea of what you      #" << endl;
 	cout << "     # can expect from the next 20 meters ahead of you.     #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); cin.get();
-	cout << "     # TIP 2. When you choose the Move-Forward option your  #" << endl;
+	cout << "     # TIP 4. When you choose the Move-Forward option your  #" << endl;
 	cout << "     # player will move 5 meters ahead. The same applies    #" << endl;
 	cout << "     # while your player is in a crawling position,         #" << endl;
 	cout << "     # however, your ability to hit the enemy when firing   #" << endl;
 	cout << "     # from a crawling position will be hampered.           #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl; cin.get(); 
-	cout << "     # TIP 3. You can pick up a weapon if you are within 5  #" << endl;
+	cout << "     # TIP 5. You can pick up a weapon if you are within 5  #" << endl;
 	cout << "     # meters of it. Your primary weapon will be switched   #" << endl;
 	cout << "     # in its place.                                        #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 4. If you try to fire at the enemy from behind   #" << endl;
+	cout << "     # TIP 6. If you try to fire at the enemy from behind   #" << endl;
 	cout << "     # cover your ability to hit them will be hampered.     #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get();
-	cout << "     # TIP 5. If you make it to a location with a place to  #" << endl;
+	cout << "     # TIP 7. If you make it to a location with a place to  #" << endl;
 	cout << "     # take cover then you will automaticly move to a       #" << endl;
 	cout << "     # covered position.                                    #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 6. If behind cover and wanting to move forward,  #" << endl;
+	cout << "     # TIP 8. If behind cover and wanting to move forward,  #" << endl;
 	cout << "     # make extra sure its what you want to do because      #" << endl;
 	cout << "     # there is no going back.                              #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 7. The above also applies to enemies. You can    #" << endl;
+	cout << "     # TIP 9. The above also applies to enemies. You can    #" << endl;
 	cout << "     # move past enemy soldiers without defeating them,     #" << endl;
 	cout << "     # but once you do that they can still attack you       #" << endl;
 	cout << "     # without you being able to return fire on them.       #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get();  
-	cout << "     # TIP 8. Some enemies will see you before you see      #" << endl;
+	cout << "     # TIP 10. Some enemies will see you before you see     #" << endl;
 	cout << "     # them.                                                #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     #                                                      #" << endl;cin.get(); 
-	cout << "     # TIP 9. Keep track of your health and fatigue levels. #" << endl;
-	cout << "     # Health can be restored by the use of your limited    #" << endl;
-	cout << "     # amount of medkits. Fatigue can only be alleviated by #" << endl;
-	cout << "     # resting.                                             #" << endl;
+	cout << "     # TIP 11. Keep track of your health and fatigue        #" << endl;
+	cout << "     # levels. Health can be restored by the use of your    #" << endl;
+	cout << "     # limited amount of medkits. Fatigue can only be       #" << endl;
+	cout << "     # alleviated by resting.                               #" << endl;
 	cout << "     #                                                      #" << endl;
 	cout << "     ########################################################\n\n" << endl;
 	cin.get();
@@ -1952,9 +1961,67 @@ cin.get();
 //################################################################
 void about_creator(){
 
-	cout << "\n\n\n\n\n\n     #####################################" << endl;
-	cout << "     #***********************************#" << endl;
-	cout << "     # This module is under construction #" << endl;
-	cout << "     #***********************************#" << endl;
+char choice;
+
+	cout << "\n\n\n\n\n\n\n\n\n";
+	cout << "     #########################################################" << endl;
+	cout << "     #*******************************************************#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* This program was created by Kenneth William Hudgins *#" << endl;
+	cout << "     #* durring the summer of 2017. I am currently 21 and   *#" << endl;
+	cout << "     #* half way to getting my programming analyst          *#" << endl;
+	cout << "     #* associates degree at the Central Texas College main *#" << endl;
+	cout << "     #* campus.                                             *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* This Normandy game was meant to be my first solo    *#" << endl;
+	cout << "     #* (albeit incredibly simple and small) coding project *#" << endl;
+	cout << "     #* outside of completeing my C++ class that spring     *#" << endl;
+	cout << "     #* semester at CTC.                                    *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* As of wrighting this on 7/28/17, 11:34pm I feel I   *#" << endl;
+	cout << "     #* am incredibly behind in regards to what I need to   *#" << endl;
+	cout << "     #* know for software development so I spend as much of *#" << endl;
+	cout << "     #* my free time as possible learing and going to tech  *#" << endl;
+	cout << "     #* events in my area while I am not at work or school. *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* You can see how my career is progressing at the     *#" << endl;
+	cout << "     #* following places:                                   *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* My Website:             www.kenhudgins.com          *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* Or my YouTube channel:                              *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #* www.youtube.com/channel/UCiTKXwXWYj9mNBR2voSH08A    *#" << endl;
+	cout << "     #*                                                     *#" << endl;
+	cout << "     #*******************************************************#" << endl;
+	cout << "     #########################################################\n\n" << endl;
+	cin.get();
+
+	cout << "\n\n";
+	cout << "     ##############################" << endl;
+	cout << "     #  1. PLAY-GAME  #  2. QUIT  #" << endl;
+	cout << "     ##############################" << endl;
+
 	cout << "     #####################################" << endl;
+	cout << "     # Enter you choice of 1 or 2 below. #" << endl;
+	cout << "     #####################################" << endl;
+
+	cin >> choice;
+
+		while((choice != '1') && (choice != '2')){
+			cout << "\n\n";
+			cout << "     #####################################" << endl;
+			cout << "     # Enter you choice of 1 or 2 below. #" << endl;
+			cout << "     #####################################" << endl;
+
+			cin >> choice; 
+		}
+
+		if(choice == '2'){
+			cout << "\n\n\n";
+			cout << "     ######################" << endl;
+			cout << "     # PROGRAM TERMINATED #" << endl;
+			cout << "     ######################" << endl;
+			exit(0);
+		}
 }
