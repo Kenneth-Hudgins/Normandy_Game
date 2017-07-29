@@ -46,11 +46,7 @@ void weapons_list(weapons list[]);
 
 
 
-								/*First mission
-								should be changed to return a char to determin what happens
-								once the player reaches the pillbox depending on if they 
-								killed all of the pillbox soldiers or not.*/
-								bool up_hill_battle(characters *your_player, weapons list[]);
+bool up_hill_battle(characters *your_player, weapons list[]);
 
 
 
@@ -277,7 +273,7 @@ void tips(){
 	cout << "     # through all of the displays and after choice input   #" << endl;
 	cout << "     # inorder to progress through the game.                #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;cin.get();
+	cout << "     #                                                      #" << endl;cin.get();cin.get();
 	cout << "     # TIP 2. Expand your terminal window, preferably to    #" << endl;
 	cout << "     # full screen, so you can best see the displays.       #" << endl;
 	cout << "     #                                                      #" << endl;
@@ -286,7 +282,7 @@ void tips(){
 	cout << "     # option often so you can get an idea of what you      #" << endl;
 	cout << "     # can expect from the next 20 meters ahead of you.     #" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     #                                                      #" << endl;cin.get(); cin.get();
+	cout << "     #                                                      #" << endl;cin.get(); 
 	cout << "     # TIP 4. When you choose the Move-Forward option your  #" << endl;
 	cout << "     # player will move 5 meters ahead. The same applies    #" << endl;
 	cout << "     # while your player is in a crawling position,         #" << endl;
@@ -1560,8 +1556,10 @@ void story_segment01(){
 //##########################################################
 bool up_hill_battle(characters *your_player, weapons list[]){
 
-/*Will be returned by this function to do what was
-described in its header*/ 	
+/*If returned as true then all enemies were killed and
+that varient of the next mission will be called, if 
+returned as false then the not all enemies killed 
+variant of the next mission will be called instead.*/	
 bool all_e_killed = true;
 
 	int num_enemies = 4;
@@ -1624,55 +1622,51 @@ bool all_e_killed = true;
 
 
 	
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
 
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//distance_traveled = 55;
 
 				
 							
 
-	while(done == false){
+		while(done == false){
 
-			while(player_turn == true){
+				while(player_turn == true){
+					
+					display();
+
+					choices(choice, your_player, cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled, primary_w, secondary_w, player_turn, done);
+
+					check_fatigue(your_player);
+					make_covered(distance_traveled, your_player, cover_spots, num_covers);
+					
 				
-				display();
-
-				choices(choice, your_player, cover_spots, num_covers, list, e_list, num_enemies, distance_to_pill, distance_traveled, primary_w, secondary_w, player_turn, done);
-
-				check_fatigue(your_player);
-				make_covered(distance_traveled, your_player, cover_spots, num_covers);
+				}
 				
-			
+		enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
+		}
+	
+
+
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
+	
+
+		//Determins if all enemies were killed or not
+		for(int ix = 0; ix < num_enemies; ix++){
+
+			if(e_list[ix].get_health() != 0){
+				all_e_killed = false;
+
 			}
-			
-	enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
-	}
+
+		}
 	
 
-
-
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	
-	for(int ix = 0; ix < num_enemies; ix++){
-
-	if(e_list[ix].get_health() != 0){
-		all_e_killed = false;
-
-	}
-
-	}
-	return all_e_killed;
-
+return all_e_killed;
 }
 
 
@@ -1913,11 +1907,14 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	break;
 			
 			REASON FOR DEPRECATION: I had origionally planned to add this feature to
-			allow for rare events in which the player would get say a special long 
+			allow for rare events in which the player would get, say, a special long 
 			range weapon or the chance for a beneficial special event to occur. 
 			However, due to my lack of including support for this throught the 
 			construction of this program I  have decided it would be best to scrap
 			the whole feature. 
+
+			Note to self: Plann everything out before hand so you can build it right
+			the first time.
 
 	*/
 	}
@@ -1968,24 +1965,28 @@ char choice;
 	cout << "     #*******************************************************#" << endl;
 	cout << "     #*                                                     *#" << endl;
 	cout << "     #* This program was created by Kenneth William Hudgins *#" << endl;
-	cout << "     #* durring the summer of 2017. I am currently 21 and   *#" << endl;
+	cout << "     #* during the summer of 2017. I am currently 21 and    *#" << endl;
 	cout << "     #* half way to getting my programming analyst          *#" << endl;
 	cout << "     #* associates degree at the Central Texas College main *#" << endl;
 	cout << "     #* campus.                                             *#" << endl;
 	cout << "     #*                                                     *#" << endl;
+	cout << "     #*                                                     *#" << endl;cin.get();cin.get();
 	cout << "     #* This Normandy game was meant to be my first solo    *#" << endl;
 	cout << "     #* (albeit incredibly simple and small) coding project *#" << endl;
 	cout << "     #* outside of completeing my C++ class that spring     *#" << endl;
 	cout << "     #* semester at CTC.                                    *#" << endl;
 	cout << "     #*                                                     *#" << endl;
+	cout << "     #*                                                     *#" << endl;cin.get();
 	cout << "     #* As of wrighting this on 7/28/17, 11:34pm I feel I   *#" << endl;
 	cout << "     #* am incredibly behind in regards to what I need to   *#" << endl;
 	cout << "     #* know for software development so I spend as much of *#" << endl;
-	cout << "     #* my free time as possible learing and going to tech  *#" << endl;
+	cout << "     #* my free time as possible learning and going to tech *#" << endl;
 	cout << "     #* events in my area while I am not at work or school. *#" << endl;
 	cout << "     #*                                                     *#" << endl;
+	cout << "     #*                                                     *#" << endl;cin.get();
 	cout << "     #* You can see how my career is progressing at the     *#" << endl;
 	cout << "     #* following places:                                   *#" << endl;
+	cout << "     #*                                                     *#" << endl;
 	cout << "     #*                                                     *#" << endl;
 	cout << "     #* My Website:             www.kenhudgins.com          *#" << endl;
 	cout << "     #*                                                     *#" << endl;
