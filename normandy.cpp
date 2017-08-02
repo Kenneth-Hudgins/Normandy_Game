@@ -170,6 +170,24 @@ int main(){
 
 
 
+pillbox_a();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	/*
 	Thought about how I could just have
@@ -191,7 +209,7 @@ int main(){
 	the characters variable above it*/
 
 	/*^(much later) Does not need to return array if its passed by referance, 
-	which arrays are already passed by referance*/
+	which arrays are already passed by referance. Im an idiot.*/
 
 	//**************
 	/*Passes list to weapons_list
@@ -2029,4 +2047,169 @@ char choice;
 			cout << "     ######################" << endl;
 			exit(0);
 		}
+}
+
+
+
+
+
+
+
+//################################################################
+//################## PILLBOX A FUNCTION ##########################
+//################################################################
+void pillbox_a(){
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
+cout << "     ################################################################" << endl;
+cout << "     #                     ENTERING THE PILLBOX                     #" << endl;
+cout << "     ################################################################" << endl;
+cout << "     #                                                              #" << endl;
+cout << "     #                                                              #" << endl;
+cout << "     # You keep moving forward, pushing through the heavy sand and  #" << endl;
+cout << "     # stepping over lifeless corpses of German soldiers both young #" << endl;
+cout << "     # and old.                                                     #" << endl;
+cin.get();
+
+cout << "     # The pillbox looms just above you just a few meters ahead, a  #" << endl;
+cout << "     # large concrete dome like structure jutting out of the beach  #" << endl;
+cout << "     # hillside maybe 10 feet tall; a long 2 feet wide slit running #" << endl;
+cout << "     # horizontally at shoulder hight for soldiers to fire their    #" << endl;
+cout << "     # weapons through, as well as a small cannon in the middle     #" << endl;
+cout << "     # that would seem to beare down on you menacingly if not for   #" << endl;
+cout << "     # fact that its inoperable.                                    #" << endl;   
+cin.get();                        
+
+cout << "     # You limp around to the back of the structure and find the    #" << endl;
+cout << "     # entrance. The inside is dark, the only source of light comes #" << endl;
+cout << "     # from the entrance and long opening on the wall. You count 4  #" << endl;
+cout << "     # bodies on the floor in various positions, all suffered some  #" << endl;
+cout << "     # degree of damage to the upper torso, a few even missing      #" << endl;
+cout << "     # their heads. Maybe thats what the bloody mess on the wall    #" << endl;
+cout << "     # behind them is.                                              #" << endl;
+cin.get();
+
+cout << "     # There is an ammunition room to the left of the bodies. There #" << endl;
+cout << "     # are boxes strewn about all over the floor, machine gun and   #" << endl;
+cout << "     # rifle ammo mostly, with a few large crates of shells for the #" << endl;
+cout << "     # cannon. It looks like they were running low on supplies      #" << endl;
+cout << "     # since almost everything is gone. The air is thick with the   #" << endl;
+cout << "     # smell of gunpowder and spent brass.                          #" << endl;
+cin.get();
+
+cout << "     # While this pillbox may currently be neutralized, you cant    #" << endl;
+cout << "     # risk the possibility that the Germans might reclaim this     #" << endl;
+cout << "     # position. As you lean on one of the cold concrete walls to   #" << endl;
+cout << "     # rest and contemplate how you can permanently disable this    #" << endl;
+cout << "     # position, you suddenly have an idea.                         #" << endl;
+cin.get();
+
+cout << "     # It takes a few minuets, the sound of gunfire and men yelling #" << endl;
+cout << "     # in a foreign language can be heard in the not too far        #" << endl;
+cout << "     # distance as you dig through the mostly empty crates to find  #" << endl;
+cout << "     # what your looking for, tossing aside useless debris and      #" << endl;
+cout << "     # material as you try not to slip on the empty casings that    #" << endl;
+cout << "     # litter the floor. Tripping over something stupid and falling #" << endl;
+cout << "     # on your ass is the last thing you need at the moment.        #" << endl;
+cin.get();
+
+cout << "     # After what seems like half an hour, but was more than likely #" << endl;
+cout << "     # 10 minuets or so, you find enough of what your looking for.  #" << endl;
+cin.get();
+
+cout << "     # 14 high explosive shells for the cannon and 5 grenades. You  #" << endl;
+cout << "     # pocket one of the grenades and align everything else around  #" << endl;
+cout << "     # what you think are the structurally weakest points of the    #" << endl;
+cout << "     # pillbox interior, namely in the corners and along the front  #" << endl;
+cout << "     # under the horizontal firing opening. By no means are you an  #" << endl;
+cout << "     # engineer but you think it should easily collapse the         #" << endl;
+cout << "     # structure; or, at the very least, turn it into such a burned #" << endl;
+cout << "     # out shell of concrete barely held together by its iron       #" << endl;
+cout << "     # supports that no krout would ever consider using it in the   #" << endl;
+cout << "     # future.                                                      #" << endl;
+cin.get();
+
+cout << "     # Walking outside, you turn back and take one last look inside #" << endl;
+cout << "     # at the bodies. You feel tired and exhausted; reaching into   #" << endl;
+cout << "     # your pocket you fish out the grenade you picked up just a    #" << endl;
+cout << "     # few moments ago.                                             #" << endl;
+cin.get();
+
+cout << "     # Closing your eyes, you pull the pin while still holding the  #" << endl;
+cout << "     # lever.                                                       #" << endl;
+cin.get();
+
+cout << "     # Breath in...                                                 #" << endl;
+cin.get();
+
+cout << "     # Breath out...                                                #" << endl;
+cin.get();
+
+cout << "     # You chuck the primed grenade into the pillbox entrance and   #" << endl;
+cout << "     # see it bounce off one of the walls before it rolls out of    #" << endl;
+cout << "     # sight into a corner. You turn around and start hauling ass   #" << endl;
+cout << "     # up the hill behind the pillbox.                              #" << endl;
+cin.get();
+
+cout << "     # 3                                                            #" << endl;
+cin.get();
+
+cout << "     # You run and climb up the hill as fast as you can. Its too    #" << endl;
+cout << "     # steep for you to make progress fast enough. Almost every     #" << endl;
+cout << "     # hand and foot hold gives way to spilling sand or loose dirt. #" << endl;
+cin.get();
+
+cout << "     # 2                                                            #" << endl;
+cin.get();
+
+cout << "     # Your half way up the hill, about 6, no, 7 meters away from   #" << endl;
+cout << "     # the pillbox and scrambling for purchase as you try to get    #" << endl;
+cout << "     # higher.                                                      #" << endl;
+cin.get();
+
+cout << "     # 1                                                            #" << endl;
+cin.get();
+
+cout << "     # You manage to climb another meter and a half up the hill     #" << endl;
+cout << "     # before you realize you wont make it far enough away in time. #" << endl;
+cin.get();
+
+cout << "     # The explosion shatters the world around you, lifting your    #" << endl;
+cout << "     # body up like doll and throwing you just over the top of the  #" << endl;
+cout << "     # hill as chunks of rock and concrete fly in every direction.  #" << endl;
+cout << "     # A fireball shoots up 100 feet into the air while dozens of   #" << endl;
+cout << "     # smaller explosions can be heard when the remaining ordinance #" << endl;
+cout << "     # pops off like fire crackers.                                 #" << endl;
+cin.get();
+
+cout << "     # Laying on your side where you landed, all you know is pain.  #" << endl;
+cout << "     # Your ears are ringing, it hurts to breath, and you can       #" << endl;
+cout << "     # barely move.                                                 #" << endl;
+cin.get();
+
+cout << "     # As you try to turn over on your back all you focus on is     #" << endl;
+cout << "     # is trying to breath.                                         #" << endl;
+cin.get();
+
+cout << "     # As you stare up at the sky your vision starts to get dark at #" << endl;
+cout << "     # the edges.                                                   #" << endl;
+cin.get();
+
+cout << "     # You close your eyes, and as you slip into unconsciousness    #" << endl;
+cout << "     # you can faintly hear people calling your name from the other #" << endl;
+cout << "     # side of the hill. A pleasent breeze blows across your face.  #" << endl;
+cout << "     #                                                              #" << endl;
+cout << "     ################################################################" << endl;
+cin.get();
+
+
+cout << "\n\n\n\n";
+cout << "     ###########################" << endl;
+cout << "     #         THE END         #" << endl;
+cout << "     ###########################" << endl;
+cout << "\n\n\n\n";
+cin.get();
+
+exit(0);
+
+
 }
