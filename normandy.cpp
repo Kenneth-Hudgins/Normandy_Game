@@ -50,7 +50,7 @@ void weapons_list(weapons list[]);
 
 
 
-bool up_hill_battle(characters *your_player, weapons list[]);
+char up_hill_battle(characters *your_player, weapons list[]);
 
 
 
@@ -117,17 +117,11 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 //Validates main menu input for up_hill_battle function
 void validation(char &choice);
 
+//Ending where player killed all enemies
+void pillbox_a();
 
-
-
-/*Things to do:
--
--
--
--Need to plan out whats going to happen once the player reaches the pillbox,
-how the story is going to play out depending on if they killed all of the 
-enemies.
-*/
+//Displays info about creator, what hes doing, how awesome he is, etc.
+void about_creator();
 
 
 
@@ -136,13 +130,10 @@ enemies.
 
 //To be finished.....
 
-//Player killed all enemies
-void pillbox_a();
-
 //Player didnt kill enemies
 void pillbox_b();
 
-void about_creator();
+
 
 
 
@@ -166,28 +157,7 @@ void about_creator();
 //################################################*************************
 int main(){
 
-
-
-
-
-pillbox_a();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	char ending = ' ';
 
 	/*
 	Thought about how I could just have
@@ -211,27 +181,48 @@ pillbox_a();
 	/*^(much later) Does not need to return array if its passed by referance, 
 	which arrays are already passed by referance. Im an idiot.*/
 
+
 	//**************
 	/*Passes list to weapons_list
 	so it can be initialized*/
 	weapons list[6];	//This should have a variable for size
 	weapons_list(list);
 
-	//cout << list[0].get_name() << endl;
-	//cout << list[1].get_name() << endl;
-	//cout << list[2].get_name() << endl;
 
 
+	/*The below if statement serves the purpose of both calling
+	the up_hill_battle function and determining which ending to 
+	use based on wether up_hill_battle returned true or false:
+
+	pillbox_a function if player killed all enemies or
+	pillbox_b if player didnt kill all enemies.
+	*/
+	ending = up_hill_battle(your_player, list);
+
+		/*
+		a = all enemies killed
+		b = pill box soldiers not dead
+		c = pillbox soldiers are dead but other enemies are still alive
+		*/
+
+	switch(ending){
+		case 'a': pillbox_a();
+		break;
+
+		case 'b': pillbox_b();
+		break;
+
+		case 'c': pillbox_c();
+		break;
 
 
-	//Players starts making
-	//their way to the pill
-	//box
-	/*Passes your_player and list to the 
-	up_hill_battle function */
-	up_hill_battle(your_player, list);
+	
+	}
+		
+	
 
-	return 0;
+
+return 0;
 }
 
 //################################################***********************
@@ -1576,13 +1567,13 @@ void story_segment01(){
 //##########################################################
 //################## UP HILL BATTLE FUNCTION ###############
 //##########################################################
-bool up_hill_battle(characters *your_player, weapons list[]){
+char up_hill_battle(characters *your_player, weapons list[]){
 
 /*If returned as true then all enemies were killed and
 that varient of the next mission will be called, if 
 returned as false then the not all enemies killed 
 variant of the next mission will be called instead.*/	
-bool all_e_killed = true;
+char all_e_killed = 'a';
 
 	int num_enemies = 4;
 
@@ -1637,21 +1628,8 @@ bool all_e_killed = true;
 
 
 
-
-
-
-
-
-
-	
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
-
-
 				
-							
-
+//Main loop
 		while(done == false){
 
 				while(player_turn == true){
@@ -1667,24 +1645,41 @@ bool all_e_killed = true;
 				}
 				
 		enemy_fire_on_player(your_player, player_turn, distance_traveled, e_list, num_enemies, done);
-		}
-	
+	}
+//End main loop
 
 
 
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Main loop
-	
 
-		//Determins if all enemies were killed or not
+	//Below determins if all enemies were killed or not
+		/*
+		a = all enemies killed
+		b = pill box soldiers not dead
+		c = pillbox soldiers are dead but other enemies are still alive
+		*/
 		for(int ix = 0; ix < num_enemies; ix++){
 
-			if(e_list[ix].get_health() != 0){
-				all_e_killed = false;
+				//Goes through enemies and checks for life
+				if(e_list[ix].get_health() != 0){
+					all_e_killed = 'b';
 
-			}
+							
+							/*At this point we know not all enemies are dead,
+							so the onlything we care about now is if the pill
+							box soldiers survived or not. If they did, then 
+							set all_e_killed = b, if they are dead set it = 
+							c
+							*/
+							if(e_list[3].get_health() != 0){
+								return all_e_killed;
+							}
 
+
+						else{ 
+							all_e_killed = 'c';
+							return all_e_killed;
+						}
+				}
 		}
 	
 
@@ -2210,6 +2205,65 @@ cout << "\n\n\n\n";
 cin.get();
 
 exit(0);
+}
 
 
+
+
+
+
+
+
+//################################################################
+//################## PILLBOX B FUNCTION ##########################
+//################################################################
+void pillbox_b(){
+
+	/*
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+
+		Will need at least 2 other endings:
+
+		-one that is used incase some of the pillbox soldiers survived
+			{Player has to sneak in and shoot the remaining soldiers
+			with random chance of being killed, say 1 in 3, if they 
+			survive then the remaining part of this ending can go the
+			way of ending A}
+
+		-and another in case some of the other enemies survived
+		but pill box soldiers are dead
+		{ Goes the way of ending A until an enemy outside throws 
+		a grenade inside to kill you so they can use the pillbox
+		but you sacrifice your self by hurrying to pick it and throw 
+		it into the ammo room to take the pillbox and enemy outside
+		with you.  }
+
+						
+						
+
+
+						So all in all, 2 new endings, a function to know which one to 
+						and damage calc functions, thought they can probably be built into 
+						the endings.
+
+
+
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	+++++++++++++++++++++++++++++++
+	*/
 }
