@@ -48,11 +48,8 @@ characters random_player();
 //Creates the list of in game weapons
 void weapons_list(weapons list[]);
 
-
-
+//Main game mission, actual gameplay found here
 char up_hill_battle(characters *your_player, weapons list[]);
-
-
 
 //Moves player forward by 5
 void move_forward(int &distance_traveled, characters *your_player, bool &player_turn, bool &done);
@@ -127,11 +124,65 @@ void about_creator();
 
 
 
+					/*
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+
+							Will need at least 2 other endings:
+
+							-one that is used incase some of the pillbox soldiers survived
+								{Player has to sneak in and shoot the remaining soldiers
+								with random chance of being killed, say 1 in 3, if they 
+								survive then the remaining part of this ending can go the
+								way of ending A}
+
+							-and another in case some of the other enemies survived
+							but pill box soldiers are dead
+							{ Goes the way of ending A until an enemy outside throws 
+							a grenade inside to kill you so they can use the pillbox
+							but you sacrifice your self by hurrying to pick it and throw 
+							it into the ammo room to take the pillbox and enemy outside
+							with you.  }
+
+											
+											
+
+
+											So all in all, 2 new endings, a function to know which one to 
+											and damage calc functions, thought they can probably be built into 
+											the endings.
+
+
+
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						+++++++++++++++++++++++++++++++
+						*/
+
+
+
+
 
 //To be finished.....
 
-//Player didnt kill enemies
+//Player didnt kill all enemies, pill box soldiers survived
 void pillbox_b();
+
+//Player didnt kill all enemies, pill box soldiers did not survive
+void pillbox_c();
 
 
 
@@ -282,7 +333,7 @@ void tips(){
 	cout << "     #                     HELPFUL TIPS                     #" << endl;
 	cout << "     ########################################################" << endl;
 	cout << "     #                                                      #" << endl;
-	cout << "     # TIP 1. You will need to mpress the enter key to move #" << endl;
+	cout << "     # TIP 1. You will need to press the enter key to move  #" << endl;
 	cout << "     # through all of the displays and after choice input   #" << endl;
 	cout << "     # inorder to progress through the game.                #" << endl;
 	cout << "     #                                                      #" << endl;
@@ -348,7 +399,7 @@ void tips(){
 	cout << "     #####################################" << endl;
 	cout << "     # Enter you choice of 1 or 2 below. #" << endl;
 	cout << "     #####################################" << endl;
-
+	cout << "\n     Choice:";
 	cin >> choice;
 
 		while((choice != '1') && (choice != '2')){
@@ -932,7 +983,7 @@ int no_e = 0;
 
 
 //################################################################
-//################## PICK UP WEAPON FUNCTION #####################&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+//################## PICK UP WEAPON FUNCTION #####################
 //################################################################
 void pick_up_weapon(weapons list[], int distance_traveled, weapons &primary_w, weapons &secondary_w, bool &player_turn){
 
@@ -1674,7 +1725,8 @@ char all_e_killed = 'a';
 								return all_e_killed;
 							}
 
-
+						/*If not all enemies are dead but the pillbox soldiers are
+						dead then it is set = c*/
 						else{ 
 							all_e_killed = 'c';
 							return all_e_killed;
@@ -1970,6 +2022,8 @@ cin.get();
 
 
 
+
+
 //################################################################
 //################## ABOUT CREATOR FUNCTION ######################
 //################################################################
@@ -2182,7 +2236,7 @@ cout << "     # barely move.                                                 #" 
 cin.get();
 
 cout << "     # As you try to turn over on your back all you focus on is     #" << endl;
-cout << "     # is trying to breath.                                         #" << endl;
+cout << "     # trying to breath.                                            #" << endl;
 cin.get();
 
 cout << "     # As you stare up at the sky your vision starts to get dark at #" << endl;
@@ -2217,53 +2271,155 @@ exit(0);
 //################################################################
 //################## PILLBOX B FUNCTION ##########################
 //################################################################
+//Player didnt kill all enemies, pill box soldiers survived
 void pillbox_b(){
 
-	/*
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
+cout << "     ##################################################################" << endl;
+cout << "     #                     APROACHING THE PILLBOX                     #" << endl;
+cout << "     ##################################################################" << endl;
+cout << "     #                                                                #" << endl;
+cout << "     # You couldn't kill them all, but your comrades should take care #" << endl;
+cout << "     # of the ones you missed soon.                                   #" << endl;
+cin.get();
 
-		Will need at least 2 other endings:
+cout << "     # You keep moving forward, pushing through the heavy sand and    #" << endl;
+cout << "     # stepping over lifeless corpses of German soldiers both young   #" << endl;
+cout << "     # and old. Your tired but the fights not over.                   #" << endl;
+cin.get();
 
-		-one that is used incase some of the pillbox soldiers survived
-			{Player has to sneak in and shoot the remaining soldiers
-			with random chance of being killed, say 1 in 3, if they 
-			survive then the remaining part of this ending can go the
-			way of ending A}
+cout << "     # The krout's in that damned pillbox where too well defended, no #" << endl;
+cout << "     # way for any of your shots to get through. You crouch low and   #" << endl;
+cout << "     # slowly move off to the side of the concrete structure, hoping  #" << endl;
+cout << "     # to enter from the back without the enemy knowing. They seem to #" << endl;
+cout << "     # be focused on your comrades still coming up the beach so you   #" << endl;
+cout << "     # figure your chances of making it are pretty good.              #" << endl;
+cin.get();
 
-		-and another in case some of the other enemies survived
-		but pill box soldiers are dead
-		{ Goes the way of ending A until an enemy outside throws 
-		a grenade inside to kill you so they can use the pillbox
-		but you sacrifice your self by hurrying to pick it and throw 
-		it into the ammo room to take the pillbox and enemy outside
-		with you.  }
+cout << "     # You are about 8 meters off to the right of the pillbox, slowly #" << endl;
+cout << "     # making your way around to the back entrance when, naturally,   #" << endl;
+cout << "     # one of the Germans walks out the back and stops just a few     #" << endl;
+cout << "     # feet out while starting to undo his trousers, presumably to    #" << endl;
+cout << "     # take a leak.                                                   #" << endl;
+cin.get();
 
-						
-						
+cout << "     # You freeze, your hand on your sidearm, praying he doesn't see  #" << endl;
+cout << "     # you.                                                           #" << endl;
+cin.get();
+
+cout << "     # He drops his pants, and lets loose a stream of urine. He turns #" << endl;
+cout << "     # his head to the left, then to the right.                       #" << endl;
+cin.get();
+
+cout << "     # You drop him. He lurches to the side as if someone pushed him, #" << endl;
+cout << "     # hitting the ground hard. He doesn't get up. A small wisp of    #" << endl;
+cout << "     # smoke escapes the barrel of the pistol clenched tightly in     #" << endl;
+cout << "     # your hand.                                                     #" << endl; 
+cin.get();
+
+cout << "     # Knowing you have likely already lost the element of surprise,  #" << endl;
+cout << "     # you quickly run and kneel down next to the dead krout. He lays #" << endl;
+cout << "     # still on the urine soaked ground where he fell. Turning him    #" << endl;
+cout << "     # you find exactly what you were hoping for in one of his coat   #" << endl;
+cout << "     # pockets. A single fragmentation grenade.                       #" << endl;
+cin.get();
+
+cout << "     # Someone inside shouts something German in a questioning tone.  #" << endl;
+cout << "     # A name? Probably the name of the former Nazi now dead at your  #" << endl;
+cout << "     # feet. The voice wasn't more than a meter or 2 away inside the  #" << endl;
+cout << "     # pillbox.                                                       #" << endl;
+cin.get();
+
+cout << "     # Hurriedly, you get to your feet and pull the pin from the      #" << endl;
+cout << "     # grenade. You throw it has hard as you can into the dark        #" << endl;
+cout << "     # entrance; hearing it bounce off a wall and hit the floor.      #" << endl;
+cin.get();
+
+cout << "     # 3                                                              #" << endl;
+cin.get();
+
+cout << "     # As you turn to run up the hill behind the pill box several of  #" << endl;
+cout << "     # the soldiers inside the pillbox start screaming really loud,   #" << endl;
+cout << "     # yelling at each other in their foreign tongue, presumably      #" << endl;
+cout << "     # about the live frag rolling around at their feet as they       #" << endl;
+cout << "     # scrambled to crawl over each other and escape.                 #" << endl;
+cin.get();
+
+cout << "     # 2                                                              #" << endl;
+cin.get();
+
+cout << "     # You run and climb up the hill as fast as you can. Its too      #" << endl;
+cout << "     # steep for you to make progress fast enough. Almost every hand  #" << endl;
+cout << "     # and foot hold gives way to spilling sand or loose dirt.        #" << endl;
+cin.get();
+
+cout << "     # 1                                                              #" << endl;
+cin.get();
+
+cout << "     # You manage to climb another meter and a half up the hill       #" << endl;
+cout << "     # before you realize you wont make it far enough away in time.   #" << endl;
+cin.get();
 
 
-						So all in all, 2 new endings, a function to know which one to 
-						and damage calc functions, thought they can probably be built into 
-						the endings.
+cout << "     # The explosion shatters the world around you, lifting your      #" << endl;
+cout << "     # body up like doll and throwing you just over the top of the    #" << endl;
+cout << "     # hill as chunks of rock and concrete fly in every direction. A  #" << endl;
+cout << "     # fireball shoots up 100 feet into the air while dozens of       #" << endl;
+cout << "     # smaller explosions can be heard when the remaining ordinance   #" << endl;
+cout << "     # pops off like fire crackers.                                   #" << endl;
+cin.get();
+
+cout << "     # Laying on your side where you landed, all you know is pain.    #" << endl;
+cout << "     # Your ears are ringing, it hurts to breath, and you can barely  #" << endl;
+cout << "     # move.                                                          #" << endl;
+cin.get();
+
+cout << "     # As you try to turn over on your back all you focus on is       #" << endl;
+cout << "     # trying to breath.                                              #" << endl;
+cin.get();
+
+cout << "     # As you stare up at the sky your vision starts to get dark at   #" << endl;
+cout << "     # the edges.                                                     #" << endl;
+cin.get();
+
+cout << "     # You close your eyes, and as you slip into unconsciousness      #" << endl;
+cout << "     # you can faintly hear people calling your name from the other   #" << endl;
+cout << "     # side of the hill. A pleasent breeze blows across your face.    #" << endl;
+cout << "     #                                                                #" << endl;
+cout << "     ##################################################################" << endl;
+cin.get();
+
+
+cout << "\n\n\n\n";
+cout << "     ###########################" << endl;
+cout << "     #         THE END         #" << endl;
+cout << "     ###########################" << endl;
+cout << "\n\n\n\n";
+cin.get();
+
+exit(0);
+
+
+	
+}
 
 
 
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	+++++++++++++++++++++++++++++++
-	*/
+
+
+
+
+//################################################################
+//################## PILLBOX C FUNCTION ##########################
+//################################################################
+//Player didnt kill all enemies, pill box soldiers did not survive
+void pillbox_c(){
+
+/*
+							{ Goes the way of ending A until an enemy outside throws 
+							a grenade inside to kill you so they can use the pillbox
+							but you sacrifice your self by hurrying to pick it and throw 
+							it into the ammo room to take the pillbox and enemy outside
+							with you.  }
+*/
 }
