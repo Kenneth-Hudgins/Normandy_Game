@@ -1,6 +1,32 @@
-//Test for dell computer
+/*
+Creator: Kenneth William Hudgins
+
+	Date Started: May 21st, 2017
+
+	Date Completed: August 5th, 2017
+
+	Purpose: Console application oriented text game based around a soldier 
+	         storiming the beeches of Normandy durring world war 2 with the
+	         mission of destroying a german pillbox.
 
 
+	NOTES: Developing this game tuaght me many lessons, the most important of which is 
+	       the need to plan ahead. Development would not have taken anywhere near as 
+	       long as it did had I taken the initial time to plan out exactly what I 
+	       wanted to happen and build good test cases. Instead there was no plan and I
+	       wasted what could have otherwise been a very valuable summer of self 
+	       education.
+
+	       Where I to build this over again there are many things I would do
+	       differently. But over the course of its construction I have gained a much 
+	       better understanding of classes, structures, design, user input and 
+	       pointers. 
+
+
+	NOTE 2: There are large comments above each function, those where so I could 
+            skip large amounts of code when looking for something on my editor's 
+            minimap.
+*/
 
 
 #include <iostream>
@@ -105,7 +131,7 @@ void player_fire_on_enemy(int distance_traveled, characters *your_player, weapon
 //Tells player if they need to rest
 void check_fatigue(characters *your_player);
 
-//Displays what is basically the tutorial
+//Displays tutorial tips
 void tips();
 
 /*This should have all of the needed variables passed by their correct values*/
@@ -114,84 +140,17 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 //Validates main menu input for up_hill_battle function
 void validation(char &choice);
 
-//Ending where player killed all enemies
+//Ending used if player killed all enemies
 void pillbox_a();
 
 //Displays info about creator, what hes doing, how awesome he is, etc.
 void about_creator();
 
-
-
-
-
-					/*
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-
-							Will need at least 2 other endings:
-
-							-one that is used incase some of the pillbox soldiers survived
-								{Player has to sneak in and shoot the remaining soldiers
-								with random chance of being killed, say 1 in 3, if they 
-								survive then the remaining part of this ending can go the
-								way of ending A}
-
-							-and another in case some of the other enemies survived
-							but pill box soldiers are dead
-							{ Goes the way of ending A until an enemy outside throws 
-							a grenade inside to kill you so they can use the pillbox
-							but you sacrifice your self by hurrying to pick it and throw 
-							it into the ammo room to take the pillbox and enemy outside
-							with you.  }
-
-											
-											
-
-
-											So all in all, 2 new endings, a function to know which one to 
-											and damage calc functions, thought they can probably be built into 
-											the endings.
-
-
-
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						+++++++++++++++++++++++++++++++
-						*/
-
-
-
-
-
-//To be finished.....
-
-//Player didnt kill all enemies, pill box soldiers survived
+//Ending used if Player didnt kill all enemies, pill box soldiers survived
 void pillbox_b();
 
-//Player didnt kill all enemies, pill box soldiers did not survive
+//Ending used if Player didnt kill all enemies, pill box soldiers did not survive
 void pillbox_c();
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1456,6 +1415,7 @@ characters soldier[3];
 
 //Sorry for the below strings, couldnt figure out 
 //how to make word wrap work without compile time errors
+//^(much later) figured it out :)
 
 //Character 1 backstory
 string bs00 = "Your name is John Hamstaff. Born and raised in Austin, Texas; you’re a laid-back\ncity man through and through. Life was okay back home in the city, but when your\nnumber came up in the draft you didn’t care all that much. There wasn’t much\nholding you down in Austin since most of the local guys had been drafted over\nthe last few months. You knew the war would call upon you eventually. Your not\nparticularly upset about it.\n";
@@ -1487,12 +1447,6 @@ void weapons_list(weapons list[]){
 
 /*Enemies when hit are either 0 dead, 1 no longer able to fight,
 2 wounded, or 3 the shot missed*/
-
-	//Will also need a function to determin if enemy was hit
-	//and if so which of the above to render the enemy
-	//Must also take into consideration how far away player 
-	//is from nearest enemy
-
 	
 
 	//Pistol, starting secondary weapon
@@ -1620,10 +1574,6 @@ void story_segment01(){
 //##########################################################
 char up_hill_battle(characters *your_player, weapons list[]){
 
-/*If returned as true then all enemies were killed and
-that varient of the next mission will be called, if 
-returned as false then the not all enemies killed 
-variant of the next mission will be called instead.*/	
 char all_e_killed = 'a';
 
 	int num_enemies = 4;
@@ -1672,10 +1622,7 @@ char all_e_killed = 'a';
 	char choice;
 
 
-	
-
-
-	story_segment01();
+		story_segment01();
 
 
 
@@ -1771,8 +1718,6 @@ void display(){
 	cout << "     #############################################################" << endl;
 	cout << "     ##---------------------------------------------------------##" << endl;
 	cout << "     #############################################################\n\n" << endl;
-
-
 
 }
 
@@ -1964,28 +1909,6 @@ void choices(char &choice, characters *your_player, cover *cover_spots, int num_
 	case 'i':
 	case 'I': pick_up_weapon(list, distance_traveled, primary_w, secondary_w, player_turn);
 	break;
-
-
-/*	case 'j':
-	case 'J':
-	 	cout << "     #####################################" << endl;
-				cout << "     #***********************************#" << endl;
-				cout << "     # This module is under construction #" << endl;
-				cout << "     #***********************************#" << endl;
-				cout << "     #####################################" << endl;
-	break;
-			
-			REASON FOR DEPRECATION: I had origionally planned to add this feature to
-			allow for rare events in which the player would get, say, a special long 
-			range weapon or the chance for a beneficial special event to occur. 
-			However, due to my lack of including support for this throught the 
-			construction of this program I  have decided it would be best to scrap
-			the whole feature. 
-
-			Note to self: Plann everything out before hand so you can build it right
-			the first time.
-
-	*/
 	}
 
 }
@@ -2048,7 +1971,7 @@ char choice;
 	cout << "     #* semester at CTC.                                    *#" << endl;
 	cout << "     #*                                                     *#" << endl;
 	cout << "     #*                                                     *#" << endl;cin.get();
-	cout << "     #* As of wrighting this on 7/28/17, 11:34pm I feel I   *#" << endl;
+	cout << "     #* As of writing this on 7/28/17, 11:34pm I feel I     *#" << endl;
 	cout << "     #* am incredibly behind in regards to what I need to   *#" << endl;
 	cout << "     #* know for software development so I spend as much of *#" << endl;
 	cout << "     #* my free time as possible learning and going to tech *#" << endl;
@@ -2528,5 +2451,4 @@ cout << "\n\n\n\n";
 cin.get();
 
 exit(0);
-
 }
