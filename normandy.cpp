@@ -22,10 +22,13 @@ Creator: Kenneth William Hudgins
 	       better understanding of classes, structures, design, user input and 
 	       pointers. 
 
+           It didnt actually take that long. For over 3 weeks I had to stop and 
+           finish a major assignment for another class, and on the days I was
+           working on it I only spent a few hours after work each night.
 
-	NOTE 2: There are large comments above each function, those where so I could 
-            skip large amounts of code when looking for something on my editor's 
-            minimap.
+			NOTES 2: There are large comments above each function, those where so I could 
+		            skip large amounts of code when looking for something on my editor's 
+		            minimap.
 */
 
 
@@ -223,12 +226,8 @@ int main(){
 		break;
 
 		case 'c': pillbox_c();
-		break;
-
-
-	
-	}
-		
+		break;	
+	}	
 	
 
 
