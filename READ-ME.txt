@@ -1,0 +1,6 @@
+-TO DOWNLOAD FOR WINDOWS:
+     Download the normandy_game_vs.exe file and run it.
+     
+     
+-TO DOWNLOAD FOR LINUX:
+     Download the a.out file and run it.
