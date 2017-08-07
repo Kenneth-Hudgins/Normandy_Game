@@ -56,3 +56,31 @@ possible endings and that should be it. "Should." Deprecated a few features beca
 planning wasnt done properly, among other things, but anyway I will explain all of 
 that in my final build log update when I finish it so I can discusss what I have 
 learned, mistakes made, what I would have done differently, and future plans. 
+
+
+8/7/17
+UPDATE: Finally done with this game. Building the windows version was a pain in the ass
+due to having to make some minor changes in order to build with visual studio 2015. Had
+tried to learn how to cross compile from my Ubuntu machine without have to recompile 
+everything in windows, but to no avail. All tutorials I found were either for a slightly
+different thing and wouldn't work or they packages they referenced couldn't be found.
+Had to recompile the whole thing on vs 2015 on my other computer; for future projects I
+plan on creating a windows vm on my work computer to run the code there if they are to
+be cross platform.
+
+FINAL NOTES: The amount of time this took to build was unacceptable and could have been
+avoided had I sat down in the beginning to plan everything out from the start. On the 
+days where I took the time to plan ahead, even if it was just a little bit, development 
+progressed much faster than on they days I did not plan. Overall, I learned a lot about 
+and came to a better understanding of pointers while building this. I tried to incorporate
+as much of everything that I knew how to do in this such as classes, structures, pointers,
+and function design. The way in which I handled the breakdown of specific problems into
+functions as well as classes could have been much better, its not as finely separated as I
+would like to be and the majority of the code is all in the main normandy.cpp file.
+
+Another issue would be the exclusion of extra features I had originally planned but later 
+deprecated due to my lack of planning for their inclusion; something I will have to
+work more on at the start of future projects. 
+
+All in all, the one things that burns me is the amount of time spent on this. It was 
+absolutely unacceptable.
